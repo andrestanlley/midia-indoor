@@ -1,19 +1,19 @@
-import {useState, useEffect, useCallback, useContext} from 'react';
-import {View} from 'react-native';
+import { useState, useEffect, useCallback, useContext } from 'react';
+import { DevSettings, View } from 'react-native';
 import Player from '../components/Player';
 import IVideo from '../interfaces/IVideo';
 import VideoDelete from '../services/VideoDelete';
 import VideoDownloader from '../services/VideoDownloader';
 import VideoList from '../services/VideoList';
 import globalStyle from '../styles/globalStyle';
-import {AppContext} from '../Contexts/Context';
+import { AppContext } from '../Contexts/Context';
 
 interface VideoProps extends IVideo {
   videoOrder: number;
 }
 
 export default function MidiaPlayer() {
-  const {index} = useContext(AppContext);
+  const { index } = useContext(AppContext);
   console.log(index);
   const [localVideos, setLocalVideos] = useState<IVideo[]>();
   const [actualVideo, setActualVideo] = useState<VideoProps>({
@@ -33,8 +33,7 @@ export default function MidiaPlayer() {
   }, []);
 
   function getNextVideo() {
-    console.log('proximo video');
-    const {videoOrder} = actualVideo;
+    const { videoOrder } = actualVideo;
     if (localVideos && videoOrder < localVideos?.length - 1) {
       const nextVideoOrder = videoOrder + 1;
       return setActualVideo({
@@ -42,10 +41,7 @@ export default function MidiaPlayer() {
         ...localVideos[nextVideoOrder],
       });
     }
-    return setActualVideo({
-      videoOrder: 0,
-      ...localVideos?.[0],
-    });
+    DevSettings.reload();
   }
 
   async function deleteOnError(video: IVideo) {

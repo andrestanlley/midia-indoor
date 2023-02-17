@@ -1,6 +1,6 @@
 import Video from 'react-native-video';
 import IVideo from '../../interfaces/IVideo';
-import defaultVideo from '../../default/defaultvideo.mp4';
+import defaultVideo from '../../assets/defaultvideo.mp4';
 import globalStyle from '../../styles/globalStyle';
 
 interface PlayerProps {
