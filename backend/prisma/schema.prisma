@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Terminal {
+  id          String   @id
+  mac         String
+  name        String
+  lastSync    DateTime
+  midiaListId String?
+}
+
+model MidiaList {
+  id     String  @id
+  name   String
+  midias Midia[]
+}
+
+model Midia {
+  id          String     @id
+  filename    String
+  type        String
+  midiaListId String?
+  MidiaList   MidiaList? @relation(fields: [midiaListId], references: [id])
+}

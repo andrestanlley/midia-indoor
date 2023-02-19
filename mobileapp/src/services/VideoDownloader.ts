@@ -1,31 +1,34 @@
 import RNFS from 'react-native-fs';
-import axios, {Axios} from 'axios';
+import axios, { Axios } from 'axios';
 import IVideo from '../interfaces/IVideo';
 import VideoDelete from './VideoDelete';
-import {baseUrl as baseURL} from '../../config';
+import { baseUrl as baseURL } from '../../config';
+import { getMacAddress } from 'react-native-device-info';
 
 class VideoDownloader {
   api: Axios = axios.create({
     baseURL,
-    timeout: 1000,
+    timeout: 2000,
   });
-  permission: boolean = false;
   outDir = `${RNFS.ExternalDirectoryPath}/`;
 
   checkOnlineMidia = async (localVideos?: IVideo[]) => {
     try {
-      const request = await this.api.post('/sync-midia', {
+      const request = await this.api.post('/sync', {
+        mac: await getMacAddress(),
         localVideos,
       });
-      const {DOWNLOAD, DELETE} = request.data;
-      if (DOWNLOAD?.length) {
-        for await (let midia of DOWNLOAD) {
-          this.getVideo(midia.uri, midia.filename);
+      if (request.status === 200) {
+        const { download, remove } = request.data;
+        if (download?.length) {
+          for await (let midia of download) {
+            this.getVideo(midia.uri, midia.filename);
+          }
         }
-      }
-      if (DELETE?.length) {
-        for await (let midia of DELETE) {
-          VideoDelete.execute(midia.uri);
+        if (remove?.length) {
+          for await (let midia of remove) {
+            VideoDelete.execute(midia.uri);
+          }
         }
       }
     } catch (error) {

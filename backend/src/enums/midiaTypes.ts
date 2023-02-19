@@ -1,6 +1,6 @@
 enum MidiaType {
-	VIDEO,
-	WEB,
+	VIDEO = 'VIDEO',
+	WEB = 'WEB',
 }
 
 export default MidiaType;

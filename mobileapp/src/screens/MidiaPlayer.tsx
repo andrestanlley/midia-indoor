@@ -17,7 +17,7 @@ export default function MidiaPlayer() {
   console.log(index);
   const [localVideos, setLocalVideos] = useState<IVideo[]>();
   const [actualVideo, setActualVideo] = useState<VideoProps>({
-    videoOrder: 0,
+    videoOrder: -1,
   });
 
   const getLocalVideos = useCallback(async () => {
