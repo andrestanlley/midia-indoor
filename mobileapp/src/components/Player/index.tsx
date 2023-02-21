@@ -9,10 +9,14 @@ interface PlayerProps {
   deleteOnError: (video: IVideo) => Promise<void>;
 }
 
-export default function Player({video, nextVideo, deleteOnError}: PlayerProps) {
+export default function Player({
+  video,
+  nextVideo,
+  deleteOnError,
+}: PlayerProps) {
   return (
     <Video
-      source={video?.uri ? {uri: video.uri} : defaultVideo}
+      source={video?.uri ? { uri: video.uri } : defaultVideo}
       resizeMode={'cover'}
       onEnd={() => nextVideo()}
       onVideoError={() => deleteOnError(video)}

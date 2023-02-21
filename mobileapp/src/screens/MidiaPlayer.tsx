@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useContext } from 'react';
-import { DevSettings, View } from 'react-native';
+import { DevSettings, StatusBar, View } from 'react-native';
 import Player from '../components/Player';
 import IVideo from '../interfaces/IVideo';
 import VideoDelete from '../services/VideoDelete';
@@ -61,6 +61,7 @@ export default function MidiaPlayer() {
 
   return (
     <View style={globalStyle.container}>
+      <StatusBar hidden={true} />
       <Player {...props} />
     </View>
   );

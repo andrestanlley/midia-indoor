@@ -10,6 +10,7 @@ export class SyncService implements ISyncService {
 		if (!mac || !localVideos) return { status: 400 };
 		const terminal: ITerminal = await findTerminal(mac);
 		updateLastSync(terminal);
+		console.log(terminal)
 
 		const midias: IMidia[] = await findMidiaList(terminal.midiaListId);
 
