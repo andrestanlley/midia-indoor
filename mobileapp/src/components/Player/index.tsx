@@ -2,6 +2,7 @@ import Video from 'react-native-video';
 import IVideo from '../../interfaces/IVideo';
 import defaultVideo from '../../assets/defaultvideo.mp4';
 import globalStyle from '../../styles/globalStyle';
+import { useEffect, useRef } from 'react';
 
 interface PlayerProps {
   video: IVideo;
@@ -14,6 +15,12 @@ export default function Player({
   nextVideo,
   deleteOnError,
 }: PlayerProps) {
+  // const videoRef = useRef<Video | null>();
+
+  // useEffect(() => {
+  //   console.log(videoRef.current?.props);
+  // }, []);
+
   return (
     <Video
       source={video?.uri ? { uri: video.uri } : defaultVideo}
@@ -21,6 +28,7 @@ export default function Player({
       onEnd={() => nextVideo()}
       onVideoError={() => deleteOnError(video)}
       muted
+      // ref={e => (videoRef.current = e)}
       style={globalStyle.container}
     />
   );

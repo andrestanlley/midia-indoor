@@ -7,6 +7,9 @@ export class TerminalRoutes {
 
 	constructor(terminalController: ITerminalController) {
 		this.terminalController = terminalController;
+		this.terminalController.sync = this.terminalController.sync.bind(
+			this.terminalController
+		);
 		this.terminalController.update = this.terminalController.update.bind(
 			this.terminalController
 		);
@@ -19,6 +22,7 @@ export class TerminalRoutes {
 	}
 
 	listenRoutes() {
+		this.router.post("/sync", this.terminalController.sync);
 		this.router.put("/", this.terminalController.update);
 		this.router.delete("/", this.terminalController.remove);
 		this.router.post("/add-midialist", this.terminalController.addMidiaList);

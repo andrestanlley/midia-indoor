@@ -8,17 +8,19 @@ datasource db {
 }
 
 model Terminal {
-  id          String   @id
+  id          String     @id
   mac         String
   name        String
   lastSync    DateTime
   midiaListId String?
+  MidiaList   MidiaList? @relation(fields: [midiaListId], references: [id])
 }
 
 model MidiaList {
-  id     String  @id
-  name   String
-  midias Midia[]
+  id       String     @id
+  name     String
+  midias   Midia[]
+  Terminal Terminal[]
 }
 
 model Midia {

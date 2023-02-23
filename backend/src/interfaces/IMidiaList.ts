@@ -1,7 +1,6 @@
-import { MidiaList } from "@prisma/client";
 import IMidia from "./IMidia";
 
-export default interface IMidiaList extends MidiaList {
+export default interface IMidiaList {
 	id: string;
 	name: string;
 	midias: IMidia[];

@@ -1,19 +1,23 @@
 import IMidia from "../interfaces/IMidia";
+import IMidiaRepository from "../interfaces/IMidiaRepository";
 import IMidiaService from "../interfaces/IMidiaService";
-import createMidia from "../useCases/midia/createMidia";
-import deleteMidia from "../useCases/midia/deleteMidia";
-import insertMidiaToList from "../useCases/midiaList/insertMidiaToList";
 
 export class MidiaService implements IMidiaService {
+	midiaRepository: IMidiaRepository;
+
+	constructor(midiaRepository: IMidiaRepository) {
+		this.midiaRepository = midiaRepository;
+	}
+
 	async create(midia: IMidia) {
-		return await createMidia(midia);
+		return await this.midiaRepository.createMidia(midia);
 	}
 
 	async insertMidiaToList(midiaListId: string, midiaId: string) {
-		return await insertMidiaToList(midiaListId, midiaId);
+		return await this.midiaRepository.insertMidiaToList(midiaListId, midiaId);
 	}
 
 	async remove(midiaId: string) {
-		return await deleteMidia(midiaId);
+		return await this.midiaRepository.deleteMidia(midiaId);
 	}
 }

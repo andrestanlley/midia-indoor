@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import ISyncResponse from "../interfaces/ISyncResponse";
 import ITerminal from "../interfaces/ITerminal";
 import ITerminalController from "../interfaces/ITerminalController";
 import ITerminalService from "../interfaces/ITerminalService";
@@ -9,6 +10,12 @@ export class TerminalController implements ITerminalController {
 	constructor(terminalService: ITerminalService) {
 		this.terminalService = terminalService;
 	}
+
+	sync = async (req: Request, res: Response) => {
+		const terminal: ITerminal = req.body;
+		const result: ISyncResponse = await this.terminalService.sync(terminal);
+		return res.status(result.status ?? 200).send(result);
+	};
 
 	update = async (req: Request, res: Response) => {
 		const terminal: ITerminal = req.body;

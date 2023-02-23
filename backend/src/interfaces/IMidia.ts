@@ -1,8 +1,7 @@
-import { Midia } from "@prisma/client";
 import MidiaType from "../enums/midiaTypes";
 
-export default interface IMidia extends Midia {
+export default interface IMidia {
 	filename: string;
-	uri: string;
+	uri?: string;
 	type: MidiaType;
 }

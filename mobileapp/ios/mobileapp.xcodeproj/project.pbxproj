@@ -14,13 +14,13 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-mobileapp-mobileappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-mobileapp-mobileappTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		38917204B2C74BBBAC312481 /* defaultvideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 243CDEAD7CB04995A5F267D0 /* defaultvideo.mp4 */; };
+		EAD701F58A294881B37F5928 /* defaultvideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2177FC89DE924F5C929CF49D /* defaultvideo.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = mobileapp;
@@ -45,7 +45,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = mobileapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-mobileapp-mobileappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobileapp-mobileappTests.release.xcconfig"; path = "Target Support Files/Pods-mobileapp-mobileappTests/Pods-mobileapp-mobileappTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		243CDEAD7CB04995A5F267D0 /* defaultvideo.mp4 */ = {isa = PBXFileReference; name = defaultvideo.mp4; path = ../src/assets/defaultvideo.mp4; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2177FC89DE924F5C929CF49D /* defaultvideo.mp4 */ = {isa = PBXFileReference; name = "defaultvideo.mp4"; path = "../src/assets/defaultvideo.mp4"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +115,7 @@
 			name = Libraries;
 			sourceTree = "<group>";
 		};
-		83CBB9F61A601CBA00E9B192 /* PBXGroup */ = {
+		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
 				13B07FAE1A68108700A75B9A /* mobileapp */,
@@ -124,7 +124,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
-				AC38DF741DE64080A51C484F /* Resources */,
+				F099C2DADB384BF1991895BF /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -151,10 +151,10 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		AC38DF741DE64080A51C484F /* Resources */ = {
-			isa = PBXGroup;
+		F099C2DADB384BF1991895BF /* Resources */ = {
+			isa = "PBXGroup";
 			children = (
-				243CDEAD7CB04995A5F267D0 /* defaultvideo.mp4 */,
+				2177FC89DE924F5C929CF49D /* defaultvideo.mp4 */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -209,14 +209,14 @@
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		83CBB9F71A601CBA00E9B192 = {
+		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						TestTargetID = 13B07F861A680F5B00A75B9A /* mobileapp */;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1120;
@@ -231,7 +231,7 @@
 				en,
 				Base,
 			);
-			mainGroup = 83CBB9F61A601CBA00E9B192 /* PBXGroup */;
+			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -256,7 +256,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				38917204B2C74BBBAC312481 /* defaultvideo.mp4 in Resources */,
+				EAD701F58A294881B37F5928 /* defaultvideo.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,7 +451,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = mobileappTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -475,7 +475,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = mobileappTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -593,7 +593,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -657,7 +657,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -711,5 +711,5 @@
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 83CBB9F71A601CBA00E9B192;
+	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }
