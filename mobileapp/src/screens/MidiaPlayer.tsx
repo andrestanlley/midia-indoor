@@ -21,7 +21,10 @@ export default function MidiaPlayer() {
 
   const getLocalVideos = useCallback(async () => {
     const midias = await MidiaList.execute();
-    await SyncTerminal.execute(midias);
+    const midiasToSync = midias?.filter(
+      midia => midia.filename != actualMidia.filename,
+    );
+    await SyncTerminal.execute(midiasToSync);
     if (midias) {
       return setLocalVideos(midias);
     }

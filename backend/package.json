@@ -3,16 +3,20 @@
 	"version": "1.0.0",
 	"main": "index.js",
 	"license": "MIT",
+	"_moduleAliases": {
+		"@main": "dist/main"
+	},
 	"scripts": {
-		"dev": "tsnd src/server.ts",
-		"build": "tsc",
-		"start": "node ./dist/server.js"
+		"dev": "tsnd ./src/server.ts",
+		"start": "node ./dist/server.js",
+		"build": "tsc"
 	},
 	"dependencies": {
 		"@prisma/client": "^4.10.1",
 		"cors": "^2.8.5",
 		"dotenv": "^16.0.3",
 		"express": "^4.18.2",
+		"module-alias": "^2.2.2",
 		"prisma": "^4.10.1",
 		"socket.io": "^4.6.0"
 	},

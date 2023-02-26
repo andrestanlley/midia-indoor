@@ -1,15 +1,8 @@
-import express from "express";
-import cors from "cors";
-import { makeApiRoutes } from "./factories/makeApiRoutes";
+import "module-alias/register";
+import { app } from "./app";
 
-const app = express();
-const apiRoutes = makeApiRoutes();
+const { PORT } = process.env;
 
-app.use(cors());
-app.use(express.static("public"));
-app.use(express.json());
-app.use("/api", apiRoutes.router);
-
-app.listen(3000, () => {
-	console.log("running on 3000");
+app.listen(PORT, () => {
+	console.log(`running on ${PORT}`);
 });
