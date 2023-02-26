@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { StatusBar, View } from 'react-native';
 import defaultVideo from '../assets/defaultvideo.mp4';
 import Video from 'react-native-video';
+import RNRestart from 'react-native-restart';
 import IMidia from '../interfaces/IMidia';
 import MidiaDelete from '../services/MidiaDelete';
 import MidiaList from '../services/MidiaList';
@@ -17,7 +18,6 @@ export default function MidiaPlayer() {
     videoOrder: -1,
   });
   const [localVideos, setLocalVideos] = useState<IMidia[]>();
-  const [repeatValue, setRepeatValue] = useState<boolean>(false);
 
   const getLocalVideos = useCallback(async () => {
     const midias = await MidiaList.execute();
@@ -29,7 +29,7 @@ export default function MidiaPlayer() {
 
   useEffect(() => {
     getLocalVideos();
-  }, [repeatValue]);
+  }, []);
 
   function getNextVideo() {
     const { videoOrder } = actualMidia;
@@ -40,13 +40,7 @@ export default function MidiaPlayer() {
         ...localVideos[nextVideoOrder],
       });
     }
-    if (localVideos && localVideos?.length) {
-      return setActualMidia({
-        videoOrder: 0,
-        ...localVideos[0],
-      });
-    }
-    setRepeatValue(true);
+    return RNRestart.restart();
   }
 
   async function deleteOnError(video: IMidia) {
@@ -68,7 +62,6 @@ export default function MidiaPlayer() {
         resizeMode={'stretch'}
         fullscreen
         muted
-        repeat={repeatValue}
         onEnd={() => getNextVideo()}
         onVideoError={() => deleteOnError(actualMidia)}
       />
