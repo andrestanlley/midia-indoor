@@ -1,9 +1,11 @@
 import express from "express";
+import cors from "cors";
 import { makeApiRoutes } from "./factories/makeApiRoutes";
 
 const app = express();
-const apiRoutes = makeApiRoutes()
+const apiRoutes = makeApiRoutes();
 
+app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
 app.use("/api", apiRoutes.router);

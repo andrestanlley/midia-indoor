@@ -3,6 +3,7 @@ import { randomUUID } from "node:crypto";
 import { PrismaClient } from "@prisma/client";
 import midiasDbToHttp from "../mappers/midiasDbToHttp";
 import IMidiaRepository from "../interfaces/IMidiaRepository";
+import midiaListDbToHttp from "../mappers/midiaListDbToHttp";
 
 export class MidiaRepository implements IMidiaRepository {
 	prisma: PrismaClient;
@@ -20,11 +21,11 @@ export class MidiaRepository implements IMidiaRepository {
 			},
 		});
 
-		return midiasDbToHttp([midias]);
+		return midiasDbToHttp(midias);
 	}
 
 	async insertMidiaToList(midiaListId: string, midiaId: string) {
-		const { midias } = await this.prisma.midiaList.update({
+		const midias = await this.prisma.midiaList.update({
 			where: {
 				id: midiaListId,
 			},
@@ -40,7 +41,7 @@ export class MidiaRepository implements IMidiaRepository {
 			},
 		});
 
-		return midiasDbToHttp(midias);
+		return midiaListDbToHttp(midias);
 	}
 
 	async deleteMidia(midiaId: string) {
@@ -50,6 +51,6 @@ export class MidiaRepository implements IMidiaRepository {
 			},
 		});
 
-		return midiasDbToHttp([midias]);
+		return midiasDbToHttp(midias);
 	}
 }

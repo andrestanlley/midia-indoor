@@ -5,6 +5,5 @@ export default function midiaListDbToHttp(midiaList: MidiaList): IMidiaList{
     return {
         id: midiaList.id,
         name: midiaList.name,
-        midias: []
     }
 }

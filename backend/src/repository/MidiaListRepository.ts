@@ -39,12 +39,9 @@ export class MidiaListRepository implements IMidiaListRepository{
 			where: {
 				id,
 			},
-			select: {
-				midias: true,
-			},
 		});
-		if (!midiaList || !midiaList.midias.length) return [];
-		return midiasDbToHttp(midiaList.midias);
+		if (!midiaList) return [];
+		return midiaListDbToHttp(midiaList);
 	}
 
 	async insertMidiaToList(midiaListId: string, midiaId: string) {

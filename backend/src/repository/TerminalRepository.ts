@@ -11,10 +11,10 @@ export class TerminalRepository implements ITerminalRepository {
 		this.prisma = prismaClient;
 	}
 
-	async addMidiaListToTerminal(terminalId: string, midiaListId: string) {
+	async addMidiaListToTerminal(deviceId: string, midiaListId: string) {
 		const terminal = await this.prisma.terminal.update({
 			where: {
-				id: terminalId,
+				deviceId,
 			},
 			data: {
 				midiaListId,
@@ -24,12 +24,11 @@ export class TerminalRepository implements ITerminalRepository {
 		return terminalDbToHttp(terminal);
 	}
 
-	async createNewTerminal(mac: string) {
+	async createNewTerminal() {
 		const terminal = await this.prisma.terminal.create({
 			data: {
-				id: randomUUID(),
+				deviceId: randomUUID(),
 				lastSync: new Date(),
-				mac,
 				name: "Novo Terminal",
 				midiaListId: null,
 			},
@@ -41,35 +40,46 @@ export class TerminalRepository implements ITerminalRepository {
 	async deleteTerminal(terminalId: string) {
 		const terminal = await this.prisma.terminal.delete({
 			where: {
-				id: terminalId,
+				deviceId: terminalId,
+			},
+			include: {
+				MidiaList: {
+					select: {
+						midias: true,
+					},
+				},
 			},
 		});
 
 		return terminal ? true : false;
 	}
 
-	async findTerminal(mac: string) {
+	async findTerminal(deviceId: string) {
 		let terminal;
 		try {
 			terminal = await this.prisma.terminal.findFirstOrThrow({
 				where: {
-					mac,
+					deviceId,
 				},
 				include: {
-					MidiaList: true,
+					MidiaList: {
+						select: {
+							midias: true,
+						},
+					},
 				},
 			});
 		} catch (error) {
-			terminal = await this.createNewTerminal(mac);
+			terminal = await this.createNewTerminal();
 		}
 
 		return terminalDbToHttp(terminal);
 	}
 
-	async updateLastSync({ id }: ITerminal) {
+	async updateLastSync({ deviceId }: ITerminal) {
 		const terminal = await this.prisma.terminal.update({
 			where: {
-				id,
+				deviceId,
 			},
 			data: {
 				lastSync: new Date(),
@@ -82,9 +92,9 @@ export class TerminalRepository implements ITerminalRepository {
 	async updateTerminal(terminal: ITerminal) {
 		const terminalDb = await this.prisma.terminal.update({
 			where: {
-				id: terminal.id,
+				deviceId: terminal.deviceId,
 			},
-			data: { ...terminal },
+			data: { ...terminal, MidiaList: undefined },
 		});
 
 		return terminalDbToHttp(terminalDb);

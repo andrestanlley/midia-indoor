@@ -1,10 +1,11 @@
 import IMidia from "./IMidia";
+import IMidiaList from "./IMidiaList";
 
 export default interface IMidiaService {
-	create: (midia: IMidia) => Promise<IMidia[]>;
+	create: (midia: IMidia) => Promise<IMidia>;
 	insertMidiaToList: (
 		midiaListId: string,
 		midiaId: string
-	) => Promise<IMidia[]>;
-	remove: (midiaId: string) => Promise<IMidia[]>;
+	) => Promise<IMidiaList>;
+	remove: (midiaId: string) => Promise<IMidia>;
 }

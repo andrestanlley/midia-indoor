@@ -1,17 +1,14 @@
 import RNFS from 'react-native-fs';
 
-class VideoDelete {
-  outDir = `${RNFS.ExternalDirectoryPath}/`;
-
+class MidiaDelete {
   async execute(fileUri?: string) {
     if (!fileUri) return;
-    const fileDir = this.outDir;
-    RNFS.exists(fileDir)
+    RNFS.exists(fileUri)
       .then(result => {
         console.log('file exists: ', result);
 
         if (result) {
-          return RNFS.unlink(fileDir)
+          return RNFS.unlink(fileUri)
             .then(() => {
               console.log('FILE DELETED');
             })
@@ -26,4 +23,4 @@ class VideoDelete {
   }
 }
 
-export default new VideoDelete();
+export default new MidiaDelete();

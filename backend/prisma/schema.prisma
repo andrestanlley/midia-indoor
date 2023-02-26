@@ -8,8 +8,7 @@ datasource db {
 }
 
 model Terminal {
-  id          String     @id
-  mac         String
+  deviceId    String     @id
   name        String
   lastSync    DateTime
   midiaListId String?

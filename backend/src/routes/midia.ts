@@ -22,6 +22,6 @@ export class MidiaRouter {
 	listenRoutes() {
 		this.router.post("/", this.midiaController.create);
 		this.router.post("/", this.midiaController.insertMidia);
-		this.router.delete("/", this.midiaController.remove);
+		this.router.delete("/:midiaId", this.midiaController.remove);
 	}
 }

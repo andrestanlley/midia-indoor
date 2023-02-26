@@ -3,7 +3,6 @@ import ITerminal from "../interfaces/ITerminal";
 
 export default function terminalDbToHttp(terminal: Terminal | ITerminal) {
 	return {
-		id: terminal.id,
-		...terminal
+		...terminal,
 	} as ITerminal;
 }

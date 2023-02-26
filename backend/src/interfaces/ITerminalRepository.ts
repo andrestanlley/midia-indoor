@@ -5,9 +5,9 @@ export default interface ITerminalRepository {
 		terminalId: string,
 		midiaListId: string
 	) => Promise<ITerminal>;
-	createNewTerminal: (mac: string) => Promise<ITerminal>;
+	createNewTerminal: (deviceId: string) => Promise<ITerminal>;
 	deleteTerminal: (terminalId: string) => Promise<boolean>;
-	findTerminal: (mac: string) => Promise<ITerminal>;
+	findTerminal: (deviceId: string) => Promise<ITerminal>;
 	updateLastSync: (terminal: ITerminal) => Promise<ITerminal>;
 	updateTerminal: (Terminal: ITerminal) => Promise<ITerminal>;
 }
