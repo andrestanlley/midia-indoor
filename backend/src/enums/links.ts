@@ -1,5 +1,5 @@
 enum Links {
-	VIDEO_SERVER = "http://192.168.1.113:3000/videos/",
+	VIDEO_SERVER = "https://sea-lion-app-virum.ondigitalocean.app/videos/",
 }
 
 export default Links;
