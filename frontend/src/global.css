@@ -2,11 +2,13 @@
 	padding: 0;
 	margin: 0;
 	vertical-align: baseline;
+	box-sizing: border-box;
 	list-style: none;
 	border: 0;
-	font-family: 'Roboto', sans-serif;
+	font-family: "Roboto", sans-serif;
 }
 
-body {
+html {
 	background: #e2e8f0;
+	height: 100vh;
 }

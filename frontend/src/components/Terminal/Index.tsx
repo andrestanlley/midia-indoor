@@ -21,7 +21,7 @@ export default function Terminal({ name, deviceId, lastSync }: TerminalProps) {
 			: lastSyncDate.toISOString().split("T")[0];
 
 	return (
-		<Container>
+		<Container onClick={(e) => console.log(deviceId)}>
 			<MdMonitor size={28} color={status ? "#047857" : "#dc2626"} />
 			<div>
 				{name}

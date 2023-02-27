@@ -9,7 +9,8 @@
 	"scripts": {
 		"dev": "tsnd ./src/server.ts",
 		"start": "node ./dist/server.js",
-		"build": "tsc"
+		"build": "tsc",
+		"prod": "tsc && node dist/server.js"
 	},
 	"dependencies": {
 		"@prisma/client": "^4.10.1",
