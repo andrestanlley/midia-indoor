@@ -1,5 +1,5 @@
 enum Links {
-	VIDEO_SERVER = `http://elevamidia.com/api/videos/`,
+	VIDEO_SERVER = `https://elevamidia.com/videos/`,
 }
 
 export default Links;
