@@ -7,6 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
-app.use("/", apiRoutes);
+app.use("/api", apiRoutes);
 
 export { app };
