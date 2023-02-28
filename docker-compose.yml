@@ -30,10 +30,6 @@ services:
   frontend:
     restart: unless-stopped
     container_name: frontend
-    # volumes:
-    #   - ./nginx/conf/:/etc/nginx/conf.d/:ro
-    #   - ./certbot/www:/var/www/certbot/:ro
-    #   - ./certbot/conf/:/etc/nginx/ssl/:ro
     build:
       context: ./frontend/
       dockerfile: ./Dockerfile
