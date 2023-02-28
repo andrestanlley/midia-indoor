@@ -10,7 +10,7 @@ export interface TerminalProps {
 export default function Terminal({ name, deviceId, lastSync }: TerminalProps) {
 	const lastSyncDate = new Date(lastSync);
 	const status =
-		new Date().getUTCMinutes() - lastSyncDate.getUTCMinutes() >= 2
+		new Date().getTime() / 60000 - lastSyncDate.getTime() / 60000 >= 2
 			? false
 			: true;
 
