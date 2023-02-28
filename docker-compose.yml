@@ -1,0 +1,59 @@
+version: "3.5"
+
+services:
+  backend:
+    restart: unless-stopped
+    container_name: backend
+    build:
+      context: ./backend/
+      dockerfile: ./Dockerfile
+    command: npm run start
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+
+  frontend:
+    restart: unless-stopped
+    container_name: frontend
+    # volumes:
+    #   - ./nginx/conf/:/etc/nginx/conf.d/:ro
+    #   - ./certbot/www:/var/www/certbot/:ro
+    #   - ./certbot/conf/:/etc/nginx/ssl/:ro
+    build:
+      context: ./frontend/
+      dockerfile: ./Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+
+  # certbot:
+  #   image: certbot/certbot:latest
+  #   volumes:
+  #     - ./certbot/www/:/var/www/certbot/:rw
+  #     - ./certbot/conf/:/etc/letsencrypt/:rw
+
+  postgres:
+    image: postgres:10.5
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5438:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: stanlley41@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: midiadigitaleleva84
+      PGADMIN_CONFIG_SERVER_MODE: "True"
+    volumes:
+      - ./pgadmin-data:/var/lib/pgadminql/data
+
+    ports:
+      - "5050:80"
+    restart: unless-stopped

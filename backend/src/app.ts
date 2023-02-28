@@ -8,8 +8,5 @@ app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
 app.use("/api", apiRoutes);
-// app.use("/", (req: Request, res: Response) => {
-// 	return res.status(200).send({ status: "ok" });
-// });
 
 export { app };
