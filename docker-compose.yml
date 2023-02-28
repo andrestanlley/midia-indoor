@@ -1,6 +1,18 @@
 version: "3.5"
 
 services:
+  nginx:
+    restart: unless-stopped
+    container_name: nginx
+    image: nginx:latest
+    volumes:
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+    ports:
+      - "80:80"
+      - "443:443"
+
   backend:
     restart: unless-stopped
     container_name: backend
@@ -10,8 +22,6 @@ services:
     command: npm run start
     ports:
       - "3000:3000"
-    networks:
-      - painel
     depends_on:
       - postgres
     environment:
@@ -20,29 +30,22 @@ services:
   frontend:
     restart: unless-stopped
     container_name: frontend
-    # volumes:
-    #   - ./nginx/conf/:/etc/nginx/conf.d/:ro
-    #   - ./certbot/www:/var/www/certbot/:ro
-    #   - ./certbot/conf/:/etc/nginx/ssl/:ro
     build:
       context: ./frontend/
       dockerfile: ./Dockerfile
     ports:
-      - "80:80"
-      - "443:443"
+      - "8080"
 
-  # certbot:
-  #   image: certbot/certbot:latest
-  #   volumes:
-  #     - ./certbot/www/:/var/www/certbot/:rw
-  #     - ./certbot/conf/:/etc/letsencrypt/:rw
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
 
   postgres:
     container_name: postgresdb
     image: postgres:14.1-alpine
     restart: always
-    networks:
-      - painel
     environment:
       - POSTGRES_USER=eleva
       - POSTGRES_PASSWORD=midiaindooreleva84
@@ -54,15 +57,12 @@ services:
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
-    networks:
-      - painel
     environment:
       PGADMIN_DEFAULT_EMAIL: stanlley41@gmail.com
       PGADMIN_DEFAULT_PASSWORD: midiadigitaleleva84
       PGADMIN_CONFIG_SERVER_MODE: "True"
     volumes:
       - ./pgadmin-data:/var/lib/pgadminql/data
-
     ports:
       - "5050:80"
     restart: unless-stopped
@@ -70,7 +70,3 @@ services:
 volumes:
   db:
     driver: local
-
-networks:
-  painel:
-    external: true
