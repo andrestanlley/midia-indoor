@@ -1,7 +1,7 @@
-import { MidiaListService } from "@main/services/midiaListService";
+import { MediaListService } from "@domain/useCases/mediaListService";
 import { makeMidiaListRepository } from "./makeMidiaListRepository";
 const midiaListRepository = makeMidiaListRepository();
 
 export const makeMidiaListService = () => {
-	return new MidiaListService(midiaListRepository);
+	return new MediaListService(midiaListRepository);
 };

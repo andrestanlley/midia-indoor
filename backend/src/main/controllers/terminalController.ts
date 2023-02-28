@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import IController from "../interfaces/IController";
-import ISyncResponse from "../interfaces/ISyncResponse";
-import ITerminal from "../interfaces/ITerminal";
-import { ITerminalService } from "../services/terminalService";
+import { ITerminalService } from "../../domain/useCases/terminalService";
+import { ITerminalProps } from "@domain/entities/Terminal";
 
 interface ITerminalController extends IController {
 	addMidiaList: (req: Request, res: Response) => Promise<Response>;
@@ -14,7 +13,7 @@ export class TerminalController implements ITerminalController {
 	create = async (req: Request, res: Response) => {
 		return res.status(200);
 	};
-	
+
 	find = async (req: Request, res: Response) => {
 		return res.status(200);
 	};
@@ -25,13 +24,13 @@ export class TerminalController implements ITerminalController {
 	};
 
 	sync = async (req: Request, res: Response) => {
-		const terminal: ITerminal = req.body;
-		const result: ISyncResponse = await this.terminalService.sync(terminal);
-		return res.status(result.status ?? 200).send(result);
+		const terminal: ITerminalProps = req.body;
+		const result = await this.terminalService.sync(terminal);
+		return res.status(result ? 200 : 400).send(result);
 	};
 
 	update = async (req: Request, res: Response) => {
-		const terminal: ITerminal = req.body;
+		const terminal: ITerminalProps = req.body;
 		const result = await this.terminalService.update(terminal);
 		return res.status(200).send(result);
 	};

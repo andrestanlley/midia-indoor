@@ -4,7 +4,8 @@
 	"main": "index.js",
 	"license": "MIT",
 	"_moduleAliases": {
-		"@main": "dist/main"
+		"@main": "dist/main",
+		"@domain": "dist/domain"
 	},
 	"scripts": {
 		"dev": "tsnd ./src/server.ts",

@@ -1,7 +1,6 @@
-import { TerminalService } from "../services/terminalService";
+import { TerminalService } from "../../domain/useCases/terminalService";
 import { makeTerminalRepository } from "./makeTerminalRepository";
-const terminalRepository = makeTerminalRepository();
 
 export const makeTerminalService = () => {
-	return new TerminalService(terminalRepository);
+	return new TerminalService(makeTerminalRepository());
 };

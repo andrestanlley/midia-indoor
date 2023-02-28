@@ -6,28 +6,39 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  
 }
 
 model Terminal {
   deviceId    String     @id
   name        String
   lastSync    DateTime
-  midiaListId String?
-  MidiaList   MidiaList? @relation(fields: [midiaListId], references: [id])
+  mediaListId String?
+  mediaId     String?
+  actualMedia Media?     @relation(fields: [mediaId], references: [id])
+  MediaList   MediaList? @relation(fields: [mediaListId], references: [id])
+  WebViews    WebView[]  @relation("TerminalToWebView")
 }
 
-model MidiaList {
+model MediaList {
   id       String     @id
   name     String
-  midias   Midia[]
+  medias   Media[]
   Terminal Terminal[]
 }
 
-model Midia {
+model Media {
   id          String     @id
+  name        String
   filename    String
   type        String
-  midiaListId String?
-  MidiaList   MidiaList? @relation(fields: [midiaListId], references: [id])
+  mediaListId String?
+  MediaList   MediaList? @relation(fields: [mediaListId], references: [id])
+  Terminal    Terminal[]
+}
+
+model WebView {
+  id       String     @id
+  name     String
+  url      String
+  Terminal Terminal[] @relation("TerminalToWebView")
 }

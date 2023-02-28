@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { randomUUID } from "node:crypto";
-import IMidiaListRepository from "@domain/repositories/IMidiaListRepository";
+import IMediaListRepository from "@domain/repositories/IMediaListRepository";
 import midiaListDbToHttp from "./mappers/midiaListDbToHttp";
 
-export class MidiaListRepository implements IMidiaListRepository {
+export class MediaListRepository implements IMediaListRepository {
 	prisma: PrismaClient;
 
 	constructor(prismaClient: PrismaClient) {
@@ -11,7 +11,7 @@ export class MidiaListRepository implements IMidiaListRepository {
 	}
 
 	async createMidiaList(name: string) {
-		const midiaList = await this.prisma.midiaList.create({
+		const midiaList = await this.prisma.mediaList.create({
 			data: {
 				id: randomUUID(),
 				name,
@@ -22,7 +22,7 @@ export class MidiaListRepository implements IMidiaListRepository {
 	}
 
 	async deleteMidiaList(midiaListId: string) {
-		const midiaList = await this.prisma.midiaList.delete({
+		const midiaList = await this.prisma.mediaList.delete({
 			where: {
 				id: midiaListId,
 			},
@@ -31,34 +31,34 @@ export class MidiaListRepository implements IMidiaListRepository {
 		return midiaListDbToHttp(midiaList);
 	}
 
-	async findMidiaList(id: string | null) {
+	async findMediaList(id: string | null) {
 		if (!id) return [];
-		const midiaList = await this.prisma.midiaList.findFirst({
+		const mediaList = await this.prisma.mediaList.findFirst({
 			where: {
 				id,
 			},
 		});
-		if (!midiaList) return [];
-		return midiaListDbToHttp(midiaList);
+		if (!mediaList) return [];
+		return midiaListDbToHttp(mediaList);
 	}
 
 	async insertMidiaToList(midiaListId: string, midiaId: string) {
-		const midiaList = await this.prisma.midiaList.update({
+		const mediaList = await this.prisma.mediaList.update({
 			where: {
 				id: midiaListId,
 			},
 			data: {
-				midias: {
+				medias: {
 					connect: {
 						id: midiaId,
 					},
 				},
 			},
 			include: {
-				midias: true,
+				medias: true,
 			},
 		});
 
-		return midiaListDbToHttp(midiaList);
+		return midiaListDbToHttp(mediaList);
 	}
 }

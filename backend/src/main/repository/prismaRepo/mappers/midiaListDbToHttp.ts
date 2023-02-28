@@ -1,9 +1,11 @@
-import { MidiaList } from "@prisma/client";
-import IMidiaList from "@main/interfaces/IMidiaList";
+import { IMediaListProps } from "@domain/entities/MediaList";
+import { MediaList } from "@prisma/client";
 
-export default function midiaListDbToHttp(midiaList: MidiaList): IMidiaList{
-    return {
-        id: midiaList.id,
-        name: midiaList.name,
-    }
+export default function midiaListDbToHttp(
+	midiaList: MediaList
+): IMediaListProps {
+	return {
+		id: midiaList.id,
+		name: midiaList.name,
+	} as IMediaListProps;
 }

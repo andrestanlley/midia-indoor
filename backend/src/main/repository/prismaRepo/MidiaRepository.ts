@@ -1,7 +1,7 @@
-import IMidia from "@main/interfaces/IMidia";
+import { IMediaProps } from "@domain/entities/Media";
 import { randomUUID } from "node:crypto";
 import { PrismaClient } from "@prisma/client";
-import IMidiaRepository from "@domain/repositories/IMidiaRepository";
+import IMidiaRepository from "@domain/repositories/IMediaRepository";
 import midiasDbToHttp from "./mappers/midiasDbToHttp";
 import midiaListDbToHttp from "./mappers/midiaListDbToHttp";
 
@@ -13,44 +13,45 @@ export class MidiaRepository implements IMidiaRepository {
 	}
 
 	async getAll() {
-		const midias = await this.prisma.midia.findMany();
-		return midias.map(midiasDbToHttp);
+		const medias = (await this.prisma.media.findMany()).map(midiasDbToHttp);
+		return medias;
 	}
 
-	async createMidia({ filename, type }: IMidia) {
-		const midias = await this.prisma.midia.create({
+	async createMedia({ name, filename, type }: IMediaProps) {
+		const midias = await this.prisma.media.create({
 			data: {
 				id: randomUUID(),
+				name,
 				filename,
 				type,
-			},
+			}
 		});
 
 		return midiasDbToHttp(midias);
 	}
 
 	async insertMidiaToList(midiaListId: string, midiaId: string) {
-		const midias = await this.prisma.midiaList.update({
+		const midias = await this.prisma.mediaList.update({
 			where: {
 				id: midiaListId,
 			},
 			data: {
-				midias: {
+				medias: {
 					connect: {
 						id: midiaId,
 					},
 				},
 			},
 			include: {
-				midias: true,
+				medias: true,
 			},
 		});
 
 		return midiaListDbToHttp(midias);
 	}
 
-	async deleteMidia(midiaId: string) {
-		const midias = await this.prisma.midia.delete({
+	async deleteMedia(midiaId: string) {
+		const midias = await this.prisma.media.delete({
 			where: {
 				id: midiaId,
 			},

@@ -1,9 +1,18 @@
+import IController from "@main/interfaces/IController";
 import { Request, Response } from "express";
-import IMidiaListController from "../interfaces/IMidiaListController";
-import IMidiaListService from "../interfaces/IMidiaListService";
+import { IMediaListService } from "@domain/useCases/mediaListService";
 
-export class MidiaListController implements IMidiaListController {
-	constructor(private readonly midiaListService: IMidiaListService) {}
+export class MidiaListController implements IController {
+	constructor(private readonly midiaListService: IMediaListService) {}
+
+	find = async (req: Request, res: Response) => {
+		//TODO: implement
+		return res.status(200);
+	};
+	getAll = async (req: Request, res: Response) => {
+		//TODO: implement
+		return res.status(200);
+	};
 
 	create = async (req: Request, res: Response) => {
 		const { midiaListName } = req.body;

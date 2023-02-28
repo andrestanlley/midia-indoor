@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { randomUUID } from "node:crypto";
-import ITerminal from "@main/interfaces/ITerminal";
 import ITerminalRepository from "@domain/repositories/ITerminalRepository";
 import terminalDbToHttp from "./mappers/terminalDbToHttp";
+import { ITerminalProps } from "@domain/entities/Terminal";
 
 export class TerminalRepository implements ITerminalRepository {
 	prisma: PrismaClient;
@@ -14,23 +14,26 @@ export class TerminalRepository implements ITerminalRepository {
 	async getAll() {
 		const terminais = await this.prisma.terminal.findMany({
 			include: {
-				MidiaList: {
-					include: {
-						midias: true,
+				MediaList: {
+					select: {
+						medias: true,
 					},
 				},
 			},
 		});
-		return terminais.map(terminalDbToHttp);
+
+		return terminais.map((terminal) =>
+			terminalDbToHttp(terminal, terminal.MediaList?.medias)
+		);
 	}
 
-	async addMidiaListToTerminal(deviceId: string, midiaListId: string) {
+	async addMidiaListToTerminal(deviceId: string, mediaListId: string) {
 		const terminal = await this.prisma.terminal.update({
 			where: {
 				deviceId,
 			},
 			data: {
-				midiaListId,
+				mediaListId,
 			},
 		});
 
@@ -43,24 +46,24 @@ export class TerminalRepository implements ITerminalRepository {
 				deviceId: randomUUID(),
 				lastSync: new Date(),
 				name: "Novo Terminal",
-				midiaListId: null,
+				mediaListId: null,
+			},
+			include: {
+				MediaList: {
+					include: {
+						medias: true,
+					},
+				},
 			},
 		});
 
-		return terminalDbToHttp(terminal);
+		return terminal;
 	}
 
 	async deleteTerminal(terminalId: string) {
 		const terminal = await this.prisma.terminal.delete({
 			where: {
 				deviceId: terminalId,
-			},
-			include: {
-				MidiaList: {
-					select: {
-						midias: true,
-					},
-				},
 			},
 		});
 
@@ -75,9 +78,9 @@ export class TerminalRepository implements ITerminalRepository {
 					deviceId,
 				},
 				include: {
-					MidiaList: {
+					MediaList: {
 						select: {
-							midias: true,
+							medias: true,
 						},
 					},
 				},
@@ -86,28 +89,36 @@ export class TerminalRepository implements ITerminalRepository {
 			terminal = await this.createNewTerminal();
 		}
 
-		return terminalDbToHttp(terminal);
+		return terminalDbToHttp(terminal, terminal.MediaList?.medias);
 	}
 
-	async updateLastSync({ deviceId }: ITerminal) {
+	async updateSync({ deviceId, actualMedia }: ITerminalProps) {
+		const queryObject = {
+			lastSync: new Date(),
+			actualMedia: actualMedia
+				? {
+						connect: {
+							id: actualMedia?.id,
+						},
+				  }
+				: undefined,
+		};
 		const terminal = await this.prisma.terminal.update({
 			where: {
 				deviceId,
 			},
-			data: {
-				lastSync: new Date(),
-			},
+			data: queryObject
 		});
 
 		return terminalDbToHttp(terminal);
 	}
 
-	async updateTerminal(terminal: ITerminal) {
+	async updateTerminal(terminal: ITerminalProps) {
 		const terminalDb = await this.prisma.terminal.update({
 			where: {
 				deviceId: terminal.deviceId,
 			},
-			data: { ...terminal, MidiaList: undefined },
+			data: { name: terminal.name },
 		});
 
 		return terminalDbToHttp(terminalDb);

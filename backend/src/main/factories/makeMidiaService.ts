@@ -1,7 +1,6 @@
-import { MidiaService } from "@main/services/midiaService";
+import { MidiaService } from "@domain/useCases/midiaService";
 import { makeMidiaRepository } from "./makeMidiaRepository";
-const midiaRepository = makeMidiaRepository();
 
 export const makeMidiaService = () => {
-	return new MidiaService(midiaRepository);
+	return new MidiaService(makeMidiaRepository());
 };

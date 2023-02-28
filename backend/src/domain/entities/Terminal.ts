@@ -1,9 +1,21 @@
-import ITerminal from "@main/interfaces/ITerminal";
+import { IMediaProps } from "./Media";
+import { IMediaListProps } from "./MediaList";
 
-export class Terminal {
-	props: ITerminal;
+interface ITerminalProps {
+	name: string;
+	deviceId: string;
+	actualMedia?: IMediaProps;
+	localVideos?: IMediaProps[];
+	mediaListId?: string | undefined | null;
+	MediaList?: IMediaListProps;
+}
 
-	constructor(props: ITerminal) {
+class Terminal {
+	props: ITerminalProps;
+
+	constructor(props: ITerminalProps) {
 		this.props = props;
 	}
 }
+
+export { Terminal, ITerminalProps };

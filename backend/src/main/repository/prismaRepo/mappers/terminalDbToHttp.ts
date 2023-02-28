@@ -1,8 +1,15 @@
-import { Terminal } from "@prisma/client";
-import ITerminal from "@main/interfaces/ITerminal";
+import { Media, Terminal as TerminalDB } from "@prisma/client";
+import { ITerminalProps, Terminal } from "@domain/entities/Terminal";
 
-export default function terminalDbToHttp(terminal: Terminal | ITerminal) {
+export default function terminalDbToHttp(
+	terminal: TerminalDB,
+	mediaList: Media[] | undefined = undefined
+) {
 	return {
-		...terminal,
-	} as ITerminal;
+		name: terminal.name,
+		deviceId: terminal.deviceId,
+		lastSync: terminal.lastSync,
+		mediaListId: terminal.mediaListId,
+		MediaList: mediaList,
+	} as ITerminalProps;
 }
