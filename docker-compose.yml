@@ -59,7 +59,7 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: stanlley41@gmail.com
       PGADMIN_DEFAULT_PASSWORD: midiadigitaleleva84
-      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_SERVER_MODE: "True"
     volumes:
       - ./pgadmin-data:/var/lib/pgadminql/data
 
