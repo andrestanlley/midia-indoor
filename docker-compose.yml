@@ -54,19 +54,6 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
 
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: stanlley41@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: midiadigitaleleva84
-      PGADMIN_CONFIG_SERVER_MODE: "True"
-    volumes:
-      - ./pgadmin-data:/var/lib/pgadminql/data
-    ports:
-      - "5050:80"
-    restart: unless-stopped
-
 volumes:
   db:
     driver: local
