@@ -24,9 +24,9 @@ function App() {
 
 	return (
 		<>
-			<Modal>
+			{/* <Modal>
 				Teste!
-				</Modal>
+				</Modal> */}
 			{terminais?.length &&
 				terminais.map((terminal) => (
 					<Player key={terminal.deviceId} {...terminal} />
