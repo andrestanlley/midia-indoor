@@ -10,6 +10,10 @@ services:
     command: npm run start
     ports:
       - "3000:3000"
+    networks:
+      - painel
+    depends_on:
+      - postgres
     environment:
       - PORT=3000
 
@@ -34,26 +38,39 @@ services:
   #     - ./certbot/conf/:/etc/letsencrypt/:rw
 
   postgres:
-    image: postgres:10.5
+    container_name: postgresdb
+    image: postgres:14.1-alpine
     restart: always
+    networks:
+      - painel
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=eleva
+      - POSTGRES_PASSWORD=midiaindooreleva84
     ports:
-      - "5438:5432"
+      - "5432:5432"
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
 
   pgadmin:
-    container_name: pgadmin_container
+    container_name: pgadmin
     image: dpage/pgadmin4
+    networks:
+      - painel
     environment:
       PGADMIN_DEFAULT_EMAIL: stanlley41@gmail.com
       PGADMIN_DEFAULT_PASSWORD: midiadigitaleleva84
-      PGADMIN_CONFIG_SERVER_MODE: "True"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
     volumes:
       - ./pgadmin-data:/var/lib/pgadminql/data
 
     ports:
       - "5050:80"
     restart: unless-stopped
+
+volumes:
+  db:
+    driver: local
+
+networks:
+  painel:
+    external: true
