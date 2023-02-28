@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: 'http://elevamidia.com/api/'
+    baseURL: 'https://elevamidia.com/api/'
 })
