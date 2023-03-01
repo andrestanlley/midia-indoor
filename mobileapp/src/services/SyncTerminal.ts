@@ -4,7 +4,6 @@ import MidiaDownloader from './MidiaDownloader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import IMidia from '../interfaces/IMidia';
 import MidiaList from './MidiaList';
-import MidiaDelete from './MidiaDelete';
 
 class SyncTerminal {
   api: Axios = axios.create({
@@ -32,13 +31,12 @@ class SyncTerminal {
           }
         }
         if (remove?.length) {
-          for await (let midia of remove) {
-            const localMidias = await MidiaList.execute();
-            const toDeleteMidia = localMidias?.find(
-              file => file.filename === midia.filename,
-            );
-            await MidiaDelete.execute(toDeleteMidia?.uri);
-          }
+          const media = remove[0];
+          const localMedias = await MidiaList.execute();
+          const toDeleteMedia = localMedias?.find(
+            file => file.filename === media.filename,
+          );
+          await AsyncStorage.setItem('toDeleteMedia', toDeleteMedia?.uri!);
         }
       }
     } catch (error) {

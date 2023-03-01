@@ -8,6 +8,7 @@ import MidiaDelete from '../services/MidiaDelete';
 import MidiaList from '../services/MidiaList';
 import globalStyle from '../styles/globalStyle';
 import SyncTerminal from '../services/SyncTerminal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface VideoProps extends IMidia {
   videoOrder: number;
@@ -17,42 +18,47 @@ export default function MidiaPlayer() {
   const [actualMidia, setActualMidia] = useState<VideoProps>({
     videoOrder: -1,
   });
-  const [localVideos, setLocalVideos] = useState<IMidia[]>([]);
+  const [localMedia, setLocalMedia] = useState<IMidia[]>([]);
 
-  const getLocalVideos = useCallback(async () => {
+  const syncWithServer = useCallback(async () => {
+    let toDeleteMidia: string | null;
+    if (actualMidia.videoOrder === -1) {
+      toDeleteMidia = await AsyncStorage.getItem('toDeleteMedia');
+      await MidiaDelete.execute(toDeleteMidia!);
+    }
     const midias = await MidiaList.execute();
     await SyncTerminal.execute(midias, actualMidia);
     if (midias) {
-      return setLocalVideos(midias);
+      return setLocalMedia(midias.filter(midia => midia.uri != toDeleteMidia));
     }
-  }, [actualMidia, localVideos]);
+  }, [actualMidia, localMedia]);
 
   useEffect(() => {
-    getLocalVideos();
+    syncWithServer();
   }, [actualMidia]);
 
   function getNextVideo() {
     const { videoOrder } = actualMidia;
-    if (localVideos && videoOrder < localVideos?.length - 1) {
+    if (localMedia && videoOrder < localMedia?.length - 1) {
       const nextVideoOrder = videoOrder + 1;
       return setActualMidia({
         videoOrder: nextVideoOrder,
-        ...localVideos[nextVideoOrder],
+        ...localMedia[nextVideoOrder],
       });
     }
-    if (!localVideos.length || localVideos.length === 1) {
+    if (!localMedia.length || localMedia.length === 1) {
       return RNRestart.restart();
     }
     return setActualMidia({
       videoOrder: 0,
-      ...localVideos[0],
+      ...localMedia[0],
     });
   }
 
   async function deleteOnError(video: IMidia) {
     if (!video.uri) return;
     try {
-      await MidiaDelete.execute(video.uri);
+      await AsyncStorage.setItem('toDeleteMedia', video.uri);
     } catch (error) {
       console.log(error);
     }
