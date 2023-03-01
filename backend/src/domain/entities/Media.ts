@@ -6,9 +6,16 @@ interface IMediaProps {
 	name: string;
 	filename: string;
 	uri?: string;
-	type: MidiaType;
-	mediaListId?: string;
+	mediaListId: string
 }
+
+// id          String     @id
+// name        String
+// filename    String
+// type        String
+// mediaListId String?
+// MediaList   MediaList? @relation(fields: [mediaListId], references: [id])
+// Terminal    Terminal[]
 
 class Media {
 	props: IMediaProps;

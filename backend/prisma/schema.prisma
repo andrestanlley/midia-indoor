@@ -30,10 +30,9 @@ model Media {
   id          String     @id
   name        String
   filename    String
-  type        String
-  mediaListId String?
-  MediaList   MediaList? @relation(fields: [mediaListId], references: [id])
+  MediaList   MediaList? @relation(references: [id], fields: [mediaListId])
   Terminal    Terminal[]
+  mediaListId String?
 }
 
 model WebView {

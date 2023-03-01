@@ -31,7 +31,7 @@ export class TerminalService implements ITerminalService {
 		);
 		this.terminalRepository.updateSync(terminal);
 
-		const medias = terminal?.Medias?.map(midiasDbToHttp)
+		const medias = terminal?.Medias?.map(midiasDbToHttp);
 
 		const download: IMediaProps[] =
 			medias?.filter(

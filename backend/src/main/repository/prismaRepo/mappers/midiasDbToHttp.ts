@@ -9,7 +9,6 @@ export default function midiasDbToHttp(media: MediaDB) {
 		name: media.name,
 		filename: media.filename,
 		uri: Links.VIDEO_SERVER + media.filename,
-		type: media.type ? (media.type as MidiaType) : MidiaType.VIDEO,
-		mediaListId: media.mediaListId ?? undefined,
+		mediaListId: media.mediaListId
 	} as IMediaProps;
 }

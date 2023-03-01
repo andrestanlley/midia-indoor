@@ -8,7 +8,7 @@
 		"@domain": "dist/domain"
 	},
 	"scripts": {
-		"dev": "tsnd --transpile-only ./src/server.ts",
+		"dev": "tsnd ./src/server.ts",
 		"start": "node ./dist/server.js",
 		"build": "tsc",
 		"prod": "tsc && node dist/server.js"
