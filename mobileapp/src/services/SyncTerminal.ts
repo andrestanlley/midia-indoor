@@ -12,19 +12,18 @@ class SyncTerminal {
     timeout: 2000,
   });
 
-  execute = async (localVideos?: IMidia[]) => {
+  execute = async (localVideos: IMidia[] = [], actualMidia: IMidia) => {
     let deviceId = await AsyncStorage.getItem('deviceId');
     try {
       const request = await this.api.post('/terminal/sync', {
         deviceId,
         localVideos,
+        actualMidia,
       });
       if (request.status === 200) {
-        if (!deviceId) {
-          await AsyncStorage.setItem(
-            'deviceId',
-            request.data.terminal.deviceId,
-          );
+        const terminalServerId = request.data.terminal.deviceId;
+        if (!deviceId || deviceId != terminalServerId) {
+          await AsyncStorage.setItem('deviceId', terminalServerId);
         }
         const { download, remove } = request.data;
         if (download?.length) {

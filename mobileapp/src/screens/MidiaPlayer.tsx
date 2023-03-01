@@ -17,14 +17,11 @@ export default function MidiaPlayer() {
   const [actualMidia, setActualMidia] = useState<VideoProps>({
     videoOrder: -1,
   });
-  const [localVideos, setLocalVideos] = useState<IMidia[]>();
+  const [localVideos, setLocalVideos] = useState<IMidia[]>([]);
 
   const getLocalVideos = useCallback(async () => {
     const midias = await MidiaList.execute();
-    const midiasToSync = midias?.filter(
-      midia => midia.filename != actualMidia.filename,
-    );
-    await SyncTerminal.execute(midiasToSync);
+    await SyncTerminal.execute(midias, actualMidia);
     if (midias) {
       return setLocalVideos(midias);
     }
@@ -32,7 +29,7 @@ export default function MidiaPlayer() {
 
   useEffect(() => {
     getLocalVideos();
-  }, []);
+  }, [actualMidia]);
 
   function getNextVideo() {
     const { videoOrder } = actualMidia;
@@ -43,7 +40,13 @@ export default function MidiaPlayer() {
         ...localVideos[nextVideoOrder],
       });
     }
-    return RNRestart.restart();
+    if (!localVideos.length || localVideos.length === 1) {
+      return RNRestart.restart();
+    }
+    return setActualMidia({
+      videoOrder: 0,
+      ...localVideos[0],
+    });
   }
 
   async function deleteOnError(video: IMidia) {
