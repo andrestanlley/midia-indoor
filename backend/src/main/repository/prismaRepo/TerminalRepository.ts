@@ -50,7 +50,7 @@ export class TerminalRepository implements ITerminalRepository {
 			},
 			include: {
 				MediaList: {
-					include: {
+					select: {
 						medias: true,
 					},
 				},
@@ -79,7 +79,7 @@ export class TerminalRepository implements ITerminalRepository {
 				},
 				include: {
 					MediaList: {
-						select: {
+						include: {
 							medias: true,
 						},
 					},

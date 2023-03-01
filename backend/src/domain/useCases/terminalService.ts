@@ -30,10 +30,10 @@ export class TerminalService implements ITerminalService {
 		);
 		this.terminalRepository.updateSync(terminal);
 
-		const midias = terminal?.MediaList?.midias
+		const medias = terminal?.Medias
 
 		const download: IMediaProps[] =
-			midias?.filter(
+			medias?.filter(
 				(midiaLocal: IMediaProps) =>
 					!localVideos?.find(
 						(midia: IMediaProps) => midia.filename === midiaLocal.filename
@@ -43,7 +43,7 @@ export class TerminalService implements ITerminalService {
 		const remove: IMediaProps[] =
 			localVideos?.filter(
 				(midiaLocal: IMediaProps) =>
-					!midias?.find(
+					!medias?.find(
 						(midia: IMediaProps) => midiaLocal.filename === midia.filename
 					)
 			) ?? [];

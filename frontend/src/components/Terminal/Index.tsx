@@ -1,24 +1,21 @@
 import { MdMonitor } from "react-icons/md";
+import ITerminalProps from "../../interfaces/terminal";
+import isTerminalSync from "../../services/isTerminalSync";
 import { Container } from "./styles";
 
-export interface TerminalProps {
-	name: string;
-	deviceId: string;
-	lastSync: string;
-}
-
-export default function Terminal({ name, deviceId, lastSync }: TerminalProps) {
+export default function Terminal({ name, deviceId, lastSync }: ITerminalProps) {
 	const lastSyncDate = new Date(lastSync);
-	const status =
-		new Date().getTime() / 60000 - lastSyncDate.getTime() / 60000 >= 2
-			? false
-			: true;
+	const status = isTerminalSync(lastSyncDate);
 
 	const syncToday =
 		lastSyncDate.toISOString().split("T")[0] ===
 		new Date().toISOString().split("T")[0]
-			? `Hoje, às ${lastSyncDate.getHours()}:${lastSyncDate.getMinutes()}`
-			: lastSyncDate.toISOString().split("T")[0];
+			? `Hoje, às ${lastSyncDate.getHours()}:${
+					lastSyncDate.getMinutes() < 10
+						? "0" + lastSyncDate.getMinutes()
+						: lastSyncDate.getMinutes()
+			  }`
+			: lastSyncDate.toLocaleDateString("pt-BR");
 
 	return (
 		<Container onClick={(e) => console.log(deviceId)}>

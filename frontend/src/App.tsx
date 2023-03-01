@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import Box from "./components/Box/Index";
 import CreateMidia from "./components/MidiaUpload/Index";
 import Modal from "./components/Modal/Index";
 import Player, { TerminalProps } from "./components/Terminal/Index";
+import ITerminalProps from "./interfaces/terminal";
 import { api } from "./services/api";
 
 function App() {
@@ -10,7 +12,7 @@ function App() {
 	async function getAllTerminais() {
 		const result = await api.get("/terminal/all");
 		if (result.status === 200) {
-			setTerminais(result.data);
+			setTerminais(result.data.sort());
 		}
 	}
 
@@ -25,13 +27,17 @@ function App() {
 
 	return (
 		<>
-			<CreateMidia />
+			<Box>
+				<CreateMidia />
+			</Box>
 			{/* <Modal>
 				Teste!
 				</Modal> */}
 			{terminais?.length &&
 				terminais.map((terminal) => (
-					<Player key={terminal.deviceId} {...terminal} />
+					<Box key={terminal.deviceId}>
+						<Player {...terminal} />
+					</Box>
 				))}
 		</>
 	);

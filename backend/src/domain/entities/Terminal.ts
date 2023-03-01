@@ -7,7 +7,7 @@ interface ITerminalProps {
 	actualMedia?: IMediaProps;
 	localVideos?: IMediaProps[];
 	mediaListId?: string | undefined | null;
-	MediaList?: IMediaListProps;
+	Medias?: IMediaProps[];
 }
 
 class Terminal {
