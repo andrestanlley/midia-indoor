@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import Box from "./components/Box/Index";
 import CreateMidia from "./components/MidiaUpload/Index";
 import Modal from "./components/Modal/Index";
-import Player, { TerminalProps } from "./components/Terminal/Index";
-import ITerminalProps from "./interfaces/terminal";
+import Player from "./components/Terminal/Index";
+import ITerminalProps from "./interfaces/Terminal";
 import { api } from "./services/api";
 
 function App() {
-	const [terminais, setTerminais] = useState<TerminalProps[]>();
+	const [terminais, setTerminais] = useState<ITerminalProps[]>();
 
 	async function getAllTerminais() {
 		const result = await api.get("/terminal/all");

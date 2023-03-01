@@ -1,5 +1,5 @@
 import { MdMonitor } from "react-icons/md";
-import ITerminalProps from "../../interfaces/terminal";
+import ITerminalProps from "../../interfaces/Terminal";
 import isTerminalSync from "../../services/isTerminalSync";
 import { Container } from "./styles";
 
