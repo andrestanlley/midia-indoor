@@ -5,7 +5,7 @@ function CreateMidia() {
 	const [video, setVideo] = useState<File>();
 	const [midiaName, setMidiaName] = useState({ name: "Video mirante" });
 
-	const uploadImage = async (e) => {
+	const uploadImage = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const formData = new FormData();
 		formData.append("video", video!);
