@@ -4,5 +4,5 @@
     RUN npm install\
         && npm install typescript -g
     COPY . .
-    RUN npm run build
     RUN npx prisma generate
+    RUN npm run build
