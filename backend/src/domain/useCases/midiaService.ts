@@ -15,6 +15,10 @@ interface IMidiaService {
 export class MidiaService implements IMidiaService {
 	constructor(private readonly mediaRepository: IMediaRepository) {}
 
+	async upload(){
+		
+	}
+
 	async getAll() {
 		return await this.mediaRepository.getAll();
 	}

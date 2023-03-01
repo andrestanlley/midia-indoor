@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import CreateMidia from "./components/MidiaUpload/Index";
 import Modal from "./components/Modal/Index";
 import Player, { TerminalProps } from "./components/Terminal/Index";
 import { api } from "./services/api";
@@ -24,6 +25,7 @@ function App() {
 
 	return (
 		<>
+			<CreateMidia />
 			{/* <Modal>
 				Teste!
 				</Modal> */}

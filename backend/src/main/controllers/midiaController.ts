@@ -20,7 +20,13 @@ export class MidiaController implements IController {
 		return res.status(200).send(midias);
 	};
 	create = async (req: Request, res: Response) => {
-		const midia: IMediaProps = req.body;
+		if (!req.file) {
+			return res.status(500);
+		}
+		const midia: IMediaProps = {
+			...JSON.parse(req.body.data),
+			filename: req.file.filename,
+		};
 		const result = await this.midiaService.create(midia);
 		return res.status(201).send(result);
 	};
