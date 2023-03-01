@@ -11,8 +11,6 @@ function CreateMidia() {
 		formData.append("video", video!);
 		formData.append("data", JSON.stringify({ ...midiaName, type: "VIDEO" }));
 
-		console.log(formData);
-
 		const headers = {
 			headers: {
 				"Content-Type": "multipart/form-data",
@@ -20,7 +18,7 @@ function CreateMidia() {
 		};
 
 		const result = await api.post("/midia", formData, headers);
-    console.log(result)
+		console.log(result);
 	};
 
 	return (
