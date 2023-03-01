@@ -1,6 +1,7 @@
 import ITerminalRepository from "@domain/repositories/ITerminalRepository";
 import { ITerminalProps } from "@domain/entities/Terminal";
 import { IMediaProps } from "@domain/entities/Media";
+import midiasDbToHttp from "@main/repository/prismaRepo/mappers/midiasDbToHttp";
 
 export interface ITerminalService {
 	getAll: () => Promise<ITerminalProps[]>;
@@ -30,7 +31,7 @@ export class TerminalService implements ITerminalService {
 		);
 		this.terminalRepository.updateSync(terminal);
 
-		const medias = terminal?.Medias
+		const medias = terminal?.Medias?.map(midiasDbToHttp)
 
 		const download: IMediaProps[] =
 			medias?.filter(
