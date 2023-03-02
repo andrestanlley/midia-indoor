@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { randomUUID } from "node:crypto";
 import IMediaListRepository from "@domain/repositories/IMediaListRepository";
-import midiaListDbToHttp from "./mappers/mediaListDbToHttp";
+import mediaListDbToHttp from "./mappers/mediaListDbToHttp";
 
 export class MediaListRepository implements IMediaListRepository {
 	prisma: PrismaClient;
@@ -11,34 +11,34 @@ export class MediaListRepository implements IMediaListRepository {
 	}
 
 	async getAll() {
-		const midialist = await this.prisma.mediaList.findMany({
+		const medialist = await this.prisma.mediaList.findMany({
 			include: {
 				medias: true,
 			},
 		});
 
-		return midialist.map(midiaListDbToHttp);
+		return medialist.map(mediaListDbToHttp);
 	}
 
-	async createMidiaList(name: string) {
-		const midiaList = await this.prisma.mediaList.create({
+	async createMediaList(name: string) {
+		const mediaList = await this.prisma.mediaList.create({
 			data: {
 				id: randomUUID(),
 				name,
 			},
 		});
 
-		return midiaListDbToHttp(midiaList);
+		return mediaListDbToHttp(mediaList);
 	}
 
-	async deleteMidiaList(midiaListId: string) {
-		const midiaList = await this.prisma.mediaList.delete({
+	async deleteMediaList(mediaListId: string) {
+		const mediaList = await this.prisma.mediaList.delete({
 			where: {
-				id: midiaListId,
+				id: mediaListId,
 			},
 		});
 
-		return midiaListDbToHttp(midiaList);
+		return mediaListDbToHttp(mediaList);
 	}
 
 	async findMediaList(id: string | null) {
@@ -49,13 +49,13 @@ export class MediaListRepository implements IMediaListRepository {
 			},
 		});
 		if (!mediaList) return [];
-		return midiaListDbToHttp(mediaList);
+		return mediaListDbToHttp(mediaList);
 	}
 
-	async insertMidiaToList(midiaListId: string, midiaId: string) {
+	async insertMediaToList(mediaListId: string, midiaId: string) {
 		const mediaList = await this.prisma.mediaList.update({
 			where: {
-				id: midiaListId,
+				id: mediaListId,
 			},
 			data: {
 				medias: {
@@ -69,6 +69,6 @@ export class MediaListRepository implements IMediaListRepository {
 			},
 		});
 
-		return midiaListDbToHttp(mediaList);
+		return mediaListDbToHttp(mediaList);
 	}
 }

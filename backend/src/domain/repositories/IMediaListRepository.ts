@@ -2,11 +2,11 @@ import { IMediaListProps } from "@domain/entities/MediaList";
 
 export default interface IMediaListRepository {
 	getAll: () => Promise<IMediaListProps[]>;
-	createMidiaList: (midiaListName: string) => Promise<IMediaListProps>;
-	deleteMidiaList: (midiaListId: string) => Promise<IMediaListProps>;
+	createMediaList: (mediaListName: string) => Promise<IMediaListProps>;
+	deleteMediaList: (mediaListId: string) => Promise<IMediaListProps>;
 	findMediaList: (id: string | null) => Promise<IMediaListProps | never[]>;
-	insertMidiaToList: (
-		midiaListId: string,
+	insertMediaToList: (
+		mediaListId: string,
 		midiaId: string
 	) => Promise<IMediaListProps>;
 }

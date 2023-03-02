@@ -23,17 +23,13 @@ function CreateMidia() {
 
 	return (
 		<div>
-			<h1>Upload</h1>
-
 			<form onSubmit={uploadImage}>
-				<label>Nome: </label>
 				<input
 					type='text'
 					onChange={(e) => setMidiaName({ name: e.target.value })}
 				/>
 				<br></br>
 				<br></br>
-				<label>Video: </label>
 				<input
 					type='file'
 					name='image'
