@@ -3,7 +3,7 @@ import { IMediaProps } from "./Media";
 interface IMediaListProps {
 	id: string;
 	name: string;
-	midias?: IMediaProps[];
+	medias?: IMediaProps[];
 }
 
 class MidiaList {

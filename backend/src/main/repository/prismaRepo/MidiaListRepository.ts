@@ -10,6 +10,16 @@ export class MediaListRepository implements IMediaListRepository {
 		this.prisma = prismaClient;
 	}
 
+	async getAll() {
+		const midialist = await this.prisma.mediaList.findMany({
+			include: {
+				medias: true,
+			},
+		});
+
+		return midialist.map(midiaListDbToHttp);
+	}
+
 	async createMidiaList(name: string) {
 		const midiaList = await this.prisma.mediaList.create({
 			data: {

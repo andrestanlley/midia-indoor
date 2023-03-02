@@ -1,12 +1,12 @@
 import { Router } from "express";
 import { terminalRoutes } from "./terminal";
-import { midiaRoutes } from "./midia";
-import { midiaListRoutes } from "./midiaList";
+import { mediaRoutes } from "./media";
+import { mediaListRoutes } from "./mediaList";
 
 const apiRoutes = Router();
 
 apiRoutes.use("/terminal", terminalRoutes);
-apiRoutes.use("/midia", midiaRoutes);
-apiRoutes.use("/midialist", midiaListRoutes);
+apiRoutes.use("/media", mediaRoutes);
+apiRoutes.use("/medialist", mediaListRoutes);
 
 export { apiRoutes };
