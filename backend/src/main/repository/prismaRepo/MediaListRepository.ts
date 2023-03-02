@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { randomUUID } from "node:crypto";
 import IMediaListRepository from "@domain/repositories/IMediaListRepository";
-import midiaListDbToHttp from "./mappers/midiaListDbToHttp";
+import midiaListDbToHttp from "./mappers/mediaListDbToHttp";
 
 export class MediaListRepository implements IMediaListRepository {
 	prisma: PrismaClient;

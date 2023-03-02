@@ -1,6 +1,6 @@
-import { MidiaRepository } from "@main/repository/prismaRepo/MidiaRepository";
+import { MediaRepository } from "@main/repository/prismaRepo/MediaRepository";
 import { prisma } from "@domain/useCases/prismaService";
 
 export const makeMediaRepository = () => {
-	return new MidiaRepository(prisma);
+	return new MediaRepository(prisma);
 };

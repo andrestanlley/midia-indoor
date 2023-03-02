@@ -17,7 +17,7 @@ function CreateMidia() {
 			},
 		};
 
-		const result = await api.post("/midia", formData, headers);
+		const result = await api.post("/media", formData, headers);
 		console.log(result);
 	};
 

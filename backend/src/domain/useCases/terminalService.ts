@@ -1,7 +1,7 @@
 import ITerminalRepository from "@domain/repositories/ITerminalRepository";
 import { ITerminalProps } from "@domain/entities/Terminal";
 import { IMediaProps } from "@domain/entities/Media";
-import midiasDbToHttp from "@main/repository/prismaRepo/mappers/midiasDbToHttp";
+import midiasDbToHttp from "@main/repository/prismaRepo/mappers/mediasDbToHttp";
 
 export interface ITerminalService {
 	getAll: () => Promise<ITerminalProps[]>;
