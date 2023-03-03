@@ -6,7 +6,7 @@ export const Container = styled.div`
 	max-width: max-content;
     position: relative;
 	padding: 16px;
-	margin: 42px 12px;
+	margin: 12px;
 `;
 
 export const Title = styled.h1`

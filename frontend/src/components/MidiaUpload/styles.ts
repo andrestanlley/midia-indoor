@@ -4,7 +4,7 @@ export const Form = styled.form`
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
-	width: 12rem;
+	width: 12.7rem;
 	input[type="file"] {
 		display: none;
 	}

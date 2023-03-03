@@ -3,6 +3,7 @@ import Box from "../Box/Index";
 import Player from "../Terminal/Index";
 import { api } from "../../services/api";
 import { AppContext } from "../../Context/AppContext";
+import { Container } from "./styles";
 
 function ListTerminais() {
 	const { terminais, setTerminais } = useContext(AppContext);
@@ -22,7 +23,7 @@ function ListTerminais() {
 	}, []);
 
 	return (
-		<>
+		<Container>
 			{terminais?.length ? (
 				terminais.map((terminal) => (
 					<Box key={terminal.deviceId}>
@@ -32,7 +33,7 @@ function ListTerminais() {
 			) : (
 				<span>Nenhum terminal encontrado.</span>
 			)}
-		</>
+		</Container>
 	);
 }
 
