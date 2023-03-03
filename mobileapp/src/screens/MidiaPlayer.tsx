@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { StatusBar, View } from 'react-native';
 import defaultVideo from '../assets/defaultvideo.mp4';
 import Video from 'react-native-video';
@@ -20,12 +20,16 @@ export default function MidiaPlayer() {
   });
   const [localMedia, setLocalMedia] = useState<IMidia[]>([]);
 
-  const syncWithServer = useCallback(async () => {
-    let toDeleteMidia: string | null;
+  async function checkFilesToDelete() {
     if (actualMidia.videoOrder === -1) {
-      toDeleteMidia = await AsyncStorage.getItem('toDeleteMedia');
+      const toDeleteMidia = await AsyncStorage.getItem('toDeleteMedia');
       await MidiaDelete.execute(toDeleteMidia!);
+      return toDeleteMidia;
     }
+  }
+
+  const syncWithServer = useCallback(async () => {
+    const toDeleteMidia = await checkFilesToDelete();
     const midias = await MidiaList.execute();
     await SyncTerminal.execute(midias, actualMidia);
     if (midias) {
@@ -37,22 +41,30 @@ export default function MidiaPlayer() {
     syncWithServer();
   }, [actualMidia]);
 
+  function setNextVideo(videoOrder: number) {
+    const nextVideoOrder = videoOrder + 1;
+    return setActualMidia({
+      videoOrder: nextVideoOrder,
+      ...localMedia[nextVideoOrder],
+    });
+  }
+
+  function setPlaylistToStart() {
+    setActualMidia({
+      videoOrder: 0,
+      ...localMedia[0],
+    });
+  }
+
   function getNextVideo() {
     const { videoOrder } = actualMidia;
     if (localMedia && videoOrder < localMedia?.length - 1) {
-      const nextVideoOrder = videoOrder + 1;
-      return setActualMidia({
-        videoOrder: nextVideoOrder,
-        ...localMedia[nextVideoOrder],
-      });
+      return setNextVideo(videoOrder);
     }
     if (!localMedia.length || localMedia.length === 1) {
       return RNRestart.restart();
     }
-    return setActualMidia({
-      videoOrder: 0,
-      ...localMedia[0],
-    });
+    return setPlaylistToStart();
   }
 
   async function deleteOnError(video: IMidia) {
@@ -61,8 +73,9 @@ export default function MidiaPlayer() {
       await AsyncStorage.setItem('toDeleteMedia', video.uri);
     } catch (error) {
       console.log(error);
+    } finally {
+      return RNRestart.restart();
     }
-    getNextVideo();
   }
 
   return (
