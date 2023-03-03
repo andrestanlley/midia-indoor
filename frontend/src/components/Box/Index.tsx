@@ -1,6 +1,16 @@
-import { PropsWithChildren } from "react";
-import { Container } from "./styles";
+import { ReactNode } from "react";
+import { Container, Title } from "./styles";
 
-export default function Box({ children }: PropsWithChildren) {
-	return <Container>{children}</Container>;
+interface BoxProps {
+	title?: string;
+	children: ReactNode;
+}
+
+export default function Box({ title = "", children }: BoxProps) {
+	return (
+		<Container>
+			<Title>{title}</Title>
+			{children}
+		</Container>
+	);
 }

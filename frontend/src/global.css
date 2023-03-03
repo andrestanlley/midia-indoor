@@ -8,7 +8,16 @@
 	font-family: "Roboto", sans-serif;
 }
 
+:root {
+	--vermelho: #dc2626;
+	--verde: #047857;
+	--cinza-um: #e2e8f0;
+	--cinza-dois: #f8fafc;
+	--title: #1e293b;
+	--subtitle: #94a3b8;
+}
+
 html {
-	background: #e2e8f0;
+	background: var(--cinza-um);
 	height: 100vh;
 }

@@ -20,6 +20,8 @@ services:
       context: ./backend/
       dockerfile: ./Dockerfile
     command: npm run start
+    volumes:
+      - ./backend/public:/usr/app/public
     ports:
       - "3000:3000"
     depends_on:
