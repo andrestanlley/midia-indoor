@@ -1,49 +1,61 @@
 import { api } from "../../services/api";
-import { useState, useEffect } from "react";
+import { AppContext } from "../../Context/AppContext";
+import { useEffect, useContext } from "react";
 import IMediaProps from "../../interfaces/Media";
 import { IoMdRemoveCircle } from "react-icons/io";
-import { ListOption } from "./styles";
+import { ListOption, Container } from "./styles";
 
 export default function ListMedias() {
-	const [medias, setMedias] = useState<IMediaProps[]>([]);
+	const { medias, setMedias, selectedMediaList } = useContext(AppContext);
 
 	async function getAllMedias() {
 		const result = await api.get("/media/all");
-		setMedias(result.data);
+		setMedias!(result.data);
 	}
 
 	async function deleteMedia(media: IMediaProps) {
 		const result = await api.delete("/media", { data: media });
 		if (result.status === 202) {
-			setMedias((oldState) =>
+			setMedias!((oldState) =>
 				[...oldState].filter((oldMedia) => oldMedia.id != media.id)
 			);
 		}
 	}
 
-	function updateMediasInterval() {
-		setInterval(getAllMedias, 60000);
-	}
-
 	useEffect(() => {
 		getAllMedias();
-		updateMediasInterval();
-	}, []);
+		const updateMediasInterval = setInterval(getAllMedias, 60000);
+
+		return () => clearInterval(updateMediasInterval);
+	}, [selectedMediaList]);
 
 	return (
-		<>
+		<Container>
 			{medias.length &&
 				medias.map((media) => (
 					<ListOption key={media.id}>
-						<p>{media.name}</p>
+						<label>
+							<input
+								type='checkbox'
+								id={media.id}
+								defaultChecked={
+									selectedMediaList?.medias?.find(
+										(selectedMedia) => selectedMedia.id === media.id
+									)
+										? true
+										: false
+								}
+							/>
+							{media.name}
+						</label>
 						<p>
 							<IoMdRemoveCircle
-								color='#dc2626'
+								color='var(--vermelho)'
 								onClick={() => deleteMedia(media)}
 							/>
 						</p>
 					</ListOption>
 				))}
-		</>
+		</Container>
 	);
 }

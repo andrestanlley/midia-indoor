@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.button`
 	display: flex;
 	align-items: center;
-	color: #1e293b;
+	color: var(--title);
 	text-decoration: none;
 	background: transparent;
 
@@ -15,12 +15,12 @@ export const Container = styled.button`
 		padding: 0 8px;
 		font-weight: 600;
 		font-size: 20px;
-		color: #1e293b;
+		color: var(--title);
 		line-height: 1rem;
 		span {
 			font-weight: 300;
 			font-size: 14px;
-			color: #94a3b8;
+			color: var(--subtitle);
 		}
 	}
 `;

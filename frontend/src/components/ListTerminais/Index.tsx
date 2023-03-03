@@ -1,26 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
 import Box from "../Box/Index";
 import Player from "../Terminal/Index";
-import ITerminalProps from "../../interfaces/Terminal";
 import { api } from "../../services/api";
+import { AppContext } from "../../Context/AppContext";
 
 function ListTerminais() {
-	const [terminais, setTerminais] = useState<ITerminalProps[]>();
+	const { terminais, setTerminais } = useContext(AppContext);
 
 	async function getAllTerminais() {
 		const result = await api.get("/terminal/all");
 		if (result.status === 200) {
-			setTerminais(result.data.sort());
+			setTerminais!(result.data.sort());
 		}
-	}
-
-	function updateTerminaisInterval() {
-		setInterval(getAllTerminais, 60000);
 	}
 
 	useEffect(() => {
 		getAllTerminais();
-		updateTerminaisInterval();
+		const updateTerminaisInterval = setInterval(getAllTerminais, 60000);
+
+		return () => clearInterval(updateTerminaisInterval);
 	}, []);
 
 	return (

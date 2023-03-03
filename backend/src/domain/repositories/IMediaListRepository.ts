@@ -7,6 +7,6 @@ export default interface IMediaListRepository {
 	findMediaList: (id: string | null) => Promise<IMediaListProps | never[]>;
 	insertMediaToList: (
 		mediaListId: string,
-		midiaId: string
+		mediaId: string
 	) => Promise<IMediaListProps>;
 }

@@ -1,15 +1,24 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AppContext } from "../../Context/AppContext";
 import { api } from "../../services/api";
+import { Form } from "./styles";
 
 function CreateMidia() {
+	const { setMedias } = useContext(AppContext);
 	const [video, setVideo] = useState<File>();
-	const [midiaName, setMidiaName] = useState({ name: "Video mirante" });
+	const [midia, setMidia] = useState({ name: "" });
 
-	const uploadImage = async (e: React.FormEvent<HTMLFormElement>) => {
+	const uploadVideo = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		if (!midia.name) {
+			return alert("Não é possível criar uma mídia sem nome!");
+		}
+		if (!video?.name) {
+			alert("Selecione um vídeo para enviar.");
+		}
 		const formData = new FormData();
 		formData.append("video", video!);
-		formData.append("data", JSON.stringify({ ...midiaName, type: "VIDEO" }));
+		formData.append("data", JSON.stringify({ ...midia, type: "VIDEO" }));
 
 		const headers = {
 			headers: {
@@ -18,28 +27,30 @@ function CreateMidia() {
 		};
 
 		const result = await api.post("/media", formData, headers);
-		console.log(result);
+		if (result.status === 201) {
+			setMedias!((oldState) => [...oldState, result.data]);
+		}
 	};
 
 	return (
 		<div>
-			<form onSubmit={uploadImage}>
+			<Form onSubmit={uploadVideo}>
 				<input
 					type='text'
-					onChange={(e) => setMidiaName({ name: e.target.value })}
+					onChange={(e) => setMidia({ name: e.target.value })}
+					placeholder='Nome da mídia'
 				/>
-				<br></br>
-				<br></br>
-				<input
-					type='file'
-					name='image'
-					onChange={(e) => setVideo(e.target.files![0])}
-				/>
-				<br />
-				<br />
+				<label>
+					{video?.name ?? "Selecionar vídeo"}
+					<input
+						type='file'
+						name='Video'
+						onChange={(e) => setVideo(e.target.files![0])}
+					/>
+				</label>
 
 				<button type='submit'>Salvar</button>
-			</form>
+			</Form>
 		</div>
 	);
 }

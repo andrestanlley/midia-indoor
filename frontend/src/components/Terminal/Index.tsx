@@ -19,7 +19,10 @@ export default function Terminal({ name, deviceId, lastSync }: ITerminalProps) {
 
 	return (
 		<Container onClick={(e) => console.log(deviceId)}>
-			<MdMonitor size={28} color={status ? "#047857" : "#dc2626"} />
+			<MdMonitor
+				size={28}
+				color={status ? "var(--verde)" : "var(--vermelho)"}
+			/>
 			<div>
 				{name}
 				<br />

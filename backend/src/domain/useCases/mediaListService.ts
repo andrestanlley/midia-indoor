@@ -6,7 +6,7 @@ interface IMediaListService {
 	create: (midiaListName: string) => Promise<IMediaListProps>;
 	insertMediaToList: (
 		mediaListId: string,
-		midiaId: string
+		mediaId: string
 	) => Promise<IMediaListProps>;
 	remove: (mediaListId: string) => Promise<IMediaListProps>;
 }
@@ -23,10 +23,10 @@ class MediaListService implements IMediaListService {
 		return await this.midiaListRepository.getAll()
 	}
 
-	async insertMediaToList(mediaListId: string, midiaId: string) {
+	async insertMediaToList(mediaListId: string, mediaId: string) {
 		return await this.midiaListRepository.insertMediaToList(
 			mediaListId,
-			midiaId
+			mediaId
 		);
 	}
 

@@ -52,7 +52,7 @@ export class MediaListRepository implements IMediaListRepository {
 		return mediaListDbToHttp(mediaList);
 	}
 
-	async insertMediaToList(mediaListId: string, midiaId: string) {
+	async insertMediaToList(mediaListId: string, mediaId: string) {
 		const mediaList = await this.prisma.mediaList.update({
 			where: {
 				id: mediaListId,
@@ -60,7 +60,7 @@ export class MediaListRepository implements IMediaListRepository {
 			data: {
 				medias: {
 					connect: {
-						id: midiaId,
+						id: mediaId,
 					},
 				},
 			},
