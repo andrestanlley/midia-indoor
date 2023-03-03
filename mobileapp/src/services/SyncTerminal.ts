@@ -17,7 +17,7 @@ class SyncTerminal {
       const request = await this.api.post('/terminal/sync', {
         deviceId,
         localVideos,
-        actualMidia,
+        actualMidia: actualMidia.filename,
       });
       if (request.status === 200) {
         const terminalServerId = request.data.terminal.deviceId;
