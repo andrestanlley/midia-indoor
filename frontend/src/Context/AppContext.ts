@@ -12,6 +12,8 @@ interface IAppContext {
 	setTerminais?: Dispatch<SetStateAction<ITerminalProps[]>>;
 	selectedMediaList?: IMediaListProps;
 	setSelectedMediaList?: Dispatch<SetStateAction<IMediaListProps | undefined>>;
+	selectedTerminal?: ITerminalProps;
+	setSelectedTerminal?: Dispatch<SetStateAction<ITerminalProps | undefined>>;
 }
 
 const defaultState = {
@@ -19,6 +21,7 @@ const defaultState = {
 	mediasList: [],
 	terminais: [],
 	selectedMediaList: undefined,
+	selectedTerminal: undefined,
 };
 
 export const AppContext = createContext<IAppContext>(defaultState);

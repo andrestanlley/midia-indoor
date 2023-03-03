@@ -3,13 +3,20 @@ import styled from "styled-components";
 export const ListOption = styled.div`
 	display: flex;
 	justify-content: space-between;
-    line-height: 0;
+	line-height: 0;
 	align-items: center;
-    width: 10rem;
+	width: 10rem;
 
-    input[type="checkbox"]{
-        margin: 0;
-    }
+	p {
+		:hover{
+			opacity: 0.6;
+			cursor: pointer;
+		}
+	}
+
+	input[type="checkbox"] {
+		margin: 0 4px;
+	}
 `;
 
 export const Container = styled.div`

@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 19rem;
+	width: 35.2rem;
 
 
     input {

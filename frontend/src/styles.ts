@@ -6,5 +6,5 @@ export const Container = styled.div`
 `;
 
 export const SubContainer = styled.div`
-	max-width: 780px;
+	max-width: 1080px;
 `;

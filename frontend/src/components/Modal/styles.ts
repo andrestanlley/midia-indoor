@@ -6,13 +6,20 @@ export const BlackBackground = styled.div`
 	justify-content: center;
 	align-items: center;
 	z-index: 5;
-	background: #000000;
+	background: rgba(0,0,0,0.7);
 	width: 100vw;
 	height: 100vh;
-	opacity: 0.7;
+	top: 0;
+	left: 0;
+`;
 
-	div {
-		background: red;
-        width: 700px;
-	}
+export const ModalContent = styled.div`
+	display: flex;
+	
+	flex-direction: column;
+	width: 700px;
+	background: var(--cinza-dois);
+	border-radius: 4px;
+	opacity: 1;
+	z-index: 7;
 `;

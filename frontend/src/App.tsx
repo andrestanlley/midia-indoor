@@ -12,6 +12,7 @@ export default function App() {
 	const [mediasList, setMediaLists] = useState<IMediaListProps[]>([]);
 	const [terminais, setTerminais] = useState<ITerminalProps[]>([]);
 	const [selectedMediaList, setSelectedMediaList] = useState<IMediaListProps>();
+	const [selectedTerminal, setSelectedTerminal] = useState<ITerminalProps>();
 
 	return (
 		<AppContext.Provider
@@ -23,7 +24,9 @@ export default function App() {
 				terminais,
 				setTerminais,
 				selectedMediaList,
-				setSelectedMediaList
+				setSelectedMediaList,
+				selectedTerminal,
+				setSelectedTerminal,
 			}}
 		>
 			<Container>

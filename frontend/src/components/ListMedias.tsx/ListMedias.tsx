@@ -2,7 +2,7 @@ import { api } from "../../services/api";
 import { AppContext } from "../../Context/AppContext";
 import { useEffect, useContext } from "react";
 import IMediaProps from "../../interfaces/Media";
-import { IoMdRemoveCircle } from "react-icons/io";
+import { IoTrashBinSharp } from "react-icons/io5";
 import { ListOption, Container } from "./styles";
 
 export default function ListMedias() {
@@ -49,8 +49,8 @@ export default function ListMedias() {
 							{media.name}
 						</label>
 						<p>
-							<IoMdRemoveCircle
-								color='var(--vermelho)'
+							<IoTrashBinSharp
+								color='var(--subtitle)'
 								onClick={() => deleteMedia(media)}
 							/>
 						</p>

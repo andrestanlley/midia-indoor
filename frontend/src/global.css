@@ -21,3 +21,8 @@ html {
 	background: var(--cinza-um);
 	height: 100vh;
 }
+
+button:hover {
+	opacity: 0.6;
+	cursor: pointer;
+}

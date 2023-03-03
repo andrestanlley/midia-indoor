@@ -7,7 +7,7 @@ export const Container = styled.button`
 	text-decoration: none;
 	background: transparent;
 
-	div {
+	form {
 		display: flex;
 		width: 11rem;
 		flex-direction: column;
@@ -15,8 +15,24 @@ export const Container = styled.button`
 		padding: 0 8px;
 		font-weight: 600;
 		font-size: 20px;
-		color: var(--title);
-		line-height: 1rem;
+		line-height: 0.3rem;
+		
+		input {
+			font-size: 20px;
+			font-weight: 600;
+			text-align: center;
+			background: transparent;
+			max-width: 100%;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			border: 0;
+			outline: none;
+			
+			::placeholder{
+				color: var(--title);
+			}
+		}
 		span {
 			font-weight: 300;
 			font-size: 14px;

@@ -1,5 +1,4 @@
 import { IMediaListProps } from "@domain/entities/MediaList";
-import { MediaList } from "@prisma/client";
 
 export default function midiaListDbToHttp(
 	midiaList: any
