@@ -38,6 +38,9 @@ export default function ListMediaList() {
 			mediasToDisconnect,
 		};
 		const result = await api.post("/medialist/insert", data);
+		if (result.status === 200) {
+			getAllMediaLists();
+		}
 	}
 
 	function createOrUpdateMedialist() {
