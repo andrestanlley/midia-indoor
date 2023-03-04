@@ -29,29 +29,6 @@ export class MediaRepository implements IMediaRepository {
 		return mediasDbToHttp(medias);
 	}
 
-	async insertMediaToList(
-		mediaListId: string,
-		mediasToConnect: IMediaProps[],
-		mediasToDisconnect: IMediaProps[]
-	) {
-		const medias = await this.prisma.mediaList.update({
-			where: {
-				id: mediaListId,
-			},
-			data: {
-				medias: {
-					// connect: mediasToConnect || [],
-					disconnect: mediasToDisconnect || []
-				},
-			},
-			include: {
-				medias: true,
-			},
-		});
-
-		return mediaListDbToHttp(medias);
-	}
-
 	async deleteMedia(midiaId: string) {
 		const medias = await this.prisma.media.delete({
 			where: {

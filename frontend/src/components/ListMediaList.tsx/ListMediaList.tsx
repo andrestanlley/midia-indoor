@@ -37,9 +37,7 @@ export default function ListMediaList() {
 			mediasToConnect,
 			mediasToDisconnect,
 		};
-		console.log(data)
 		const result = await api.post("/medialist/insert", data);
-		console.log(result);
 	}
 
 	function createOrUpdateMedialist() {

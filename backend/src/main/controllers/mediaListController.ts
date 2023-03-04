@@ -21,10 +21,11 @@ export class MediaListController implements IController {
 	};
 
 	insertMediaToList = async (req: Request, res: Response) => {
-		const { mediaListId, mediaId } = req.body;
+		const { mediaListId, mediasToConnect, mediasToDisconnect } = req.body;
 		const result = await this.mediaListService.insertMediaToList(
 			mediaListId,
-			mediaId
+			mediasToConnect,
+			mediasToDisconnect
 		);
 		return res.status(200).send(result);
 	};

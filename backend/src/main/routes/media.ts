@@ -4,11 +4,10 @@ import { makeMediaController } from "../factories/makeMediaController";
 
 const mediaRoutes = Router();
 
-const { create, getAll, insert, remove } = makeMediaController();
+const { create, getAll, remove } = makeMediaController();
 
 mediaRoutes.post("/", uploadVideo.single("video"), create);
 mediaRoutes.get("/all", getAll);
-mediaRoutes.post("/", insert);
 mediaRoutes.delete("/", remove);
 
 export { mediaRoutes };

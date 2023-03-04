@@ -10,10 +10,6 @@ export class MediaController implements IController {
 		//TODO: implement
 		return res.status(200);
 	};
-	find = async (req: Request, res: Response) => {
-		//TODO: implement
-		return res.status(200);
-	};
 
 	getAll = async (req: Request, res: Response) => {
 		const medias = await this.mediaService.getAll();
@@ -29,16 +25,6 @@ export class MediaController implements IController {
 		};
 		const result = await this.mediaService.create(media);
 		return res.status(201).send(result);
-	};
-
-	insert = async (req: Request, res: Response) => {
-		const { mediaListId, mediasToConnect, mediasToDisconnect } = req.body;
-		const result = await this.mediaService.insertMediaToList(
-			mediaListId,
-			mediasToConnect,
-			mediasToDisconnect
-		);
-		return res.status(200).send(result);
 	};
 
 	remove = async (req: Request, res: Response) => {

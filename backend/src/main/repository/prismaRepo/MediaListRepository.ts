@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { randomUUID } from "node:crypto";
 import IMediaListRepository from "@domain/repositories/IMediaListRepository";
 import mediaListDbToHttp from "./mappers/mediaListDbToHttp";
+import { IMediaProps } from "@domain/entities/Media";
 
 export class MediaListRepository implements IMediaListRepository {
 	prisma: PrismaClient;
@@ -52,16 +53,19 @@ export class MediaListRepository implements IMediaListRepository {
 		return mediaListDbToHttp(mediaList);
 	}
 
-	async insertMediaToList(mediaListId: string, mediaId: string) {
+	async insertMediaToList(
+		mediaListId: string,
+		mediasToConnect: IMediaProps[],
+		mediasToDisconnect: IMediaProps[]
+	) {
 		const mediaList = await this.prisma.mediaList.update({
 			where: {
 				id: mediaListId,
 			},
 			data: {
 				medias: {
-					connect: {
-						id: mediaId,
-					},
+					connect: mediasToConnect,
+					disconnect: mediasToDisconnect
 				},
 			},
 			include: {

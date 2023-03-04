@@ -6,18 +6,11 @@ import fs from "fs";
 interface IMediaService {
 	getAll: () => Promise<IMediaProps[]>;
 	create: (media: IMediaProps) => Promise<IMediaProps>;
-	insertMediaToList: (
-		mediaListId: string,
-		mediasToConnect: IMediaProps[],
-		mediasToDisconnect: IMediaProps[]
-	) => Promise<IMediaListProps>;
 	remove: (media: IMediaProps) => Promise<IMediaProps | undefined>;
 }
 
 class MediaService implements IMediaService {
 	constructor(private readonly mediaRepository: IMediaRepository) {}
-
-	async upload() {}
 
 	async getAll() {
 		return await this.mediaRepository.getAll();
@@ -27,17 +20,6 @@ class MediaService implements IMediaService {
 		return await this.mediaRepository.createMedia(midia);
 	}
 
-	async insertMediaToList(
-		mediaListId: string,
-		mediasToConnect: IMediaProps[],
-		mediasToDisconnect: IMediaProps[]
-	) {
-		return await this.mediaRepository.insertMediaToList(
-			mediaListId,
-			mediasToConnect,
-			mediasToDisconnect
-		);
-	}
 
 	async remove({ id, filename }: IMediaProps) {
 		try {
