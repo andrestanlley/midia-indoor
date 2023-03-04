@@ -9,25 +9,24 @@ datasource db {
 }
 
 model Terminal {
-  deviceId    String     @id
+  deviceId    String     @id @unique
   name        String
   lastSync    DateTime
   mediaListId String?
   mediaId     String?
   actualMedia Media?     @relation(fields: [mediaId], references: [id])
   MediaList   MediaList? @relation(fields: [mediaListId], references: [id])
-  WebViews    WebView[]  @relation("TerminalToWebView")
 }
 
 model MediaList {
-  id       String     @id
+  id       String     @id @unique
   name     String
   medias   Media[]
   Terminal Terminal[]
 }
 
 model Media {
-  id          String     @id
+  id          String     @id @unique
   name        String
   filename    String
   MediaList   MediaList? @relation(references: [id], fields: [mediaListId])
@@ -35,9 +34,3 @@ model Media {
   mediaListId String?
 }
 
-model WebView {
-  id       String     @id
-  name     String
-  url      String
-  Terminal Terminal[] @relation("TerminalToWebView")
-}

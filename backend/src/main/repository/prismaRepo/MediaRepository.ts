@@ -4,7 +4,6 @@ import { PrismaClient } from "@prisma/client";
 import IMediaRepository from "@domain/repositories/IMediaRepository";
 import mediasDbToHttp from "./mappers/mediasDbToHttp";
 import mediaListDbToHttp from "./mappers/mediaListDbToHttp";
-import IID from "@main/interfaces/IID";
 
 export class MediaRepository implements IMediaRepository {
 	prisma: PrismaClient;
@@ -32,23 +31,18 @@ export class MediaRepository implements IMediaRepository {
 
 	async insertMediaToList(
 		mediaListId: string,
-		mediasToConnect: IID[],
-		mediasToDisconnect: IID[]
+		mediasToConnect: IMediaProps[],
+		mediasToDisconnect: IMediaProps[]
 	) {
-		const queryObject: any = {};
-		if (mediasToConnect.length) {
-			queryObject["connect"] = mediasToConnect;
-		}
-		if (mediasToDisconnect.length) {
-			queryObject["disconnect"] = mediasToDisconnect;
-		}
-		console.log(queryObject);
 		const medias = await this.prisma.mediaList.update({
 			where: {
 				id: mediaListId,
 			},
 			data: {
-				medias: queryObject,
+				medias: {
+					// connect: mediasToConnect || [],
+					disconnect: mediasToDisconnect || []
+				},
 			},
 			include: {
 				medias: true,
