@@ -7,7 +7,7 @@ import isTerminalSync from "../../services/isTerminalSync";
 import { Container } from "./styles";
 
 export default function Terminal(terminal: ITerminalProps) {
-	const { name, deviceId, lastSync } = terminal
+	const { name, deviceId, lastSync } = terminal;
 	const { setTerminais, setSelectedTerminal } = useContext(AppContext);
 	const lastSyncDate = new Date(lastSync);
 	const status = isTerminalSync(lastSyncDate);
@@ -22,40 +22,17 @@ export default function Terminal(terminal: ITerminalProps) {
 			  }`
 			: lastSyncDate.toLocaleDateString("pt-BR");
 
-	async function renameTerminal(
-		e: React.FormEvent<HTMLFormElement>,
-		deviceId: string
-	) {
-		e.preventDefault();
-		const data = {
-			deviceId,
-			name: (e.currentTarget[0] as HTMLInputElement).value,
-		};
-		const result = await api.put("/terminal", data);
-		if (result.status === 200) {
-			alert("Terminal renomeado!");
-			setTerminais!((oldData) =>
-				[...oldData].map((terminal) =>
-					terminal.deviceId === result.data.deviceId
-						? { ...terminal, name: data.name }
-						: terminal
-				)
-			);
-		}
-	}
-
 	return (
-		<Container>
+		<Container onClick={(e) => setSelectedTerminal!(terminal)}>
 			<MdMonitor
 				size={28}
 				color={status ? "var(--verde)" : "var(--vermelho)"}
-				onClick={(e) => setSelectedTerminal!(terminal)}
 			/>
-			<form onSubmit={(e) => renameTerminal(e, deviceId)}>
-				<input type='text' placeholder={name} />
+			<div>
+				{name}
 				<br />
 				<span>{syncToday}</span>
-			</form>
+			</div>
 		</Container>
 	);
 }

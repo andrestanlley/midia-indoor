@@ -8,4 +8,5 @@ export const Container = styled.div`
 
 export const SubContainer = styled.div`
 	display: flex;
+	width: 45.3rem;
 `;

@@ -2,13 +2,15 @@ import IMediaRepository from "@domain/repositories/IMediaRepository";
 import { IMediaProps } from "@domain/entities/Media";
 import { IMediaListProps } from "@domain/entities/MediaList";
 import fs from "fs";
+import IID from "@main/interfaces/IID";
 
 interface IMediaService {
 	getAll: () => Promise<IMediaProps[]>;
-	create: (midia: IMediaProps) => Promise<IMediaProps>;
-	insertMidiaToList: (
-		midiaListId: string,
-		midiaId: string
+	create: (media: IMediaProps) => Promise<IMediaProps>;
+	insertMediaToList: (
+		mediaListId: string,
+		mediasToConnect: IID[],
+		mediasToDisconnect: IID[]
 	) => Promise<IMediaListProps>;
 	remove: (media: IMediaProps) => Promise<IMediaProps | undefined>;
 }
@@ -26,8 +28,16 @@ class MediaService implements IMediaService {
 		return await this.mediaRepository.createMedia(midia);
 	}
 
-	async insertMidiaToList(midiaListId: string, mediaId: string) {
-		return await this.mediaRepository.insertMidiaToList(midiaListId, mediaId);
+	async insertMediaToList(
+		mediaListId: string,
+		mediasToConnect: IID[],
+		mediasToDisconnect: IID[]
+	) {
+		return await this.mediaRepository.insertMediaToList(
+			mediaListId,
+			mediasToConnect,
+			mediasToDisconnect
+		);
 	}
 
 	async remove({ id, filename }: IMediaProps) {

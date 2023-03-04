@@ -5,34 +5,47 @@ export const ListOption = styled.div`
 	justify-content: space-between;
 	line-height: 0;
 	align-items: center;
-	width: 10rem;
 
 	p {
-		:hover{
+		:hover {
 			opacity: 0.6;
 			cursor: pointer;
 		}
 	}
 
+	label {
+		width: 80%;
+		overflow: hidden;
+		cursor: pointer;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
 	input[type="checkbox"] {
 		margin: 0 4px;
+		padding: 0;
+		line-height: 0;
 	}
 `;
 
 export const Container = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 10rem;
+	width: 30%;
+	max-height: 7rem;
+	overflow-y: scroll;
+
+	span {
+		text-align: center;
+		color: var(--title);
+		font-size: 14px;
+	}
+
+	::-webkit-scrollbar {
+		display: none;
+	}
 
 	input {
 		margin-bottom: 8px;
-	}
-
-	div {
-		::-webkit-scrollbar {
-			display: none;
-		}
-		max-height: 6rem;
-		overflow-y: scroll;
 	}
 `;

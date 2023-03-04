@@ -4,7 +4,7 @@ import IController from "@main/interfaces/IController";
 import { Request, Response } from "express";
 
 export class MediaController implements IController {
-	constructor(private readonly midiaService: IMediaService) {}
+	constructor(private readonly mediaService: IMediaService) {}
 
 	update = async (req: Request, res: Response) => {
 		//TODO: implement
@@ -16,33 +16,34 @@ export class MediaController implements IController {
 	};
 
 	getAll = async (req: Request, res: Response) => {
-		const midias = await this.midiaService.getAll();
-		return res.status(200).send(midias);
+		const medias = await this.mediaService.getAll();
+		return res.status(200).send(medias);
 	};
 	create = async (req: Request, res: Response) => {
 		if (!req.file) {
 			return res.status(500);
 		}
-		const midia: IMediaProps = {
+		const media: IMediaProps = {
 			...JSON.parse(req.body.data),
 			filename: req.file.filename,
 		};
-		const result = await this.midiaService.create(midia);
+		const result = await this.mediaService.create(media);
 		return res.status(201).send(result);
 	};
 
 	insert = async (req: Request, res: Response) => {
-		const { midiaListId, midiaId } = req.body;
-		const result = await this.midiaService.insertMidiaToList(
-			midiaListId,
-			midiaId
+		const { mediaListId, mediasToConnect, mediasToDisconnect } = req.body;
+		const result = await this.mediaService.insertMediaToList(
+			mediaListId,
+			mediasToConnect,
+			mediasToDisconnect
 		);
 		return res.status(200).send(result);
 	};
 
 	remove = async (req: Request, res: Response) => {
 		const media: IMediaProps = req.body;
-		const result = await this.midiaService.remove(media);
+		const result = await this.mediaService.remove(media);
 		return res.status(202).send(result);
 	};
 }

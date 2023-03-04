@@ -6,6 +6,7 @@ import IMediaListProps from "./interfaces/MediaList";
 import ITerminalProps from "./interfaces/Terminal";
 import Header from "./components/Header/Index";
 import { Container, SubContainer } from "./styles";
+import IID from "./interfaces/IID";
 
 export default function App() {
 	const [medias, setMedias] = useState<IMediaProps[]>([]);
@@ -13,6 +14,8 @@ export default function App() {
 	const [terminais, setTerminais] = useState<ITerminalProps[]>([]);
 	const [selectedMediaList, setSelectedMediaList] = useState<IMediaListProps>();
 	const [selectedTerminal, setSelectedTerminal] = useState<ITerminalProps>();
+	const [mediasToConnect, setMediasToConnect] = useState<IID[]>([]);
+	const [mediasToDisconnect, setMediasToDisconnect] = useState<IID[]>([]);
 
 	return (
 		<AppContext.Provider
@@ -27,6 +30,10 @@ export default function App() {
 				setSelectedMediaList,
 				selectedTerminal,
 				setSelectedTerminal,
+				mediasToConnect,
+				setMediasToConnect,
+				mediasToDisconnect,
+				setMediasToDisconnect,
 			}}
 		>
 			<Container>

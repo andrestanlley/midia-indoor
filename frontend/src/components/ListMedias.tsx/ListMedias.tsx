@@ -1,12 +1,20 @@
 import { api } from "../../services/api";
 import { AppContext } from "../../Context/AppContext";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import IMediaProps from "../../interfaces/Media";
-import { IoTrashBinSharp } from "react-icons/io5";
-import { ListOption, Container } from "./styles";
+import { Container } from "./styles";
+import ListMediasOptions from "./ListMediasOptions";
 
 export default function ListMedias() {
-	const { medias, setMedias, selectedMediaList } = useContext(AppContext);
+	const {
+		medias,
+		setMedias,
+		selectedMediaList,
+		mediasToConnect,
+		setMediasToConnect,
+		mediasToDisconnect,
+		setMediasToDisconnect
+	} = useContext(AppContext);
 
 	async function getAllMedias() {
 		const result = await api.get("/media/all");
@@ -22,40 +30,43 @@ export default function ListMedias() {
 		}
 	}
 
+	function handlerConnections(e: React.ChangeEvent<HTMLInputElement>) {
+		if (e.target.checked) {
+			setMediasToConnect!((oldData) => [...oldData, { id: e.target.id }]);
+			setMediasToDisconnect!((oldData) =>
+				[...oldData].filter((res) => res.id !== e.target.id)
+			);
+		} else {
+			setMediasToDisconnect!((oldData) => [...oldData, { id: e.target.id }]);
+			setMediasToConnect!((oldData) =>
+				[...oldData].filter((res) => res.id !== e.target.id)
+			);
+		}
+	}
+
 	useEffect(() => {
 		getAllMedias();
 		const updateMediasInterval = setInterval(getAllMedias, 60000);
 
-		return () => clearInterval(updateMediasInterval);
-	}, [selectedMediaList]);
+		return () => {
+			clearInterval(updateMediasInterval);
+		};
+	}, [selectedMediaList, mediasToConnect, mediasToDisconnect]);
 
 	return (
 		<Container>
-			{medias.length &&
+			{medias.length && selectedMediaList ? (
 				medias.map((media) => (
-					<ListOption key={media.id}>
-						<label>
-							<input
-								type='checkbox'
-								id={media.id}
-								defaultChecked={
-									selectedMediaList?.medias?.find(
-										(selectedMedia) => selectedMedia.id === media.id
-									)
-										? true
-										: false
-								}
-							/>
-							{media.name}
-						</label>
-						<p>
-							<IoTrashBinSharp
-								color='var(--subtitle)'
-								onClick={() => deleteMedia(media)}
-							/>
-						</p>
-					</ListOption>
-				))}
+					<ListMediasOptions
+						key={media.id}
+						media={media}
+						connectionsCB={handlerConnections}
+						deleteCB={deleteMedia}
+					/>
+				))
+			) : (
+				<span>Selecione uma lista</span>
+			)}
 		</Container>
 	);
 }
