@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
 	background: var(--cinza-dois);
-	border-radius: 4px;
+	border-radius: 0.25rem;
 	max-width: max-content;
     position: relative;
 	padding: 16px;

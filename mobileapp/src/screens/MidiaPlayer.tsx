@@ -56,13 +56,14 @@ export default function MidiaPlayer() {
     });
   }
 
-  function getNextVideo() {
+  async function getNextVideo() {
     const { videoOrder } = actualMidia;
+    const toDeleteMidia = await checkFilesToDelete();
+    if (!localMedia.length || localMedia.length === 1 || toDeleteMidia) {
+      return RNRestart.restart();
+    }
     if (localMedia && videoOrder < localMedia?.length - 1) {
       return setNextVideo(videoOrder);
-    }
-    if (!localMedia.length || localMedia.length === 1) {
-      return RNRestart.restart();
     }
     return setPlaylistToStart();
   }

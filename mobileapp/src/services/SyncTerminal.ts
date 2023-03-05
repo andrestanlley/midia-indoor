@@ -8,7 +8,10 @@ import MidiaList from './MidiaList';
 class SyncTerminal {
   api: Axios = axios.create({
     baseURL,
-    timeout: 2000,
+    timeout: 3000,
+    headers: {
+      certDevice: 'ElevaMidia84',
+    },
   });
 
   execute = async (localVideos: IMidia[] = [], actualMidia: IMidia) => {
@@ -21,7 +24,7 @@ class SyncTerminal {
       });
       if (request.status === 200) {
         const terminalServerId = request.data.terminal.deviceId;
-        if (!deviceId || deviceId != terminalServerId) {
+        if (!deviceId || deviceId !== terminalServerId) {
           await AsyncStorage.setItem('deviceId', terminalServerId);
         }
         const { download, remove } = request.data;
