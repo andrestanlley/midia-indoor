@@ -57,6 +57,7 @@ export const ModalContent = styled.div`
 	}
 
 	#applyButton {
+		margin-top: 12px;
 		background: var(--cinza-um);
 		padding: 4px 6px;
 		border-radius: 4px;
