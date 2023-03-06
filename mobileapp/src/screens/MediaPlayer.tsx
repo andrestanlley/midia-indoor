@@ -3,79 +3,79 @@ import { StatusBar, View } from 'react-native';
 import defaultVideo from '../assets/defaultvideo.mp4';
 import Video from 'react-native-video';
 import RNRestart from 'react-native-restart';
-import IMidia from '../interfaces/IMidia';
-import MidiaDelete from '../services/MidiaDelete';
-import MidiaList from '../services/MidiaList';
+import IMedia from '../interfaces/IMedia';
+import MediaDelete from '../services/MediaDelete';
+import MediaList from '../services/MediaList';
 import globalStyle from '../styles/globalStyle';
 import SyncTerminal from '../services/SyncTerminal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export interface VideoProps extends IMidia {
+export interface VideoProps extends IMedia {
   videoOrder: number;
 }
 
-export default function MidiaPlayer() {
-  const [actualMidia, setActualMidia] = useState<VideoProps>({
+export default function MediaPlayer() {
+  const [actualMedia, setActualMedia] = useState<VideoProps>({
     videoOrder: -1,
   });
-  const [localMedia, setLocalMedia] = useState<IMidia[]>([]);
+  const [localMedia, setLocalMedia] = useState<IMedia[]>([]);
 
   async function checkFilesToDelete() {
-    if (actualMidia.videoOrder === -1) {
-      const toDeleteMidia = await AsyncStorage.getItem('toDeleteMedia');
-      await MidiaDelete.execute(toDeleteMidia!);
-      return toDeleteMidia;
+    const toDeleteMedia = await AsyncStorage.getItem('toDeleteMedia');
+    if (actualMedia.videoOrder === -1) {
+      await MediaDelete.execute(toDeleteMedia!);
     }
+    return toDeleteMedia;
   }
 
   const syncWithServer = useCallback(async () => {
-    const toDeleteMidia = await checkFilesToDelete();
-    const midias = await MidiaList.execute();
-    await SyncTerminal.execute(midias, actualMidia);
-    if (midias) {
-      return setLocalMedia(midias.filter(midia => midia.uri != toDeleteMidia));
+    const toDeleteMedia = await checkFilesToDelete();
+    const medias = await MediaList.execute();
+    await SyncTerminal.execute(medias, actualMedia);
+    if (medias) {
+      return setLocalMedia(medias.filter(media => media.uri != toDeleteMedia));
     }
-  }, [actualMidia, localMedia]);
+  }, [actualMedia, localMedia]);
 
   useEffect(() => {
     syncWithServer();
-  }, [actualMidia]);
+  }, [actualMedia]);
 
   function setNextVideo(videoOrder: number) {
     const nextVideoOrder = videoOrder + 1;
-    return setActualMidia({
+    return setActualMedia({
       videoOrder: nextVideoOrder,
       ...localMedia[nextVideoOrder],
     });
   }
 
   function setPlaylistToStart() {
-    setActualMidia({
+    setActualMedia({
       videoOrder: 0,
       ...localMedia[0],
     });
   }
 
   async function getNextVideo() {
-    const { videoOrder } = actualMidia;
-    const toDeleteMidia = await checkFilesToDelete();
-    if (!localMedia.length || localMedia.length === 1 || toDeleteMidia) {
-      return RNRestart.restart();
-    }
+    await syncWithServer();
+    const { videoOrder } = actualMedia;
+    const toDeleteMedia = await checkFilesToDelete();
     if (localMedia && videoOrder < localMedia?.length - 1) {
       return setNextVideo(videoOrder);
+    }
+    if (!localMedia.length || localMedia.length === 1 || toDeleteMedia) {
+      return RNRestart.restart();
     }
     return setPlaylistToStart();
   }
 
-  async function deleteOnError(video: IMidia) {
+  async function deleteOnError(video: IMedia) {
     if (!video.uri) return;
     try {
       await AsyncStorage.setItem('toDeleteMedia', video.uri);
+      return RNRestart.restart();
     } catch (error) {
       console.log(error);
-    } finally {
-      return RNRestart.restart();
     }
   }
 
@@ -83,13 +83,14 @@ export default function MidiaPlayer() {
     <View style={globalStyle.container}>
       <StatusBar hidden={true} />
       <Video
-        source={actualMidia?.uri ? { uri: actualMidia.uri } : defaultVideo}
+        source={actualMedia?.uri ? { uri: actualMedia.uri } : defaultVideo}
         style={globalStyle.container}
         resizeMode={'stretch'}
         fullscreen
         muted
         onEnd={() => getNextVideo()}
-        onVideoError={() => deleteOnError(actualMidia)}
+        onVideoError={() => deleteOnError(actualMedia)}
+        onError={() => deleteOnError(actualMedia)}
       />
     </View>
   );

@@ -1,7 +1,7 @@
 import RNFS from 'react-native-fs';
 import { outDir } from '../../config';
 
-class MidiaDownloader {
+class MediaDownloader {
   execute = async (url: string, filename: string) => {
     console.log('baixando: ', filename);
     RNFS.downloadFile({
@@ -11,4 +11,4 @@ class MidiaDownloader {
   };
 }
 
-export default new MidiaDownloader();
+export default new MediaDownloader();

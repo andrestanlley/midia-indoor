@@ -1,9 +1,9 @@
 import axios, { Axios } from 'axios';
 import { baseUrl as baseURL } from '../../config';
-import MidiaDownloader from './MidiaDownloader';
+import MediaDownloader from './MediaDownloader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import IMidia from '../interfaces/IMidia';
-import MidiaList from './MidiaList';
+import IMedia from '../interfaces/IMedia';
+import MediaList from './MediaList';
 
 class SyncTerminal {
   api: Axios = axios.create({
@@ -14,13 +14,13 @@ class SyncTerminal {
     },
   });
 
-  execute = async (localVideos: IMidia[] = [], actualMidia: IMidia) => {
+  execute = async (localVideos: IMedia[] = [], actualMedia: IMedia) => {
     let deviceId = await AsyncStorage.getItem('deviceId');
     try {
-      const request = await this.api.post('/terminal/sync', {
+      const request = await this.api.post('/sync', {
         deviceId,
         localVideos,
-        actualMidia: actualMidia.filename,
+        actualMedia: actualMedia.filename,
       });
       if (request.status === 200) {
         const terminalServerId = request.data.terminal.deviceId;
@@ -29,13 +29,13 @@ class SyncTerminal {
         }
         const { download, remove } = request.data;
         if (download?.length) {
-          for await (let midia of download) {
-            await MidiaDownloader.execute(midia.uri, midia.filename);
+          for await (let media of download) {
+            await MediaDownloader.execute(media.uri, media.filename);
           }
         }
         if (remove?.length) {
           const media = remove[0];
-          const localMedias = await MidiaList.execute();
+          const localMedias = await MediaList.execute();
           const toDeleteMedia = localMedias?.find(
             file => file.filename === media.filename,
           );

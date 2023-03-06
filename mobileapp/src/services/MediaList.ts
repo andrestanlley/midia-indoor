@@ -1,9 +1,9 @@
-import IMidia from '../interfaces/IMidia';
+import IMedia from '../interfaces/IMedia';
 import RNFS from 'react-native-fs';
 import { outDir } from '../../config';
 
-class MidiaList {
-  async execute(): Promise<IMidia[] | undefined> {
+class MediaList {
+  async execute(): Promise<IMedia[] | undefined> {
     try {
       const videos = await RNFS.readDir(outDir);
 
@@ -18,4 +18,4 @@ class MidiaList {
   }
 }
 
-export default new MidiaList();
+export default new MediaList();

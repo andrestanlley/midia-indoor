@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import { useEffect, useState } from 'react';
-import MidiaPlayer from './src/screens/MidiaPlayer';
+import MediaPlayer from './src/screens/MediaPlayer';
 
 export default function App() {
   const [permissions, setPermissions] = useState<boolean>(false);
@@ -43,7 +43,7 @@ export default function App() {
   return (
     <>
       {permissions ? (
-        <MidiaPlayer />
+        <MediaPlayer />
       ) : (
         <View style={styles.container}>
           <Text style={styles.item}>Dar permissões</Text>
