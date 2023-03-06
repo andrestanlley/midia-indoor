@@ -5,6 +5,7 @@ export const Form = styled.form`
 	flex-direction: column;
 	gap: 12px;
 	width: 12.7rem;
+
 	input[type="file"] {
 		display: none;
 	}
@@ -15,6 +16,13 @@ export const Form = styled.form`
 		outline: none;
 		border: 0;
 		height: 2rem;
+	}
+
+	input[type="date"]{
+		background: var(--cinza-um);
+		height: 2rem;
+		text-align: center;
+		font-size: 1rem;
 	}
 
 	button {
@@ -39,5 +47,6 @@ export const Form = styled.form`
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+		min-width: 100%;
 	}
 `;

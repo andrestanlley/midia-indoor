@@ -48,6 +48,7 @@ function CreateMidia() {
 						onChange={(e) => setVideo(e.target.files![0])}
 					/>
 				</label>
+				<input type='date' />
 
 				<button type='submit'>Salvar</button>
 			</Form>
