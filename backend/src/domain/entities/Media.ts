@@ -4,6 +4,7 @@ import { IMediaListProps } from "./MediaList";
 interface IMediaProps {
 	id: string;
 	name: string;
+	expiresIn: Date
 	filename: string;
 	uri?: string;
 	mediaListId: string

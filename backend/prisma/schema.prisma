@@ -29,8 +29,8 @@ model Media {
   id          String     @id @unique
   name        String
   filename    String
-  expiresIn   DateTime
-  MediaList   MediaList? @relation(references: [id], fields: [mediaListId])
-  Terminal    Terminal[]
   mediaListId String?
+  expiresIn   DateTime
+  MediaList   MediaList? @relation(fields: [mediaListId], references: [id])
+  Terminal    Terminal[]
 }

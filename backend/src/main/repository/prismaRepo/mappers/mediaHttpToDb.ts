@@ -5,6 +5,7 @@ export default function midiaHttpToDb(media?: IMediaProps) {
 	if (!media) return undefined;
 	return {
 		id: media.id,
+		expiresIn: media.expiresIn,
 		filename: media?.filename,
 		uri: media?.uri,
 		name: media.name,
