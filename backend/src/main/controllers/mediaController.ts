@@ -15,15 +15,16 @@ export class MediaController implements IController {
 		const medias = await this.mediaService.getAll();
 		return res.status(200).send(medias);
 	};
+	
 	create = async (req: Request, res: Response) => {
 		if (!req.file) {
 			return res.status(500);
 		}
 		const media: IMediaProps = {
 			...JSON.parse(req.body.data),
-			expiresIn: new Date(req.body.data.expiresIn),
 			filename: req.file.filename,
 		};
+
 		const result = await this.mediaService.create(media);
 		return res.status(201).send(result);
 	};

@@ -16,10 +16,10 @@ class MediaService implements IMediaService {
 		return await this.mediaRepository.getAll();
 	}
 
-	async create(midia: IMediaProps) {
-		return await this.mediaRepository.createMedia(midia);
+	async create(media: IMediaProps) {
+		const mediaFormatted = { ...media, expiresIn: new Date(media.expiresIn) };
+		return await this.mediaRepository.createMedia(mediaFormatted);
 	}
-
 
 	async remove({ id, filename }: IMediaProps) {
 		try {

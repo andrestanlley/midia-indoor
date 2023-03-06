@@ -6,11 +6,14 @@ import { Form } from "./styles";
 function CreateMidia() {
 	const { setMedias } = useContext(AppContext);
 	const [video, setVideo] = useState<File>();
-	const [midia, setMidia] = useState({ name: "" });
+	const [media, setMedia] = useState({ name: "" });
+	const [expiresIn, setExpiresIn] = useState<string>();
+
+	console.log(expiresIn)
 
 	const uploadVideo = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (!midia.name) {
+		if (!media.name) {
 			return alert("Não é possível criar uma mídia sem nome!");
 		}
 		if (!video?.name) {
@@ -18,7 +21,9 @@ function CreateMidia() {
 		}
 		const formData = new FormData();
 		formData.append("video", video!);
-		formData.append("data", JSON.stringify({ ...midia, type: "VIDEO" }));
+		formData.append("data", JSON.stringify({ ...media, expiresIn }));
+
+		console.log(formData)
 
 		const headers = {
 			headers: {
@@ -37,7 +42,7 @@ function CreateMidia() {
 			<Form onSubmit={uploadVideo}>
 				<input
 					type='text'
-					onChange={(e) => setMidia({ name: e.target.value })}
+					onChange={(e) => setMedia({ name: e.target.value })}
 					placeholder='Nome da mídia'
 				/>
 				<label>
@@ -48,7 +53,7 @@ function CreateMidia() {
 						onChange={(e) => setVideo(e.target.files![0])}
 					/>
 				</label>
-				<input type='date' />
+				<input type='date' onChange={(e) => setExpiresIn(e.target.value)} />
 
 				<button type='submit'>Salvar</button>
 			</Form>
