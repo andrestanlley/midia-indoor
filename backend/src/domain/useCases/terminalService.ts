@@ -28,7 +28,7 @@ export class TerminalService implements ITerminalService {
 		if (!localVideos) return;
 		const terminal = await this.terminalRepository.syncTerminal(
 			deviceId,
-			actualMedia,
+			actualMedia
 		);
 
 		const medias = terminal?.Medias?.map(mediasDbToHttp);
@@ -46,7 +46,9 @@ export class TerminalService implements ITerminalService {
 				(mediaLocal: IMediaProps) =>
 					!medias?.find(
 						(media: IMediaProps) => mediaLocal.filename === media.filename
-					)
+					) ||
+					mediaLocal.expiresIn.getTime() >= new Date().getTime() ||
+					mediaLocal.size != mediaLocal.size
 			) ?? [];
 
 		return {
