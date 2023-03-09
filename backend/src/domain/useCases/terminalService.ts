@@ -42,16 +42,13 @@ export class TerminalService implements ITerminalService {
 			) ?? [];
 
 		const remove: IMediaProps[] =
-			localVideos?.filter(
-				(mediaLocal: IMediaProps) =>
-					!medias?.find(
-						(media: IMediaProps) => mediaLocal.filename === media.filename
-					) ||
-					medias?.find(
-						(media) =>
-							mediaLocal.size != media.size ||
-							media.expiresIn.getTime() <= new Date().getTime()
-					)
+			localVideos?.filter((mediaLocal: IMediaProps) =>
+				medias?.find(
+					(media) =>
+						mediaLocal.size != media.size ||
+						media.expiresIn.getTime() <= new Date().getTime() ||
+						!medias.map((m) => m.filename).includes(mediaLocal.filename)
+				)
 			) ?? [];
 
 		return {
