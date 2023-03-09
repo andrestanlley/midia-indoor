@@ -3,7 +3,9 @@ import { makeTerminalController } from "../factories/makeTerminalController";
 
 const terminalRoutes = Router();
 
-const { getAll, update, remove, addMidiaList } = makeTerminalController();
+const { getAll, sync, update, remove, addMidiaList } = makeTerminalController();
+
+export const syncTerminal = sync
 
 terminalRoutes.get("/all", getAll);
 terminalRoutes.put("/", update);
