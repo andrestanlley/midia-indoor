@@ -56,7 +56,7 @@ export class TerminalRepository implements ITerminalRepository {
 			},
 			update: {
 				lastSync: new Date(),
-				actualMedia: JSON.stringify(actualMedia),
+				actualMedia,
 			},
 			create: {
 				deviceId: randomUUID(),

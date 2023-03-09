@@ -35,7 +35,7 @@ export default function MediaPlayer() {
 
   const syncWithServer = useCallback(async () => {
     const medias = await MediaList.execute();
-    await SyncTerminal.execute(medias, actualMedia);
+    await SyncTerminal.execute(medias, actualMedia.filename);
     if (medias) {
       return setLocalMedia(medias);
     }

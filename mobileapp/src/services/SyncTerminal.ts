@@ -13,7 +13,7 @@ class SyncTerminal {
     },
   });
 
-  execute = async (localVideos: IMedia[] = [], actualMedia: IMedia) => {
+  execute = async (localVideos: IMedia[] = [], actualMedia?: string) => {
     let deviceId = await AsyncStorage.getItem('deviceId');
     try {
       const request = await this.api.post('/sync', {
