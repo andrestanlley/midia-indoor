@@ -33,6 +33,10 @@ class Media {
 		return this.props.uri;
 	}
 
+	get size() {
+		return this.props.size;
+	}
+
 	get mediaListId() {
 		return this.props.mediaListId;
 	}

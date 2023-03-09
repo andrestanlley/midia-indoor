@@ -9,6 +9,7 @@ export default function mediasDbToHttp(media: MediaDB): IMediaProps {
 		filename: media.filename,
 		uri: Links.VIDEO_SERVER + media.filename,
 		expiresIn: media.expiresIn,
+		size: media.size,
 		mediaListId: media.mediaListId ?? "",
 	});
 
@@ -18,6 +19,7 @@ export default function mediasDbToHttp(media: MediaDB): IMediaProps {
 		filename: mappedMedia.filename,
 		uri: Links.VIDEO_SERVER + mappedMedia.filename,
 		expiresIn: mappedMedia.expiresIn,
+		size: mappedMedia.size,
 		mediaListId: mappedMedia.mediaListId,
 	};
 }
