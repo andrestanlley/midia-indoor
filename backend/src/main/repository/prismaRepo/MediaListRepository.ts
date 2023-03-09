@@ -5,10 +5,8 @@ import mediaListDbToHttp from "./mappers/mediaListDbToHttp";
 import { IMediaProps } from "@domain/entities/Media";
 
 export class MediaListRepository implements IMediaListRepository {
-	prisma: PrismaClient;
-
-	constructor(prismaClient: PrismaClient) {
-		this.prisma = prismaClient;
+	constructor(private readonly prisma: PrismaClient) {
+		this.prisma = prisma;
 	}
 
 	async getAll() {
@@ -65,7 +63,7 @@ export class MediaListRepository implements IMediaListRepository {
 			data: {
 				medias: {
 					connect: mediasToConnect,
-					disconnect: mediasToDisconnect
+					disconnect: mediasToDisconnect,
 				},
 			},
 			include: {

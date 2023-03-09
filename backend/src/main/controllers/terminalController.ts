@@ -37,7 +37,7 @@ export class TerminalController implements ITerminalController {
 
 	addMidiaList = async (req: Request, res: Response) => {
 		const { terminalId, mediaListId } = req.body;
-		const result = await this.terminalService.addMidiaList(
+		const result = await this.terminalService.addMediaList(
 			terminalId,
 			mediaListId
 		);

@@ -1,28 +1,39 @@
-import MidiaType from "@main/enums/midiaTypes";
-import { IMediaListProps } from "./MediaList";
-
 interface IMediaProps {
 	id: string;
 	name: string;
-	expiresIn: Date
+	expiresIn: Date;
 	filename: string;
 	uri?: string;
-	mediaListId: string
+	mediaListId: string;
 }
 
-// id          String     @id
-// name        String
-// filename    String
-// type        String
-// mediaListId String?
-// MediaList   MediaList? @relation(fields: [mediaListId], references: [id])
-// Terminal    Terminal[]
-
 class Media {
-	props: IMediaProps;
-
-	constructor(props: IMediaProps) {
+	constructor(private readonly props: IMediaProps) {
 		this.props = props;
+	}
+
+	get id() {
+		return this.props.id;
+	}
+
+	get name() {
+		return this.props.name;
+	}
+
+	get expiresIn() {
+		return this.props.expiresIn;
+	}
+
+	get filename() {
+		return this.props.filename;
+	}
+
+	get uri() {
+		return this.props.uri;
+	}
+
+	get mediaListId() {
+		return this.props.mediaListId;
 	}
 }
 

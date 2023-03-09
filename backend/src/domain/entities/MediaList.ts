@@ -6,12 +6,22 @@ interface IMediaListProps {
 	medias?: IMediaProps[];
 }
 
-class MidiaList {
-	props: IMediaListProps;
-
-	constructor(props: IMediaListProps) {
+class MediaList {
+	constructor(private readonly props: IMediaListProps) {
 		this.props = props;
+	}
+
+	get id() {
+		return this.props.id;
+	}
+
+	get name() {
+		return this.props.name;
+	}
+
+	get medias() {
+		return this.props.medias;
 	}
 }
 
-export { MidiaList, IMediaListProps };
+export { MediaList, IMediaListProps };

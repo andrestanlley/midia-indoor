@@ -1,12 +1,11 @@
 import IMediaRepository from "@domain/repositories/IMediaRepository";
-import { IMediaProps } from "@domain/entities/Media";
-import { IMediaListProps } from "@domain/entities/MediaList";
+import { Media, IMediaProps } from "@domain/entities/Media";
 import fs from "fs";
 
 interface IMediaService {
-	getAll: () => Promise<IMediaProps[]>;
-	create: (media: IMediaProps) => Promise<IMediaProps>;
-	remove: (media: IMediaProps) => Promise<IMediaProps | undefined>;
+	getAll: () => Promise<Media[]>;
+	create: (media: IMediaProps) => Promise<Media>;
+	remove: (media: IMediaProps) => Promise<Media | undefined>;
 }
 
 class MediaService implements IMediaService {

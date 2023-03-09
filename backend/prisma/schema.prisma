@@ -8,14 +8,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id       String  @id @unique
+  name     String  @unique
+  password String
+  active   Boolean
+}
+
 model Terminal {
   deviceId    String     @id @unique
   name        String
   lastSync    DateTime
   mediaListId String?
   mediaId     String?
-  actualMedia Media?     @relation(fields: [mediaId], references: [id])
+  actualMedia String?
   MediaList   MediaList? @relation(fields: [mediaListId], references: [id])
+  Media       Media?     @relation(fields: [mediaId], references: [id])
 }
 
 model MediaList {

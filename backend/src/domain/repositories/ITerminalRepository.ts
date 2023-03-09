@@ -1,15 +1,14 @@
 import { ITerminalProps } from "@domain/entities/Terminal";
-import { Terminal } from "@prisma/client";
+import { Terminal as TerminalDB } from "@prisma/client";
+import { Terminal } from "@domain/entities/Terminal";
 
 export default interface ITerminalRepository {
 	getAll: () => Promise<ITerminalProps[]>;
-	addMidiaListToTerminal: (
+	addMediaListToTerminal: (
 		terminalId: string,
-		midiaListId: string
+		mediaListId: string
 	) => Promise<ITerminalProps>;
-	createNewTerminal: (deviceId: string) => Promise<Terminal>;
 	deleteTerminal: (terminalId: string) => Promise<boolean>;
-	findTerminal: (deviceId: string) => Promise<ITerminalProps>;
-	updateSync: (terminal: ITerminalProps) => Promise<ITerminalProps>;
+	syncTerminal: (deviceId: string, actualMedia?: string) => Promise<ITerminalProps>;
 	updateTerminal: (Terminal: ITerminalProps) => Promise<ITerminalProps>;
 }

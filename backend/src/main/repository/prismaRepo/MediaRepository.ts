@@ -6,10 +6,8 @@ import mediasDbToHttp from "./mappers/mediasDbToHttp";
 import mediaListDbToHttp from "./mappers/mediaListDbToHttp";
 
 export class MediaRepository implements IMediaRepository {
-	prisma: PrismaClient;
-
-	constructor(prismaClient: PrismaClient) {
-		this.prisma = prismaClient;
+	constructor(private readonly prisma: PrismaClient) {
+		this.prisma = prisma;
 	}
 
 	async getAll() {
