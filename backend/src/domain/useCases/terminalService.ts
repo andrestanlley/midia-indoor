@@ -45,10 +45,11 @@ export class TerminalService implements ITerminalService {
 			localVideos?.filter(
 				(mediaLocal: IMediaProps) =>
 					!medias?.find(
-						(media: IMediaProps) => mediaLocal.filename === media.filename
-					) ||
-					mediaLocal.expiresIn.getTime() >= new Date().getTime() ||
-					mediaLocal.size != mediaLocal.size
+						(media: IMediaProps) =>
+							mediaLocal.filename === media.filename ||
+							mediaLocal.size != media.size ||
+							media.expiresIn.getTime() <= new Date().getTime()
+					)
 			) ?? [];
 
 		return {
