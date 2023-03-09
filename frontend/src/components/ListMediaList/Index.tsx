@@ -3,6 +3,7 @@ import { api } from "../../services/api";
 import { useEffect } from "react";
 import { AppContext } from "../../Context/AppContext";
 import { Container } from "./styles";
+import { error, sucess } from "../Alert/Index";
 
 export default function ListMediaList() {
 	const {
@@ -21,13 +22,18 @@ export default function ListMediaList() {
 	}
 
 	async function createMediaList() {
-		const data = {
-			mediaListName,
-		};
-		const result = await api.post("/medialist", data);
-		if (result.status === 201) {
-			setMediaListName("");
-			getAllMediaLists();
+		try {
+			const data = {
+				mediaListName,
+			};
+			const result = await api.post("/medialist", data);
+			if (result.status === 201) {
+				setMediaListName("");
+				getAllMediaLists();
+				return sucess("Lista de reprodução criada!");
+			}
+		} catch (err) {
+			return error("Erro ao criar lista de reprodução.");
 		}
 	}
 

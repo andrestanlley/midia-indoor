@@ -2,6 +2,7 @@ import { useState } from "react";
 import { api } from "../../services/api";
 import { Container, LoginBox } from "./styles";
 import { useNavigate } from "react-router-dom";
+import { error, sucess } from "../Alert/Index";
 
 export default function Login() {
 	const [name, setName] = useState("");
@@ -10,13 +11,20 @@ export default function Login() {
 	const navigate = useNavigate();
 
 	async function handlerLogin() {
-		const result = await api.post("/login", {
-			name,
-			password,
-		});
-		if (result.status === 200) {
-			localStorage.setItem("token", result.data.token);
-			navigate("/painel");
+		try {
+			const result = await api.post("/login", {
+				name,
+				password,
+			});
+			if (result.status === 200) {
+				api.defaults.headers.common.Authorization =
+					"Bearer " + result.data.token;
+				localStorage.setItem("token", result.data.token);
+				navigate("/painel");
+				return sucess(`Bem vindo ${name}!`);
+			}
+		} catch (err) {
+			return error("Credenciais incorretas.");
 		}
 	}
 

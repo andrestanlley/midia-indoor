@@ -24,7 +24,7 @@ function ListTerminais() {
 				);
 			}
 		} catch (error) {
-			navigate("/login");
+			return navigate("/login");
 		}
 	}
 

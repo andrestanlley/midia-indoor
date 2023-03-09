@@ -10,7 +10,7 @@ export default function Header() {
 			<Box title='Criar mídia'>
 				<CreateMidia />
 			</Box>
-			<Box title='Inserir mídia'>
+			<Box title='Conectar mídia'>
 				<SubContainer>
 					<ListMediaList />
 					<ListMedias />

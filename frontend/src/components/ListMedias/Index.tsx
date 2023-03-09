@@ -4,6 +4,7 @@ import { useEffect, useContext, useState } from "react";
 import IMediaProps from "../../interfaces/Media";
 import { Container } from "./styles";
 import ListMediasOptions from "./ListMediasOptions";
+import { error, sucess } from "../Alert/Index";
 
 export default function ListMedias() {
 	const {
@@ -24,10 +25,10 @@ export default function ListMedias() {
 	async function deleteMedia(media: IMediaProps) {
 		const result = await api.delete("/media", { data: media });
 		if (result.status === 202) {
-			setMedias!((oldState) =>
-				[...oldState].filter((oldMedia) => oldMedia.id != media.id)
-			);
+			getAllMedias()
+			return sucess('Mídia deletada.')
 		}
+		return error('Erro ao deletar mídia.')
 	}
 
 	function handlerConnections(e: React.ChangeEvent<HTMLInputElement>) {

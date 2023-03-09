@@ -34,6 +34,12 @@ export const Form = styled.form`
         cursor: pointer;
 	}
 
+	span {
+		text-align: center;
+		color: var(--verde);
+		font-size: 600;
+	}
+
 	label {
 		padding: 6px 12px;
 		border-radius: 4px;

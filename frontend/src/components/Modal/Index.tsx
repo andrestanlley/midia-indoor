@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { AppContext } from "../../Context/AppContext";
 import { api } from "../../services/api";
+import { sucess } from "../Alert/Index";
 
 export default function Modal() {
 	const { selectedTerminal, mediasList, setTerminais } = useContext(AppContext);
@@ -18,7 +19,7 @@ export default function Modal() {
 			};
 			const result = await api.post("/terminal/add-midialist", data);
 			if (result.status === 200) {
-				setModalStatus(false);
+				sucess("Lista sincronizada com terminal");
 				setTerminais!((oldData) =>
 					[...oldData].map((terminal) =>
 						terminal.deviceId === selectedTerminal.deviceId
@@ -41,6 +42,7 @@ export default function Modal() {
 		};
 		const result = await api.put("/terminal", data);
 		if (result.status === 200) {
+			sucess("Terminal renomeado");
 			setTerminais!((oldData) =>
 				[...oldData].map((terminal) =>
 					terminal.deviceId === result.data.deviceId
