@@ -27,7 +27,7 @@ export default function ListMediaList() {
 		const result = await api.post("/medialist", data);
 		if (result.status === 201) {
 			setMediaListName("");
-			setMediaLists!((oldData) => [...oldData, result.data]);
+			getAllMediaLists();
 		}
 	}
 

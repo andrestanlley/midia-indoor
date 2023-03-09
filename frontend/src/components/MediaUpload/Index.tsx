@@ -23,8 +23,6 @@ function CreateMidia() {
 		formData.append("video", video!);
 		formData.append("data", JSON.stringify({ ...media, expiresIn }));
 
-		console.log(formData)
-
 		const headers = {
 			headers: {
 				"Content-Type": "multipart/form-data",

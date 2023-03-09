@@ -1,10 +1,10 @@
 import { Terminal as TerminalDB } from "@prisma/client";
 import { Terminal } from "@domain/entities/Terminal";
-import { Media } from "@domain/entities/Media";
+import { IMediaProps, Media } from "@domain/entities/Media";
 
 export default function terminalDbToHttp(
 	terminal: TerminalDB,
-	Medias: Media[] | undefined = undefined
+	Medias: IMediaProps[] | undefined = undefined
 ) {
 	const mappedTerminal = new Terminal({
 		name: terminal.name,

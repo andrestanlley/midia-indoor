@@ -44,6 +44,10 @@ export const ModalContent = styled.div`
 	display: flex;
 	padding: 16px;
 
+	@media (max-width: 1040px) {
+		width: 90%;
+	}
+
 	section {
 		white-space: nowrap;
 		text-overflow: ellipsis;

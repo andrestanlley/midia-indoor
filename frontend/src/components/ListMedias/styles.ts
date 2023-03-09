@@ -35,6 +35,10 @@ export const Container = styled.div`
 	max-height: 7rem;
 	overflow-y: scroll;
 
+	@media (max-width: 1040px) {
+		width: 100%;
+	}
+
 	span {
 		text-align: center;
 		color: var(--title);

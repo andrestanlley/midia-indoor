@@ -3,9 +3,9 @@ import { Media, IMediaProps } from "@domain/entities/Media";
 import fs from "fs";
 
 interface IMediaService {
-	getAll: () => Promise<Media[]>;
-	create: (media: IMediaProps) => Promise<Media>;
-	remove: (media: IMediaProps) => Promise<Media | undefined>;
+	getAll: () => Promise<IMediaProps[]>;
+	create: (media: IMediaProps) => Promise<IMediaProps>;
+	remove: (media: IMediaProps) => Promise<IMediaProps | undefined>;
 }
 
 class MediaService implements IMediaService {

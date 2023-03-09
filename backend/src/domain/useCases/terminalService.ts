@@ -1,6 +1,6 @@
 import ITerminalRepository from "@domain/repositories/ITerminalRepository";
-import { ITerminalProps, Terminal } from "@domain/entities/Terminal";
-import { IMediaProps, Media } from "@domain/entities/Media";
+import { ITerminalProps } from "@domain/entities/Terminal";
+import { IMediaProps } from "@domain/entities/Media";
 import mediasDbToHttp from "@main/repository/prismaRepo/mappers/mediasDbToHttp";
 
 export interface ITerminalService {
@@ -8,7 +8,7 @@ export interface ITerminalService {
 	sync: (terminal: ITerminalProps) => Promise<
 		| {
 				terminal: ITerminalProps;
-				download: Media[];
+				download: IMediaProps[];
 				remove: IMediaProps[];
 		  }
 		| undefined
@@ -33,9 +33,9 @@ export class TerminalService implements ITerminalService {
 
 		const medias = terminal?.Medias?.map(mediasDbToHttp);
 
-		const download: Media[] =
+		const download: IMediaProps[] =
 			medias?.filter(
-				(mediaLocal: Media) =>
+				(mediaLocal: IMediaProps) =>
 					!localVideos?.find(
 						(media: IMediaProps) => media.filename === mediaLocal.filename
 					)
@@ -45,7 +45,7 @@ export class TerminalService implements ITerminalService {
 			localVideos?.filter(
 				(mediaLocal: IMediaProps) =>
 					!medias?.find(
-						(media: Media) => mediaLocal.filename === media.filename
+						(media: IMediaProps) => mediaLocal.filename === media.filename
 					)
 			) ?? [];
 

@@ -8,4 +8,8 @@ export const Container = styled.div`
 		width: 100%;
 		text-align: center;
 	}
+
+	@media (max-width: 1040px) {
+		flex-direction: column;
+	}
 `;

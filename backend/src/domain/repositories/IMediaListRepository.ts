@@ -1,14 +1,14 @@
 import { IMediaProps } from "@domain/entities/Media";
-import { IMediaListProps, MediaList } from "@domain/entities/MediaList";
+import { IMediaListProps } from "@domain/entities/MediaList";
 
 export default interface IMediaListRepository {
-	getAll: () => Promise<MediaList[]>;
-	createMediaList: (mediaListName: string) => Promise<MediaList>;
-	deleteMediaList: (mediaListId: string) => Promise<MediaList>;
-	findMediaList: (id: string | null) => Promise<MediaList | never[]>;
+	getAll: () => Promise<IMediaListProps[]>;
+	createMediaList: (mediaListName: string) => Promise<IMediaListProps>;
+	deleteMediaList: (mediaListId: string) => Promise<IMediaListProps>;
+	findMediaList: (id: string | null) => Promise<IMediaListProps | never[]>;
 	insertMediaToList: (
 		mediaListId: string,
 		mediasToConnect: IMediaProps[],
 		mediasToDisconnect: IMediaProps[]
-	) => Promise<MediaList>;
+	) => Promise<IMediaListProps>;
 }

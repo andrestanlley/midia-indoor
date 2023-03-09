@@ -5,6 +5,7 @@ export const Container = styled.div`
 	flex-direction: column;
 	width: 70%;
 
+	
 	input {
 		margin-bottom: 8px;
 		background: transparent;
@@ -19,19 +20,26 @@ export const Container = styled.div`
 		color: var(--title);
 		font-weight: 600;
 	}
-
+	
 	div {
 		text-overflow: ellipsis;
 		white-space: nowrap;
-
+		
 		::-webkit-scrollbar {
 			display: none;
 		}
 		height: 6rem;
 		overflow-y: scroll;
-
+		
 		p {
 			cursor: pointer;
+		}
+	}
+
+	@media (max-width: 1040px) {
+		width: 100%;
+		button {
+			margin-bottom: 8px;
 		}
 	}
 `;

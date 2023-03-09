@@ -29,7 +29,7 @@ class UserService implements IUserService {
 
 		const unhashPassword = bcrypt.compareSync(password, user.password);
 		if (unhashPassword) {
-			return jwt.sign({ id: user.id, name: user.name }, jwtSecret!, {
+			return jwt.sign({ id: user.id, name: user.name, active: user.active }, jwtSecret!, {
 				expiresIn: "8h",
 			});
 		}

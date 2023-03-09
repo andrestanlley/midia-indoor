@@ -6,19 +6,25 @@ import { AppContext } from "../../Context/AppContext";
 import { Container } from "./styles";
 import ITerminalProps from "../../interfaces/Terminal";
 import Modal from "../Modal/Index";
+import { useNavigate } from "react-router-dom";
 
 function ListTerminais() {
 	const { terminais, setTerminais } = useContext(AppContext);
+	const navigate = useNavigate();
 
 	async function getAllTerminais() {
-		const result = await api.get("/terminal/all");
-		if (result.status === 200) {
-			setTerminais!(
-				result.data.sort(
-					(a: ITerminalProps, b: ITerminalProps) =>
-						new Date(a.lastSync).getTime() - new Date(b.lastSync).getTime()
-				)
-			);
+		try {
+			const result = await api.get("/terminal/all");
+			if (result.status === 200) {
+				setTerminais!(
+					result.data.sort(
+						(a: ITerminalProps, b: ITerminalProps) =>
+							new Date(a.lastSync).getTime() - new Date(b.lastSync).getTime()
+					)
+				);
+			}
+		} catch (error) {
+			navigate("/login");
 		}
 	}
 
@@ -31,7 +37,7 @@ function ListTerminais() {
 
 	return (
 		<>
-			<Modal/>
+			<Modal />
 			<Container>
 				{terminais?.length ? (
 					terminais.map((terminal) => (

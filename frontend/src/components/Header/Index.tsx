@@ -1,6 +1,6 @@
 import Box from "../Box/Index";
-import ListMediaList from "../ListMediaList.tsx/ListMediaList";
-import ListMedias from "../ListMedias.tsx/ListMedias";
+import ListMediaList from "../ListMediaList/Index";
+import ListMedias from "../ListMedias/Index";
 import CreateMidia from "../MediaUpload/Index";
 import { Container, SubContainer } from "./styles";
 
