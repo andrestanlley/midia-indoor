@@ -22,7 +22,7 @@ export default function MediaPlayer() {
 
   async function checkFilesToDelete() {
     const toDeleteMedia = await AsyncStorage.getItem('toDeleteMedia');
-    if (actualMedia.videoOrder === -1) {
+    if (actualMedia.videoOrder === -1 && toDeleteMedia) {
       const medias = JSON.parse(toDeleteMedia!);
       for await (let media of medias) {
         await MediaDelete.execute(media!);
@@ -34,11 +34,10 @@ export default function MediaPlayer() {
   }
 
   const syncWithServer = useCallback(async () => {
-    const toDeleteMedia = await checkFilesToDelete();
     const medias = await MediaList.execute();
     await SyncTerminal.execute(medias, actualMedia);
     if (medias) {
-      return setLocalMedia(medias.filter(media => media.uri != toDeleteMedia));
+      return setLocalMedia(medias);
     }
   }, [actualMedia, localMedia]);
 
@@ -77,7 +76,10 @@ export default function MediaPlayer() {
   async function deleteOnError(video: IMedia) {
     if (!video.uri) return;
     try {
-      await AsyncStorage.setItem('toDeleteMedia', video.uri);
+      await AsyncStorage.setItem(
+        'toDeleteMedia',
+        JSON.stringify([...video.uri]),
+      );
       return RNRestart.restart();
     } catch (error) {
       console.log(error);

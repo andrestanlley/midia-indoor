@@ -4,6 +4,7 @@ interface IMediaProps {
 	expiresIn: Date;
 	filename: string;
 	uri?: string;
+	size: number;
 	mediaListId: string;
 }
 

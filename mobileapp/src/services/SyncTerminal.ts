@@ -17,9 +17,9 @@ class SyncTerminal {
     let deviceId = await AsyncStorage.getItem('deviceId');
     try {
       const request = await this.api.post('/sync', {
-        deviceId,
+        deviceId: deviceId ?? '',
         localVideos,
-        actualMedia: actualMedia.filename,
+        actualMedia,
       });
       if (request.status === 200) {
         const terminalServerId = request.data.terminal.deviceId;

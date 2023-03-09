@@ -8,7 +8,7 @@ class MediaList {
       const videos = await RNFS.readDir(outDir);
 
       const videosUri = videos.map(video => {
-        return { filename: video.name, uri: video.path };
+        return { filename: video.name, uri: video.path, size: video.size };
       });
 
       return videosUri;

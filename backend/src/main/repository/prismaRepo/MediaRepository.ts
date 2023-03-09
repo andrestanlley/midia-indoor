@@ -15,13 +15,14 @@ export class MediaRepository implements IMediaRepository {
 		return medias;
 	}
 
-	async createMedia({ name, filename, expiresIn }: IMediaProps) {
+	async createMedia({ name, filename, expiresIn, size }: IMediaProps) {
 		const medias = await this.prisma.media.create({
 			data: {
 				id: randomUUID(),
 				name,
 				filename,
-				expiresIn
+				expiresIn,
+				size
 			},
 		});
 

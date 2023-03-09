@@ -28,7 +28,7 @@ export class TerminalService implements ITerminalService {
 		if (!localVideos) return;
 		const terminal = await this.terminalRepository.syncTerminal(
 			deviceId,
-			actualMedia
+			actualMedia,
 		);
 
 		const medias = terminal?.Medias?.map(mediasDbToHttp);

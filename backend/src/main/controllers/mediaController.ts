@@ -20,9 +20,11 @@ export class MediaController implements IController {
 		if (!req.file) {
 			return res.status(500);
 		}
+		
 		const media: IMediaProps = {
 			...JSON.parse(req.body.data),
 			filename: req.file.filename,
+			size: req.file.size
 		};
 
 		const result = await this.mediaService.create(media);

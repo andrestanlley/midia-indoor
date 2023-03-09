@@ -22,8 +22,8 @@ model Terminal {
   mediaListId String?
   mediaId     String?
   actualMedia String?
-  MediaList   MediaList? @relation(fields: [mediaListId], references: [id])
   Media       Media?     @relation(fields: [mediaId], references: [id])
+  MediaList   MediaList? @relation(fields: [mediaListId], references: [id])
 }
 
 model MediaList {
@@ -39,6 +39,7 @@ model Media {
   filename    String
   mediaListId String?
   expiresIn   DateTime
+  size        Int
   MediaList   MediaList? @relation(fields: [mediaListId], references: [id])
   Terminal    Terminal[]
 }
