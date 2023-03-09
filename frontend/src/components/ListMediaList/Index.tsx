@@ -46,6 +46,7 @@ export default function ListMediaList() {
 		const result = await api.post("/medialist/insert", data);
 		if (result.status === 200) {
 			getAllMediaLists();
+			return sucess("mídias sincronizadas com a lista.");
 		}
 	}
 
