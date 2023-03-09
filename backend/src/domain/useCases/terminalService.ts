@@ -7,7 +7,7 @@ export interface ITerminalService {
 	getAll: () => Promise<ITerminalProps[]>;
 	sync: (terminal: ITerminalProps) => Promise<
 		| {
-				terminal: { deviceId: string };
+				terminal: ITerminalProps;
 				download: Media[];
 				remove: IMediaProps[];
 		  }
@@ -50,9 +50,7 @@ export class TerminalService implements ITerminalService {
 			) ?? [];
 
 		return {
-			terminal: {
-				deviceId: terminal.deviceId,
-			},
+			terminal,
 			download,
 			remove,
 		};
