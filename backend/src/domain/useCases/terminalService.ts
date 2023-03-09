@@ -35,17 +35,17 @@ export class TerminalService implements ITerminalService {
 
 		const download: Media[] =
 			medias?.filter(
-				(midiaLocal: Media) =>
+				(mediaLocal: Media) =>
 					!localVideos?.find(
-						(midia: IMediaProps) => midia.filename === midiaLocal.filename
+						(media: IMediaProps) => media.filename === mediaLocal.filename
 					)
 			) ?? [];
 
 		const remove: IMediaProps[] =
 			localVideos?.filter(
-				(midiaLocal: IMediaProps) =>
+				(mediaLocal: IMediaProps) =>
 					!medias?.find(
-						(midia: Media) => midiaLocal.filename === midia.filename
+						(media: Media) => mediaLocal.filename === media.filename
 					)
 			) ?? [];
 
