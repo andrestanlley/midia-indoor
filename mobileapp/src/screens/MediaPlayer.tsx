@@ -23,7 +23,12 @@ export default function MediaPlayer() {
   async function checkFilesToDelete() {
     const toDeleteMedia = await AsyncStorage.getItem('toDeleteMedia');
     if (actualMedia.videoOrder === -1) {
-      await MediaDelete.execute(toDeleteMedia!);
+      const medias = JSON.parse(toDeleteMedia!);
+      for await (let media of medias) {
+        await MediaDelete.execute(media!);
+      }
+      await AsyncStorage.removeItem('toDeleteMedia');
+      return RNRestart.restart();
     }
     return toDeleteMedia;
   }

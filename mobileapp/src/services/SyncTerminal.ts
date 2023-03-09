@@ -3,7 +3,6 @@ import { baseUrl as baseURL } from '../../config';
 import MediaDownloader from './MediaDownloader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import IMedia from '../interfaces/IMedia';
-import MediaList from './MediaList';
 
 class SyncTerminal {
   api: Axios = axios.create({
@@ -34,12 +33,14 @@ class SyncTerminal {
           }
         }
         if (remove?.length) {
-          const media = remove[0];
-          const localMedias = await MediaList.execute();
-          const toDeleteMedia = localMedias?.find(
-            file => file.filename === media.filename,
+          const toDeleteMedias = remove.map(
+            (media: IMedia) =>
+              localVideos?.find(file => file.filename === media.filename)?.uri,
           );
-          await AsyncStorage.setItem('toDeleteMedia', toDeleteMedia?.uri!);
+          await AsyncStorage.setItem(
+            'toDeleteMedia',
+            JSON.stringify(toDeleteMedias),
+          );
         }
       }
     } catch (error) {

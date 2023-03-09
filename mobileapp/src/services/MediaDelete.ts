@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNFS from 'react-native-fs';
 
 class MediaDelete {
@@ -12,7 +11,6 @@ class MediaDelete {
           return RNFS.unlink(fileUri)
             .then(async () => {
               console.log('FILE DELETED');
-              await AsyncStorage.removeItem('toDeleteMedia');
             })
             .catch(err => {
               console.log(err.message);
