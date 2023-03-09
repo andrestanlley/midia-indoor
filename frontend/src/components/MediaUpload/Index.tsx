@@ -3,7 +3,7 @@ import { AppContext } from "../../Context/AppContext";
 import { api } from "../../services/api";
 import { Form } from "./styles";
 import { toast } from "react-toastify";
-import { sucess } from "../Alert/Index";
+import { error, sucess } from "../Alert/Index";
 
 function CreateMidia() {
 	const { setMedias } = useContext(AppContext);
@@ -15,10 +15,13 @@ function CreateMidia() {
 	const uploadVideo = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (!media.name) {
-			return alert("Não é possível criar uma mídia sem nome!");
+			return error("Não é possível criar uma mídia sem nome!");
 		}
 		if (!video?.name) {
-			alert("Selecione um vídeo para enviar.");
+			return error("Selecione um vídeo para enviar.");
+		}
+		if (!expiresIn) {
+			return error("Especifique a data de expiração.");
 		}
 		const formData = new FormData();
 		formData.append("video", video!);
