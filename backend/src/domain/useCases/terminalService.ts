@@ -37,18 +37,15 @@ export class TerminalService implements ITerminalService {
 			medias?.filter(
 				(mediaLocal: IMediaProps) =>
 					!localVideos?.find(
-						(media: IMediaProps) => media.filename === mediaLocal.filename
+						(media: IMediaProps) =>
+							media.filename === mediaLocal.filename &&
+							mediaLocal.expiresIn >= new Date()
 					)
 			) ?? [];
 
 		const remove: IMediaProps[] =
 			localVideos?.filter((mediaLocal: IMediaProps) => {
 				const media = medias?.find((md) => md.filename === mediaLocal.filename);
-
-				console.log(media)
-				console.log(!(media?.size === mediaLocal.size))
-				console.log(!(media?.expiresIn! >= new Date()))
-				console.log(!medias?.map((m) => m.filename).includes(mediaLocal.filename))
 
 				if (
 					!(media?.size === mediaLocal.size) ||
