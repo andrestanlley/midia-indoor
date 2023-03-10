@@ -45,11 +45,9 @@ export class TerminalService implements ITerminalService {
 				const media = medias?.find((md) => md.filename === mediaLocal.filename);
 
 				console.log(media);
-				console.log(
-					!(media?.size === mediaLocal.size) ||
-						!(media.expiresIn >= new Date()) ||
-						!medias?.map((m) => m.filename).includes(mediaLocal.filename)
-				);
+				console.log(!(media?.size === mediaLocal.size))
+				console.log(!(media.expiresIn >= new Date()))
+				console.log(!medias?.map((m) => m.filename).includes(mediaLocal.filename))
 
 				return (
 					!(media?.size === mediaLocal.size) ||
