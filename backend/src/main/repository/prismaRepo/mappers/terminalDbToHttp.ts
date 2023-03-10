@@ -18,7 +18,7 @@ export default function terminalDbToHttp(
 	return {
 		name: mappedTerminal.name,
 		deviceId: mappedTerminal.deviceId,
-		actualMedia: terminal.actualMedia,
+		actualMedia: terminal.actualMedia!,
 		lastSync: mappedTerminal.lastSync,
 		mediaListId: mappedTerminal.mediaListId,
 		Medias: mappedTerminal.Medias,
