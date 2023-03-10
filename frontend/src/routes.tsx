@@ -3,18 +3,16 @@ import App from "./App";
 import Login from "./components/Login/Index";
 
 export default function Routes() {
+	const token = localStorage.getItem('token')
+
 	const router = createBrowserRouter([
 		{
 			path: "/",
 			element: <div>Hello world!</div>,
 		},
 		{
-			path: "/login",
-			element: <Login />,
-		},
-		{
 			path: "/painel",
-			element: <App />,
+			element: token ? <App /> : <Login />,
 		},
 	]);
 

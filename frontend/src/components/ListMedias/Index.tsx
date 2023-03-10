@@ -5,6 +5,7 @@ import IMediaProps from "../../interfaces/Media";
 import { Container } from "./styles";
 import ListMediasOptions from "./ListMediasOptions";
 import { error, sucess } from "../Alert/Index";
+import { timeToUpdate } from "../../config";
 
 export default function ListMedias() {
 	const {
@@ -47,7 +48,7 @@ export default function ListMedias() {
 
 	useEffect(() => {
 		getAllMedias();
-		const updateMediasInterval = setInterval(getAllMedias, 60000);
+		const updateMediasInterval = setInterval(getAllMedias, timeToUpdate);
 
 		return () => {
 			clearInterval(updateMediasInterval);

@@ -7,7 +7,6 @@ import ITerminalProps from "./interfaces/Terminal";
 import Header from "./components/Header/Index";
 import { Container, SubContainer } from "./styles";
 import IID from "./interfaces/IID";
-import { useNavigate } from "react-router-dom";
 
 export default function App() {
 	const [medias, setMedias] = useState<IMediaProps[]>([]);
@@ -17,13 +16,6 @@ export default function App() {
 	const [selectedTerminal, setSelectedTerminal] = useState<ITerminalProps>();
 	const [mediasToConnect, setMediasToConnect] = useState<IID[]>([]);
 	const [mediasToDisconnect, setMediasToDisconnect] = useState<IID[]>([]);
-	const navigate = useNavigate();
-
-	const token = localStorage.getItem("token");
-
-	if (!token) {
-		navigate("/login");
-	}
 
 	return (
 		<AppContext.Provider

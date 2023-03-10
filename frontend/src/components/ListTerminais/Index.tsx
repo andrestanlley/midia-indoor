@@ -6,11 +6,10 @@ import { AppContext } from "../../Context/AppContext";
 import { Container } from "./styles";
 import ITerminalProps from "../../interfaces/Terminal";
 import Modal from "../Modal/Index";
-import { useNavigate } from "react-router-dom";
+import { timeToUpdate } from "../../config";
 
 function ListTerminais() {
 	const { terminais, setTerminais } = useContext(AppContext);
-	const navigate = useNavigate();
 
 	async function getAllTerminais() {
 		try {
@@ -23,14 +22,12 @@ function ListTerminais() {
 					)
 				);
 			}
-		} catch (error) {
-			return navigate("/login");
-		}
+		} catch (error) {}
 	}
 
 	useEffect(() => {
 		getAllTerminais();
-		const updateTerminaisInterval = setInterval(getAllTerminais, 60000);
+		const updateTerminaisInterval = setInterval(getAllTerminais, timeToUpdate);
 
 		return () => clearInterval(updateTerminaisInterval);
 	}, []);

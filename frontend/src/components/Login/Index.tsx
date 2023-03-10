@@ -4,6 +4,7 @@ import { Container, LoginBox } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { error, sucess } from "../Alert/Index";
 
+
 export default function Login() {
 	const [name, setName] = useState("");
 	const [password, setPassword] = useState("");
@@ -18,9 +19,9 @@ export default function Login() {
 			});
 			if (result.status === 200) {
 				api.defaults.headers.common.Authorization =
-					"Bearer " + result.data.token;
+				"Bearer " + result.data.token;
 				localStorage.setItem("token", result.data.token);
-				navigate("/painel");
+				navigate(0)
 				return sucess(`Bem vindo ${name}!`);
 			}
 		} catch (err) {

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { AppContext } from "../../Context/AppContext";
 import { Container } from "./styles";
 import { error, sucess } from "../Alert/Index";
+import { timeToUpdate } from "../../config";
 
 export default function ListMediaList() {
 	const {
@@ -66,7 +67,7 @@ export default function ListMediaList() {
 	}
 
 	useEffect(() => {
-		const updateMediasInterval = setInterval(getAllMediaLists, 60000);
+		const updateMediasInterval = setInterval(getAllMediaLists, timeToUpdate);
 		getAllMediaLists();
 
 		return () => clearInterval(updateMediasInterval);
