@@ -46,7 +46,7 @@ export class TerminalService implements ITerminalService {
 
 				console.log(media);
 				console.log(!(media?.size === mediaLocal.size))
-				console.log(!(media.expiresIn >= new Date()))
+				console.log(!(media?.expiresIn! >= new Date()))
 				console.log(!medias?.map((m) => m.filename).includes(mediaLocal.filename))
 
 				return (
