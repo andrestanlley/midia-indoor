@@ -1,6 +1,6 @@
 import { Terminal as TerminalDB } from "@prisma/client";
 import { Terminal } from "@domain/entities/Terminal";
-import { IMediaProps, Media } from "@domain/entities/Media";
+import { IMediaProps } from "@domain/entities/Media";
 
 export default function terminalDbToHttp(
 	terminal: TerminalDB,
@@ -9,6 +9,7 @@ export default function terminalDbToHttp(
 	const mappedTerminal = new Terminal({
 		name: terminal.name,
 		deviceId: terminal.deviceId,
+		actualMedia: terminal.actualMedia!,
 		lastSync: terminal.lastSync,
 		mediaListId: terminal.mediaListId,
 		Medias,
@@ -17,6 +18,7 @@ export default function terminalDbToHttp(
 	return {
 		name: mappedTerminal.name,
 		deviceId: mappedTerminal.deviceId,
+		actualMedia: terminal.actualMedia,
 		lastSync: mappedTerminal.lastSync,
 		mediaListId: mappedTerminal.mediaListId,
 		Medias: mappedTerminal.Medias,
