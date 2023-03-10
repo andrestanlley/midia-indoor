@@ -76,10 +76,7 @@ export default function MediaPlayer() {
   async function deleteOnError(video: IMedia) {
     if (!video.uri) return;
     try {
-      await AsyncStorage.setItem(
-        'toDeleteMedia',
-        JSON.stringify([...video.uri]),
-      );
+      await AsyncStorage.setItem('toDeleteMedia', JSON.stringify([video.uri]));
       return RNRestart.restart();
     } catch (error) {
       console.log(error);
