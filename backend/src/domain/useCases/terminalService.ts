@@ -51,6 +51,8 @@ export class TerminalService implements ITerminalService {
 				);
 			}) ?? [];
 
+		console.log(download, remove)
+
 		return {
 			terminal,
 			download,
