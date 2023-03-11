@@ -18,6 +18,7 @@ export const ModalHeader = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	color: var(--title);
+	margin-bottom: 12px;
 
 	button {
 		background: transparent;
@@ -43,16 +44,21 @@ export const ModalHeader = styled.div`
 export const ModalContent = styled.div`
 	display: flex;
 	padding: 16px;
+	max-width:70rem;
 
 	@media (max-width: 1040px) {
 		width: 90%;
+	}
+
+	div {
+		display: flex;
 	}
 
 	section {
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow-x: hidden;
-		margin-top: 12px;
+		padding: 12px;
 		height: 20rem;
 		overflow-y: scroll;
 		::-webkit-scrollbar {
@@ -81,7 +87,6 @@ export const ModalContent = styled.div`
 	}
 
 	flex-direction: column;
-	width: 700px;
 	background: var(--cinza-dois);
 	border-radius: 4px;
 	opacity: 1;

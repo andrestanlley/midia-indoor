@@ -9,7 +9,8 @@ import Modal from "../Modal/Index";
 import { timeToUpdate } from "../../config";
 
 function ListTerminais() {
-	const { terminais, setTerminais } = useContext(AppContext);
+	const { terminais, setTerminais, selectedTerminal, setSelectedTerminal } =
+		useContext(AppContext);
 
 	async function getAllTerminais() {
 		try {
@@ -21,6 +22,13 @@ function ListTerminais() {
 							new Date(a.lastSync).getTime() - new Date(b.lastSync).getTime()
 					)
 				);
+				if (selectedTerminal) {
+					const updatedTerminal = result.data.find(
+						(terminal: ITerminalProps) =>
+							terminal.deviceId === selectedTerminal.deviceId
+					);
+					setSelectedTerminal!(updatedTerminal);
+				}
 			}
 		} catch (error) {}
 	}
