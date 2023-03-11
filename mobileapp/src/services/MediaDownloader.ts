@@ -1,13 +1,20 @@
+import { ToastAndroid } from 'react-native';
 import RNFS from 'react-native-fs';
 import { outDir } from '../../config';
+import IMedia from '../interfaces/IMedia';
 
 class MediaDownloader {
-  execute = async (url: string, filename: string) => {
-    console.log('baixando: ', filename);
+  execute = async ({ name, uri, filename }: IMedia) => {
+    ToastAndroid.show(
+      `Sincronizando ${name!.toUpperCase()}`,
+      ToastAndroid.SHORT,
+    );
     return RNFS.downloadFile({
-      fromUrl: url,
+      fromUrl: uri!,
       toFile: outDir + filename,
-    }).promise.then(result => console.log(result));
+    }).promise.then(() =>
+      ToastAndroid.show('Sincronizado com sucesso!', ToastAndroid.SHORT),
+    );
   };
 }
 

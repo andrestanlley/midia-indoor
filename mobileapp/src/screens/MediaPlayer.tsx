@@ -61,14 +61,13 @@ export default function MediaPlayer() {
   }
 
   async function getNextVideo() {
-    await syncWithServer();
     const { videoOrder } = actualMedia;
     const toDeleteMedia = await checkFilesToDelete();
-    if (localMedia && videoOrder < localMedia?.length - 1) {
-      return setNextVideo(videoOrder);
-    }
     if (!localMedia.length || localMedia.length === 1 || toDeleteMedia) {
       return RNRestart.restart();
+    }
+    if (localMedia && videoOrder < localMedia?.length - 1) {
+      return setNextVideo(videoOrder);
     }
     return setPlaylistToStart();
   }

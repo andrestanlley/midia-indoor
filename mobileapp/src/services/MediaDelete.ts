@@ -1,16 +1,18 @@
+import { ToastAndroid } from 'react-native';
 import RNFS from 'react-native-fs';
 
 class MediaDelete {
   async execute(fileUri?: string) {
     if (!fileUri) return;
-    RNFS.exists(fileUri)
+    return RNFS.exists(fileUri)
       .then(result => {
-        console.log('file exists: ', result);
-
         if (result) {
           return RNFS.unlink(fileUri)
             .then(async () => {
-              console.log('FILE DELETED');
+              ToastAndroid.show(
+                'Atualizando sincronização',
+                ToastAndroid.SHORT,
+              );
             })
             .catch(err => {
               console.log(err.message);

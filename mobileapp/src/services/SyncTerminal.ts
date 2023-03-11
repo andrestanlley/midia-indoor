@@ -29,7 +29,7 @@ class SyncTerminal {
         const { download, remove } = request.data;
         if (download?.length) {
           for await (let media of download) {
-            await MediaDownloader.execute(media.uri, media.filename);
+            await MediaDownloader.execute(media);
           }
         }
         if (remove?.length) {
