@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import background from "../../assets/background-2.png";
 
 export const Container = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	background-image: url(${background});
+	background-image: url('./background-2.png');
 	background-repeat: no-repeat;
 	background-size: cover;
 	height: 100vh;
