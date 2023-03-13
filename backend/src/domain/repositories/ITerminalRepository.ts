@@ -1,6 +1,4 @@
 import { ITerminalProps } from "@domain/entities/Terminal";
-import { Terminal as TerminalDB } from "@prisma/client";
-import { Terminal } from "@domain/entities/Terminal";
 
 export default interface ITerminalRepository {
 	getAll: () => Promise<ITerminalProps[]>;

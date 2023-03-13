@@ -19,6 +19,8 @@ export const ModalHeader = styled.div`
 	justify-content: space-between;
 	color: var(--title);
 	margin-bottom: 12px;
+	background: var(--primary);
+	padding: 12px;
 
 	button {
 		background: transparent;
@@ -36,15 +38,14 @@ export const ModalHeader = styled.div`
 		outline: none;
 		
 		::placeholder{
-			color: var(--title);
+			color: var(--branco);
 		}
 	}
 `;
 
 export const ModalContent = styled.div`
 	display: flex;
-	padding: 16px;
-	max-width:70rem;
+	max-width:30rem;
 
 	@media (max-width: 1040px) {
 		width: 90%;
@@ -54,12 +55,17 @@ export const ModalContent = styled.div`
 		display: flex;
 	}
 
+	#actualMedia {
+		flex-direction: column;
+		padding: 12px;
+	}
+
 	section {
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow-x: hidden;
 		padding: 12px;
-		height: 20rem;
+		max-height: 6rem;
 		overflow-y: scroll;
 		::-webkit-scrollbar {
 			display: none;
@@ -68,10 +74,11 @@ export const ModalContent = styled.div`
 
 	#applyButton {
 		margin-top: 12px;
-		background: var(--cinza-um);
-		padding: 4px 6px;
-		border-radius: 4px;
-		color: var(--title);
+		background: var(--primary);
+		border-radius: 16px;
+		margin: 12px;
+		height: 2rem;
+		color: var(--branco);
 		font-weight: 600;
 	}
 

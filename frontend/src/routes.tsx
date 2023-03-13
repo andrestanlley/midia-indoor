@@ -1,14 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
+import Landing from "./components/Landing/Index";
 import Login from "./components/Login/Index";
 
 export default function Routes() {
-	const token = localStorage.getItem('token')
+	const token = localStorage.getItem("token");
 
 	const router = createBrowserRouter([
 		{
 			path: "/",
-			element: <div>Hello world!</div>,
+			element: <Landing />,
 		},
 		{
 			path: "/painel",

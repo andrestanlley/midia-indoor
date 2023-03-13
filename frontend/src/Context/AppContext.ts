@@ -19,6 +19,8 @@ interface IAppContext {
 	setMediasToConnect?: Dispatch<SetStateAction<IID[]>>;
 	mediasToDisconnect: IID[];
 	setMediasToDisconnect?: Dispatch<SetStateAction<IID[]>>;
+	mediaListName: string;
+	setMediaListName?: Dispatch<SetStateAction<string>>;
 }
 
 const defaultState = {
@@ -29,6 +31,7 @@ const defaultState = {
 	selectedTerminal: undefined,
 	mediasToConnect: [],
 	mediasToDisconnect: [],
+	mediaListName: "",
 };
 
 export const AppContext = createContext<IAppContext>(defaultState);

@@ -7,24 +7,25 @@ export class MediaController implements IController {
 	constructor(private readonly mediaService: IMediaService) {}
 
 	update = async (req: Request, res: Response) => {
-		//TODO: implement
-		return res.status(200);
+		const media: IMediaProps = req.body;
+		const result = await this.mediaService.update(media);
+		return res.status(200).send(result);
 	};
 
 	getAll = async (req: Request, res: Response) => {
 		const medias = await this.mediaService.getAll();
 		return res.status(200).send(medias);
 	};
-	
+
 	create = async (req: Request, res: Response) => {
 		if (!req.file) {
 			return res.status(500);
 		}
-		
+
 		const media: IMediaProps = {
 			...JSON.parse(req.body.data),
 			filename: req.file.filename,
-			size: req.file.size
+			size: req.file.size,
 		};
 
 		const result = await this.mediaService.create(media);

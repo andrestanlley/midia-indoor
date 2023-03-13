@@ -4,10 +4,17 @@ import { AiOutlineClose } from "react-icons/ai";
 import { AppContext } from "../../Context/AppContext";
 import { api } from "../../services/api";
 import { sucess } from "../Alert/Index";
+import isTerminalSync from "../../services/isTerminalSync";
+import ITerminalProps from "../../interfaces/Terminal";
 
 export default function Modal() {
-	const { selectedTerminal, mediasList, setTerminais, setSelectedTerminal } =
-		useContext(AppContext);
+	const {
+		selectedTerminal,
+		mediasList,
+		setTerminais,
+		setSelectedTerminal,
+		terminais,
+	} = useContext(AppContext);
 	const [terminalName, setTerminalName] = useState<string>("");
 	const [selectedMediaList, setSelectedMedialist] = useState<string>("");
 	const [modalStatus, setModalStatus] = useState<boolean>(false);
@@ -65,10 +72,15 @@ export default function Modal() {
 			setModalStatus(true);
 			setSelectedMedialist("");
 			setTerminalName("");
+			const updatedTerminal = terminais.find(
+				(terminal: ITerminalProps) =>
+					terminal.deviceId === selectedTerminal.deviceId
+			);
+			setSelectedTerminal!(updatedTerminal);
 		} else {
 			setModalStatus(false);
 		}
-	}, [selectedTerminal]);
+	}, [selectedTerminal, terminais]);
 
 	return (
 		<>
@@ -82,17 +94,21 @@ export default function Modal() {
 								onChange={(e) => setTerminalName(e.target.value)}
 							/>
 							<button onClick={() => setSelectedTerminal!(undefined)}>
-								<AiOutlineClose size={24} />
+								<AiOutlineClose size={24} color="var(--branco)" />
 							</button>
 						</ModalHeader>
 
-						<div>
-							<video
-								src={`https://elevamidia.com/videos/${selectedTerminal?.actualMedia}`}
-								autoPlay
-								muted
-								width='50%'
-							/>
+						<div id='actualMedia'>
+							{isTerminalSync(new Date(selectedTerminal?.lastSync!)) ? (
+								<video
+									src={`https://elevamidia.com/videos/${selectedTerminal?.actualMedia}`}
+									autoPlay
+									muted
+									width='100%'
+								/>
+							) : (
+								<p>Terminal não sincronizado.</p>
+							)}
 
 							<section>
 								{mediasList.map((ml) => (

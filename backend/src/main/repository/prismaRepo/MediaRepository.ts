@@ -3,7 +3,6 @@ import { randomUUID } from "node:crypto";
 import { PrismaClient } from "@prisma/client";
 import IMediaRepository from "@domain/repositories/IMediaRepository";
 import mediasDbToHttp from "./mappers/mediasDbToHttp";
-import mediaListDbToHttp from "./mappers/mediaListDbToHttp";
 
 export class MediaRepository implements IMediaRepository {
 	constructor(private readonly prisma: PrismaClient) {
@@ -15,6 +14,19 @@ export class MediaRepository implements IMediaRepository {
 		return medias;
 	}
 
+	async update({ expiresIn, id }: IMediaProps) {
+		const media = await this.prisma.media.update({
+			where: {
+				id,
+			},
+			data: {
+				expiresIn: new Date(expiresIn),
+			},
+		});
+
+		return mediasDbToHttp(media);
+	}
+
 	async createMedia({ name, filename, expiresIn, size }: IMediaProps) {
 		const medias = await this.prisma.media.create({
 			data: {
@@ -22,7 +34,7 @@ export class MediaRepository implements IMediaRepository {
 				name,
 				filename,
 				expiresIn,
-				size
+				size,
 			},
 		});
 

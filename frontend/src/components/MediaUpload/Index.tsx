@@ -2,15 +2,21 @@ import { useState, useContext } from "react";
 import { AppContext } from "../../Context/AppContext";
 import { api } from "../../services/api";
 import { Form } from "./styles";
-import { toast } from "react-toastify";
 import { error, sucess } from "../Alert/Index";
 
 function CreateMidia() {
 	const { setMedias } = useContext(AppContext);
 	const [video, setVideo] = useState<File>();
 	const [media, setMedia] = useState({ name: "" });
-	const [expiresIn, setExpiresIn] = useState<string>();
+	const [expiresIn, setExpiresIn] = useState<string>(getDateNextMonth());
 	const [progress, setProgress] = useState<number>();
+
+	function getDateNextMonth() {
+		const time = new Date();
+		const nextDate = new Date();
+		nextDate.setDate(time.getDate() + 34);
+		return new Date(nextDate).toISOString().substring(0, 10);
+	}
 
 	const uploadVideo = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -45,7 +51,6 @@ function CreateMidia() {
 	};
 
 	return (
-		<div>
 			<Form onSubmit={uploadVideo}>
 				<input
 					type='text'
@@ -60,13 +65,16 @@ function CreateMidia() {
 						onChange={(e) => setVideo(e.target.files![0])}
 					/>
 				</label>
-				<input type='date' onChange={(e) => setExpiresIn(e.target.value)} />
+				<input
+					type='date'
+					onChange={(e) => setExpiresIn(e.target.value)}
+					value={expiresIn}
+				/>
 
 				{progress && progress != 100 && <span>{progress}%</span>}
 
 				<button type='submit'>Salvar</button>
 			</Form>
-		</div>
 	);
 }
 

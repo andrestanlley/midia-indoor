@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import background from '../../assets/BACKGROUND-3.png'
 
 export const Container = styled.div`
 	display: flex;
@@ -6,36 +7,59 @@ export const Container = styled.div`
 	align-items: center;
 	justify-content: center;
 	height: 100vh;
+	background-image: url(${background});
+	background-size: cover;
+	background-repeat: no-repeat;
 
-    img {
-        width: 7rem;
-    }
+	img {
+		width: 13rem;
+	}
 `;
 
 export const LoginBox = styled.div`
 	display: flex;
 	flex-direction: column;
 	background: var(--cinza-dois);
-	padding: 24px;
+	padding: 36px;
 	border-radius: 16px;
 	color: var(--title);
+	position: relative;
+	margin-bottom: 3rem;
 
-	input {
-		margin-bottom: 12px;
-		height: 2rem;
-		width: 13rem;
-		border: 1px solid var(--cinza-um);
-		border-radius: 4px;
-        outline: none;
-        padding: 4px;
-        font-size: 16px;
+	div {
+		display: flex;
+		justify-content: center;
+		position: absolute;
+		top: -17%;
+		width: 100%;
+		left: 0;
+
+		img {
+			width: 5rem;
+			border-radius: 50%;
+			background: var(--cinza-dois);
+		}
 	}
 
-    button {
-        height: 2rem;
-        background: var(--subtitle);
-        border-radius: 0 4px 0 4px;
-        color: var(--title);
-        font-weight: 600;
-    }
+	input, button {
+		margin-top: 12px;
+		height: 2.5rem;
+		width: 15rem;
+		outline: none;
+		padding: 8px;
+		font-size: 16px;
+		background: var(--cinza-um);
+		border-radius: 16px;
+
+		::placeholder {
+			text-align: center;
+			font-weight: 600;
+		}
+	}
+
+	button {
+		font-weight: 600;
+		background: var(--primary);
+		color: var(--branco);
+	}
 `;

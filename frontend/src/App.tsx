@@ -4,9 +4,12 @@ import { AppContext } from "./Context/AppContext";
 import IMediaProps from "./interfaces/Media";
 import IMediaListProps from "./interfaces/MediaList";
 import ITerminalProps from "./interfaces/Terminal";
-import Header from "./components/Header/Index";
 import { Container, SubContainer } from "./styles";
 import IID from "./interfaces/IID";
+import Box from "./components/Box/Index";
+import CreateMidia from "./components/MediaUpload/Index";
+import ListMediaList from "./components/ListMediaList/Index";
+import ListMedias from "./components/ListMedias/Index";
 
 export default function App() {
 	const [medias, setMedias] = useState<IMediaProps[]>([]);
@@ -16,6 +19,7 @@ export default function App() {
 	const [selectedTerminal, setSelectedTerminal] = useState<ITerminalProps>();
 	const [mediasToConnect, setMediasToConnect] = useState<IID[]>([]);
 	const [mediasToDisconnect, setMediasToDisconnect] = useState<IID[]>([]);
+	const [mediaListName, setMediaListName] = useState<string>("");
 
 	return (
 		<AppContext.Provider
@@ -34,11 +38,17 @@ export default function App() {
 				setMediasToConnect,
 				mediasToDisconnect,
 				setMediasToDisconnect,
+				mediaListName,
+				setMediaListName,
 			}}
 		>
 			<Container>
 				<SubContainer>
-					<Header />
+					<Box title='Sincronizar mídia' id='header'>
+						<CreateMidia />
+						<ListMediaList />
+						<ListMedias />
+					</Box>
 					<ListTerminais />
 				</SubContainer>
 			</Container>

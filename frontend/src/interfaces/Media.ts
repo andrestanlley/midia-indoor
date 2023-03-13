@@ -4,4 +4,5 @@ export default interface IMediaProps {
 	filename: string;
 	uri?: string;
 	mediaListId?: string;
+	expiresIn: Date
 }

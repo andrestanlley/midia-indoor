@@ -15,7 +15,9 @@ export default function ListMedias() {
 		mediasToConnect,
 		setMediasToConnect,
 		mediasToDisconnect,
-		setMediasToDisconnect
+		setMediasToDisconnect,
+		mediaListName,
+		setMediaListName,
 	} = useContext(AppContext);
 
 	async function getAllMedias() {
@@ -23,13 +25,28 @@ export default function ListMedias() {
 		setMedias!(result.data);
 	}
 
+	async function createMediaList() {
+		try {
+			const data = {
+				mediaListName,
+			};
+			const result = await api.post("/medialist", data);
+			if (result.status === 201) {
+				setMediaListName!("");
+				return sucess("Lista de reprodução criada!");
+			}
+		} catch (err) {
+			return error("Erro ao criar lista de reprodução.");
+		}
+	}
+
 	async function deleteMedia(media: IMediaProps) {
 		const result = await api.delete("/media", { data: media });
 		if (result.status === 202) {
-			getAllMedias()
-			return sucess('Mídia deletada.')
+			getAllMedias();
+			return sucess("Mídia deletada.");
 		}
-		return error('Erro ao deletar mídia.')
+		return error("Erro ao deletar mídia.");
 	}
 
 	function handlerConnections(e: React.ChangeEvent<HTMLInputElement>) {
@@ -46,6 +63,40 @@ export default function ListMedias() {
 		}
 	}
 
+	async function updateMediasInMediaList() {
+		const data = {
+			mediaListId: selectedMediaList?.id,
+			mediasToConnect,
+			mediasToDisconnect,
+		};
+		const result = await api.post("/medialist/insert", data);
+		if (result.status === 200) {
+			return sucess("mídias sincronizadas com a lista.");
+		}
+	}
+
+	function createOrUpdateMedialist() {
+		if (mediaListName) {
+			createMediaList();
+		}
+		if (mediasToConnect.length || mediasToDisconnect.length) {
+			updateMediasInMediaList();
+		}
+	}
+
+	function isApplyButtonEnabled() {
+		return mediaListName || mediasToConnect.length || mediasToDisconnect.length
+			? true
+			: false;
+	}
+
+	function filterMedias(search: string) {
+		if (!search) {
+			getAllMedias();
+		}
+		setMedias!(medias.filter((md) => md.name.indexOf(search) >= 0));
+	}
+
 	useEffect(() => {
 		getAllMedias();
 		const updateMediasInterval = setInterval(getAllMedias, timeToUpdate);
@@ -57,18 +108,37 @@ export default function ListMedias() {
 
 	return (
 		<Container>
-			{medias.length && selectedMediaList ? (
-				medias.map((media) => (
-					<ListMediasOptions
-						key={media.id}
-						media={media}
-						connectionsCB={handlerConnections}
-						deleteCB={deleteMedia}
-					/>
-				))
-			) : (
-				<span>Selecione uma lista</span>
-			)}
+			<input
+				type='text'
+				placeholder='Buscar mídia'
+				onChange={(e) => filterMedias(e.target.value)}
+			/>
+			<div>
+				{medias.length && selectedMediaList ? (
+					medias
+						.sort(
+							(a: IMediaProps, b: IMediaProps) =>
+								new Date(a.expiresIn).getTime() -
+								new Date(b.expiresIn).getTime()
+						)
+						.map((media) => (
+							<ListMediasOptions
+								key={media.id}
+								media={media}
+								connectionsCB={handlerConnections}
+								deleteCB={deleteMedia}
+							/>
+						))
+				) : (
+					<span>Selecione uma lista</span>
+				)}
+			</div>
+			<button
+				onClick={createOrUpdateMedialist}
+				disabled={!isApplyButtonEnabled()}
+			>
+				Aplicar
+			</button>
 		</Container>
 	);
 }

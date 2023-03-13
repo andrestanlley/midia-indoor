@@ -3,8 +3,6 @@ import styled from "styled-components";
 export const Container = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 70%;
-
 	
 	input {
 		margin-bottom: 8px;
@@ -28,7 +26,7 @@ export const Container = styled.div`
 		::-webkit-scrollbar {
 			display: none;
 		}
-		height: 6rem;
+		height: 12rem;
 		overflow-y: scroll;
 		
 		p {

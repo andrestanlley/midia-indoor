@@ -7,14 +7,14 @@ import isTerminalSync from "../../services/isTerminalSync";
 import { Container } from "./styles";
 
 export default function Terminal(terminal: ITerminalProps) {
-	const { name, deviceId, lastSync } = terminal;
-	const { setTerminais, setSelectedTerminal } = useContext(AppContext);
+	const { name, lastSync } = terminal;
+	const { setSelectedTerminal } = useContext(AppContext);
 	const lastSyncDate = new Date(lastSync);
 	const status = isTerminalSync(lastSyncDate);
-
+	
 	const syncToday =
-		lastSyncDate.toISOString().split("T")[0] ===
-		new Date().toISOString().split("T")[0]
+		lastSyncDate.toLocaleDateString() ===
+		new Date().toLocaleDateString()
 			? `Hoje, às ${lastSyncDate.getHours()}:${
 					lastSyncDate.getMinutes() < 10
 						? "0" + lastSyncDate.getMinutes()

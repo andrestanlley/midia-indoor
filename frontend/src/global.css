@@ -5,16 +5,19 @@
 	box-sizing: border-box;
 	list-style: none;
 	border: 0;
-	font-family: "Roboto", sans-serif;
+	font-family: 'Gotham', sans-serif;
 }
 
 :root {
+	--primary: #4A19A6;
+	--branco: #ffffff;
 	--vermelho: #dc2626;
 	--verde: #047857;
 	--cinza-um: #e2e8f0;
 	--cinza-dois: #f8fafc;
 	--title: #495057;
 	--subtitle: #94a3b8;
+	--amarelo: #eba507;
 }
 
 html {

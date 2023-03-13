@@ -4,14 +4,16 @@ export const Container = styled.div`
 	background: var(--cinza-dois);
 	border-radius: 0.25rem;
 	max-width: max-content;
-    position: relative;
+	position: relative;
+    width: 100%;
 	padding: 16px;
-	margin: 12px;
 `;
 
 export const Title = styled.h1`
-    position: absolute;
-    top: -40px;
-    left: 0px;
+    font-size: 2rem;
+	position: absolute;
+	top: -47px;
+	left: 0;
+    margin-bottom: .5rem;
     color: var(--title);
 `;

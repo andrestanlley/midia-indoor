@@ -12,58 +12,13 @@ export default function ListMediaList() {
 		setMediaLists,
 		setSelectedMediaList,
 		selectedMediaList,
-		mediasToConnect,
-		mediasToDisconnect,
+		setMediaListName,
+		mediaListName
 	} = useContext(AppContext);
-	const [mediaListName, setMediaListName] = useState<string>("");
 
 	async function getAllMediaLists() {
 		const result = await api.get("/medialist/all");
 		setMediaLists!(result.data);
-	}
-
-	async function createMediaList() {
-		try {
-			const data = {
-				mediaListName,
-			};
-			const result = await api.post("/medialist", data);
-			if (result.status === 201) {
-				setMediaListName("");
-				getAllMediaLists();
-				return sucess("Lista de reprodução criada!");
-			}
-		} catch (err) {
-			return error("Erro ao criar lista de reprodução.");
-		}
-	}
-
-	async function updateMediasInMediaList() {
-		const data = {
-			mediaListId: selectedMediaList?.id,
-			mediasToConnect,
-			mediasToDisconnect,
-		};
-		const result = await api.post("/medialist/insert", data);
-		if (result.status === 200) {
-			getAllMediaLists();
-			return sucess("mídias sincronizadas com a lista.");
-		}
-	}
-
-	function createOrUpdateMedialist() {
-		if (mediaListName) {
-			createMediaList();
-		}
-		if (mediasToConnect.length || mediasToDisconnect.length) {
-			updateMediasInMediaList();
-		}
-	}
-
-	function isApplyButtonEnabled() {
-		return mediaListName || mediasToConnect.length || mediasToDisconnect.length
-			? true
-			: false;
 	}
 
 	useEffect(() => {
@@ -71,7 +26,7 @@ export default function ListMediaList() {
 		getAllMediaLists();
 
 		return () => clearInterval(updateMediasInterval);
-	}, []);
+	}, [mediaListName]);
 
 	return (
 		<Container>
@@ -80,7 +35,7 @@ export default function ListMediaList() {
 				id='name'
 				placeholder='Criar lista de reprodução'
 				value={mediaListName}
-				onChange={(e) => setMediaListName(e.target.value)}
+				onChange={(e) => setMediaListName!(e.target.value)}
 			/>
 			<div>
 				{mediasList.length ? (
@@ -102,12 +57,6 @@ export default function ListMediaList() {
 					<span>Nenhuma lista de reprodução encontrada.</span>
 				)}
 			</div>
-			<button
-				onClick={createOrUpdateMedialist}
-				disabled={!isApplyButtonEnabled()}
-			>
-				Aplicar
-			</button>
 		</Container>
 	);
 }

@@ -1,10 +1,11 @@
 import IMediaRepository from "@domain/repositories/IMediaRepository";
-import { Media, IMediaProps } from "@domain/entities/Media";
+import { IMediaProps } from "@domain/entities/Media";
 import fs from "fs";
 
 interface IMediaService {
 	getAll: () => Promise<IMediaProps[]>;
 	create: (media: IMediaProps) => Promise<IMediaProps>;
+	update: (media: IMediaProps) => Promise<IMediaProps>;
 	remove: (media: IMediaProps) => Promise<IMediaProps | undefined>;
 }
 
@@ -18,6 +19,10 @@ class MediaService implements IMediaService {
 	async create(media: IMediaProps) {
 		const mediaFormatted = { ...media, expiresIn: new Date(media.expiresIn) };
 		return await this.mediaRepository.createMedia(mediaFormatted);
+	}
+
+	async update(media: IMediaProps) {
+		return await this.mediaRepository.update(media);
 	}
 
 	async remove({ id, filename }: IMediaProps) {
