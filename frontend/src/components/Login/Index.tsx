@@ -3,7 +3,7 @@ import { api } from "../../services/api";
 import { Container, LoginBox } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { error, sucess } from "../Alert/Index";
-import pcIcon from "../../assets/PROGRAMACAO.png";
+import pcIcon from "../../assets/programacao.png";
 import logoBranca from "../../assets/logo-branca.png";
 
 export default function Login() {
