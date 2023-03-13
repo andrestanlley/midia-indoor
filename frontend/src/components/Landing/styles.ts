@@ -13,7 +13,11 @@ export const Container = styled.div`
 
 	img {
 		width: 25rem;
+		@media (max-width: 1080px) {
+			width: 18rem;
+		}
 	}
+
 
 	div {
 		margin-top: 3rem;
