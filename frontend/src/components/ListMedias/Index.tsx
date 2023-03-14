@@ -94,7 +94,11 @@ export default function ListMedias() {
 		if (!search) {
 			getAllMedias();
 		}
-		setMedias!(medias.filter((md) => md.name.indexOf(search) >= 0));
+		setMedias!(
+			medias.filter(
+				(md) => md.name.toLowerCase().indexOf(search.toLowerCase()) >= 0
+			)
+		);
 	}
 
 	useEffect(() => {

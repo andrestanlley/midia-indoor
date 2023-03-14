@@ -12,8 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 function ListTerminais() {
 	const [countOnlineTerminais, setOnlineCountTerminais] = useState<number>(0);
-	const { terminais, setTerminais, selectedTerminal, setSelectedTerminal } =
-		useContext(AppContext);
+	const { terminais, setTerminais } = useContext(AppContext);
 
 	const navigate = useNavigate();
 
@@ -38,11 +37,12 @@ function ListTerminais() {
 	}
 
 	function countTerminaisOnline(terminais: ITerminalProps[]) {
-		terminais?.forEach((terminal: ITerminalProps) => {
-			if (!isTerminalSync(new Date(terminal.lastSync))) {
-				setOnlineCountTerminais(countOnlineTerminais + 1);
-			}
-		});
+		const terminaisOnline = terminais?.reduce((ant, at) => {
+			const res = isTerminalSync(new Date(at.lastSync)) ? 1 : 0;
+			return res + ant;
+		}, 0);
+
+		setOnlineCountTerminais(terminaisOnline);
 	}
 
 	useEffect(() => {

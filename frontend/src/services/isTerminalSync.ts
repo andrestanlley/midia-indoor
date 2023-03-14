@@ -1,7 +1,5 @@
-import { timeToUpdate } from "../config";
-
 const isTerminalSync = (lastSyncDate: Date) => {
-	return new Date().getTime() / timeToUpdate - lastSyncDate.getTime() / timeToUpdate <= 2
+	return new Date().getTime() / 60000 - lastSyncDate.getTime() / 60000 <= 2
 		? true
 		: false;
 };
