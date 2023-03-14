@@ -36,6 +36,7 @@ export const ModalHeader = styled.div`
 		text-overflow: ellipsis;
 		border: 0;
 		outline: none;
+		color: var(--branco);
 		
 		::placeholder{
 			color: var(--branco);

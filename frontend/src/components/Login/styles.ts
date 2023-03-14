@@ -49,6 +49,7 @@ export const LoginBox = styled.div`
 		font-size: 16px;
 		background: var(--cinza-um);
 		border-radius: 16px;
+		font-weight: 600;
 
 		::placeholder {
 			text-align: center;
