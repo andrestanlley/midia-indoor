@@ -3,8 +3,6 @@ import { api } from "../../services/api";
 import { Container, LoginBox } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { error, sucess } from "../Alert/Index";
-import pcIcon from "../../assets/PROGRAMACAO.png";
-import logoBranca from "../../assets/logo-branca.png";
 
 export default function Login() {
 	const [name, setName] = useState("");
@@ -34,7 +32,7 @@ export default function Login() {
 		<Container>
 			<LoginBox>
 				<div>
-					<img src={pcIcon} alt='Logo' />
+					<img src='./programacao.png' alt='Logo' />
 				</div>
 				<input
 					type='text'
@@ -48,7 +46,7 @@ export default function Login() {
 				/>
 				<button onClick={handlerLogin}>Entrar</button>
 			</LoginBox>
-			<img src={logoBranca} alt='Logo Eleva Mídia' />
+			<img src='./logo-branca.png' alt='Logo Eleva Mídia' />
 		</Container>
 	);
 }

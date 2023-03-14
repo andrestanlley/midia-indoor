@@ -40,7 +40,7 @@ export default function Modal() {
 		if (terminalName) {
 			await renameTerminal(terminalName, selectedTerminal?.deviceId!);
 		}
-		setModalStatus(false);
+		setSelectedTerminal!(undefined);
 	}
 
 	async function renameTerminal(name: string, deviceId: string) {
