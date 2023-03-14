@@ -39,7 +39,7 @@ function ListTerminais() {
 
 	function countTerminaisOnline(terminais: ITerminalProps[]) {
 		terminais?.forEach((terminal: ITerminalProps) => {
-			if (isTerminalSync(new Date(terminal.lastSync))) {
+			if (!isTerminalSync(new Date(terminal.lastSync))) {
 				setOnlineCountTerminais(countOnlineTerminais + 1);
 			}
 		});
