@@ -8,7 +8,7 @@ interface IMediaProps {
 	mediaListId: string;
 }
 
-class Media {
+class Media implements IMediaProps{
 	constructor(private readonly props: IMediaProps) {
 		this.props = props;
 	}

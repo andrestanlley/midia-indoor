@@ -6,7 +6,7 @@ interface IMediaListProps {
 	medias?: IMediaProps[];
 }
 
-class MediaList {
+class MediaList implements IMediaListProps {
 	constructor(private readonly props: IMediaListProps) {
 		this.props = props;
 	}

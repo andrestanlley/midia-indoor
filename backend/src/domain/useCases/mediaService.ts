@@ -1,5 +1,5 @@
 import IMediaRepository from "@domain/repositories/IMediaRepository";
-import { IMediaProps } from "@domain/entities/Media";
+import { IMediaProps, Media } from "@domain/entities/Media";
 import fs from "fs";
 
 interface IMediaService {
@@ -17,7 +17,10 @@ class MediaService implements IMediaService {
 	}
 
 	async create(media: IMediaProps) {
-		const mediaFormatted = { ...media, expiresIn: new Date(media.expiresIn) };
+		const mediaFormatted = new Media({
+			...media,
+			expiresIn: new Date(media.expiresIn),
+		});
 		return await this.mediaRepository.createMedia(mediaFormatted);
 	}
 

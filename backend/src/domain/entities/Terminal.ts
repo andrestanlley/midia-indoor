@@ -11,7 +11,7 @@ interface ITerminalProps {
 	Medias?: IMediaProps[];
 }
 
-class Terminal {
+class Terminal implements ITerminalProps {
 	constructor(private readonly props: ITerminalProps) {
 		this.props = props;
 
