@@ -63,7 +63,11 @@ export default function MediaPlayer() {
   async function getNextVideo() {
     const { videoOrder } = actualMedia;
     const toDeleteMedia = await checkFilesToDelete();
-    if (!localMedia.length || localMedia.length === 1 || toDeleteMedia) {
+    if (
+      !localMedia.length ||
+      (localMedia.length === 1 && videoOrder === 0) ||
+      toDeleteMedia
+    ) {
       return RNRestart.restart();
     }
     if (localMedia && videoOrder < localMedia?.length - 1) {
