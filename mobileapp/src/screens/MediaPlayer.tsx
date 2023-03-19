@@ -63,16 +63,13 @@ export default function MediaPlayer() {
   async function getNextVideo() {
     const { videoOrder } = actualMedia;
     const toDeleteMedia = await checkFilesToDelete();
-    if (
-      !localMedia.length ||
-      (localMedia.length === 1 && videoOrder === 0) ||
-      toDeleteMedia
-    ) {
-      return RNRestart.restart();
-    }
-    if (localMedia && videoOrder < localMedia?.length - 1) {
-      return setNextVideo(videoOrder);
-    }
+
+    const hasNoMedia = !localMedia.length;
+    const hasNextMedia = localMedia && videoOrder < localMedia?.length - 1;
+    const uniqueFile = localMedia.length === 1 && videoOrder === 0;
+
+    if (hasNoMedia || uniqueFile || toDeleteMedia) return RNRestart.restart();
+    if (hasNextMedia) return setNextVideo(videoOrder);
     return setPlaylistToStart();
   }
 

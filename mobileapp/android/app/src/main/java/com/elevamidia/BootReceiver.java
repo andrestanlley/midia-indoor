@@ -1,13 +1,15 @@
-package com.elevamidia;
+package com.elevamidia.app;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
 public class BootReceiver extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage("com.elevamidia");
-        context.startActivity(launchIntent);
+        Intent myIntent = new Intent(context, MainActivity.class);
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(myIntent);
     }
 }
