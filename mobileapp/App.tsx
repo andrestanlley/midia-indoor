@@ -8,6 +8,25 @@ import {
 } from 'react-native';
 import { useEffect, useState } from 'react';
 import MediaPlayer from './src/screens/MediaPlayer';
+import { ErrorUtils } from 'react-native';
+import RNRestart from 'react-native-restart';
+
+function handleRestart() {
+  RNRestart.Restart();
+}
+
+ErrorUtils.setGlobalHandler((error, isFatal) => {
+  if (isFatal) {
+    handleRestart();
+  } else {
+    console.log(error);
+  }
+});
+
+function minhaFuncao() {
+  const variavel = null;
+  console.log(variavel.propriedade); // Vai gerar um erro "TypeError"
+}
 
 export default function App() {
   const [permissions, setPermissions] = useState<boolean>(false);
@@ -18,6 +37,8 @@ export default function App() {
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
     ]);
   };
+
+  setTimeout(minhaFuncao, 15000);
 
   async function readPermissions() {
     const allPermissionsGranted = getPermissions().then(res => {
