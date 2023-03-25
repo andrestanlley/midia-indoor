@@ -1,7 +1,7 @@
 import cors from 'cors'
 
 const corsOptions = {
-    origin: 'https://www.elevamidia.com'
+    origin: 'https://elevamidia.com'
   };
   
 const corsMiddleware = cors(corsOptions);
