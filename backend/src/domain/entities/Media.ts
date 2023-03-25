@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+
 interface IMediaProps {
 	id: string;
 	name: string;
@@ -8,36 +10,40 @@ interface IMediaProps {
 	mediaListId: string;
 }
 
-class Media implements IMediaProps{
-	constructor(private readonly props: IMediaProps) {
-		this.props = props;
+class Media implements IMediaProps {
+	private _id: string;
+	protected props: IMediaProps
+
+	constructor(props: IMediaProps) {
+		this._id = props.id ?? randomUUID();
+		this.props = props
 	}
 
-	get id() {
-		return this.props.id;
+	public get id() {
+		return this._id;
 	}
 
-	get name() {
+	public get name() {
 		return this.props.name;
 	}
 
-	get expiresIn() {
+	public get expiresIn() {
 		return this.props.expiresIn;
 	}
 
-	get filename() {
+	public get filename() {
 		return this.props.filename;
 	}
 
-	get uri() {
+	public get uri() {
 		return this.props.uri;
 	}
 
-	get size() {
+	public get size() {
 		return this.props.size;
 	}
 
-	get mediaListId() {
+	public get mediaListId() {
 		return this.props.mediaListId;
 	}
 }

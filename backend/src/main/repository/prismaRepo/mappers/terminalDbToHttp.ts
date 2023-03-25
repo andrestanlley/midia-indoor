@@ -6,7 +6,7 @@ export default function terminalDbToHttp(
 	terminal: TerminalDB,
 	Medias: IMediaProps[] | undefined = undefined
 ): ITerminalProps {
-	return new Terminal({
+	const mappedTerminal = new Terminal({
 		name: terminal.name,
 		deviceId: terminal.deviceId,
 		actualMedia: terminal.actualMedia!,
@@ -14,4 +14,13 @@ export default function terminalDbToHttp(
 		mediaListId: terminal.mediaListId,
 		Medias,
 	});
+
+	return {
+		name: mappedTerminal.name,
+		deviceId: mappedTerminal.deviceId,
+		actualMedia: mappedTerminal.actualMedia!,
+		lastSync: mappedTerminal.lastSync,
+		mediaListId: mappedTerminal.mediaListId,
+		Medias: mappedTerminal.Medias,
+	}
 }

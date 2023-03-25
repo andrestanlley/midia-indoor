@@ -12,44 +12,53 @@ interface ITerminalProps {
 }
 
 class Terminal implements ITerminalProps {
-	constructor(private readonly props: ITerminalProps) {
+	private _deviceId: string;
+	private props: ITerminalProps;
+
+	constructor(props: ITerminalProps) {
 		this.props = props;
 
 		if (!props.deviceId) {
-			this.props = {
-				deviceId: randomUUID(),
-				lastSync: new Date(),
-				name: "Novo Terminal",
-				mediaListId: null,
-			};
+			this._deviceId = randomUUID();
+			this.props.lastSync = new Date();
+			this.props.name = "Novo Terminal";
+			this.props.mediaListId = null;
+		} else {
+			this._deviceId = props.deviceId;
+			this.props.lastSync = props.lastSync;
+			this.props.name = props.name;
+			this.props.mediaListId = props.mediaListId;
 		}
+		this.props.actualMedia = props.actualMedia;
+		this.props.localVideos = props.localVideos;
+		this.props.Medias = props.Medias;
 	}
 
-	get name() {
+	public get name() {
 		return this.props.name;
 	}
 
-	get deviceId() {
-		return this.props.deviceId;
+	public get deviceId() {
+		return this._deviceId;
 	}
 
-	get actualMedia() {
+	public get actualMedia() {
 		return this.props.actualMedia;
 	}
 
-	get lastSync() {
+	public get lastSync() {
 		return this.props.lastSync;
 	}
 
-	get localVideos() {
+	public get localVideos() {
 		return this.props.localVideos;
 	}
 
-	get mediaListId() {
+	public get mediaListId() {
 		return this.props.mediaListId;
 	}
 
-	get Medias() {
+	public get Medias() {
 		return this.props.Medias;
 	}
 }

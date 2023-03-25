@@ -3,7 +3,7 @@ import Links from "@main/enums/links";
 import { IMediaProps, Media } from "@domain/entities/Media";
 
 export default function mediasDbToHttp(media: MediaDB): IMediaProps {
-	return new Media({
+	const mappedMedia = new Media({
 		id: media.id,
 		name: media.name,
 		filename: media.filename,
@@ -12,4 +12,14 @@ export default function mediasDbToHttp(media: MediaDB): IMediaProps {
 		size: media.size,
 		mediaListId: media.mediaListId ?? "",
 	});
+
+	return {
+		id: mappedMedia.id,
+		name: mappedMedia.name,
+		filename: mappedMedia.filename,
+		uri: Links.VIDEO_SERVER + mappedMedia.filename,
+		expiresIn: mappedMedia.expiresIn,
+		size: mappedMedia.size,
+		mediaListId: mappedMedia.mediaListId,
+	}
 }
