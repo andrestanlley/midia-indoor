@@ -12,7 +12,7 @@ interface IMediaProps {
 
 class Media implements IMediaProps {
 	private _id: string;
-	protected props: IMediaProps
+	private props: IMediaProps
 
 	constructor(props: IMediaProps) {
 		this._id = props.id ?? randomUUID();
