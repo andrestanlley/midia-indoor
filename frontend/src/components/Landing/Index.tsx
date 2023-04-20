@@ -9,7 +9,7 @@ export default function Landing() {
 			<img src='./logo-branca.png' alt='Logo Eleva Mídia' />
 			<div>
 				<p>FALE CONOSCO |</p>
-				<a href='https://whatsapp.comhttps://wa.me/5584996707905' target='_blank'>
+				<a href='https://api.whatsapp.com/send/?phone=5584996707905' target='_blank'>
 					<BsWhatsapp size={28} color='var(--branco)' />
 				</a>
 				<a href='https://instagram.com/elevamidiaindoor' target='_blank'>
